@@ -1,18 +1,63 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5qco31hfuv3q"]
+[gd_scene load_steps=7 format=3 uid="uid://b5qco31hfuv3q"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_eck68"]
+[ext_resource type="Texture2D" uid="uid://jmrlbm8odah" path="res://art/characters/barista/barista_blinking.png" id="2_6pvsp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vgsx4"]
-size = Vector2(12, 32)
+size = Vector2(14, 32)
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_otdor"]
-size = Vector2(12, 32)
+[sub_resource type="Animation" id="Animation_5rdir"]
+resource_name = "Idle_Blinking"
+length = 3.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_xytes"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_usomi"]
+_data = {
+"Idle_Blinking": SubResource("Animation_5rdir"),
+"RESET": SubResource("Animation_xytes")
+}
 
 [node name="Player2D" type="CharacterBody2D"]
 script = ExtResource("1_eck68")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
 shape = SubResource("RectangleShape2D_vgsx4")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
-texture = SubResource("PlaceholderTexture2D_otdor")
+texture_filter = 1
+texture = ExtResource("2_6pvsp")
+hframes = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle_Blinking"
+libraries = {
+"": SubResource("AnimationLibrary_usomi")
+}
