@@ -18,6 +18,7 @@ var _interact_action_key = OS.get_keycode_string(_interact_action_event.physical
 
 func _ready():
 	_animation_player.play("Idle_Blinking")
+	_control_dialogue.set_visible(false)
 
 func _physics_process(delta):
 	if not is_on_floor():
