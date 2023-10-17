@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 class_name Player
 
+signal interacted
+
 @export var speed = 300.0
 @export var jump_velocity = -400.0
 
@@ -45,6 +47,10 @@ func _physics_process(delta):
 		_animation_player.play("Idle_Blinking")
 		
 	move_and_slide()
+
+func _unhandled_input(event):
+	if event.is_action_pressed("interact"):
+		interacted.emit()
 
 func start_notify_interactable(interact_msg = ""):
 	_control_dialogue.set_visible(true)
