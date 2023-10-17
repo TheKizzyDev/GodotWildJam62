@@ -25,12 +25,19 @@ func _ready():
 	_control_dialogue.set_visible(false)
 
 
-func _physics_process(delta):
+func is_in_combat_zone():
+	# TODO Determine when player is in combat zone. This is probably the player
+	#      portaling to another world.
+	return false
+
+
+func _handle_cocoa_shop_input(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
-
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_velocity
+		
+	# TODO: Remove, if confident jump is not needed in the cocoa shop.
+#	if Input.is_action_just_pressed("jump") and is_on_floor():
+#		velocity.y = jump_velocity
 
 	var direction = Input.get_axis("move_left", "move_right")
 	if direction:
@@ -50,6 +57,18 @@ func _physics_process(delta):
 		_animation_player.play("Idle_Blinking")
 		
 	move_and_slide()
+
+
+func _handle_input_combat_zone(delta):
+	# TODO: Implement. This is a stub to implement combat zone movement.
+	pass
+
+
+func _physics_process(delta):
+	if is_in_combat_zone():
+		_handle_input_combat_zone(delta)
+	else:
+		_handle_cocoa_shop_input(delta)
 
 
 func _unhandled_input(event):
