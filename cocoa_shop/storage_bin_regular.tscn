@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://drkwuug42vcry"]
 
-[ext_resource type="PackedScene" uid="uid://b2md3k3040qb" path="res://cocoa_shop/storage_bin.tscn" id="1_k5fbv"]
+[ext_resource type="PackedScene" uid="uid://dfkro1u8aeger" path="res://cocoa_shop/storage_bin.tscn" id="1_k5fbv"]
 [ext_resource type="Resource" uid="uid://b8x2qec5jlmi4" path="res://cocoa_shop/cocoa_bean_regular.tres" id="2_h654f"]
 
 [node name="CocoaStorageBin" instance=ExtResource("1_k5fbv")]
-beanType = ExtResource("2_h654f")
+cocoa_bean_resource_type = ExtResource("2_h654f")

@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://cws2v00gppk42"]
+
+[ext_resource type="FontFile" uid="uid://q4oa315wkywd" path="res://art/m3x6.ttf" id="1_ptk50"]
+
+[resource]
+line_spacing = 0.0
+font = ExtResource("1_ptk50")
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_offset = Vector2(0, 0)

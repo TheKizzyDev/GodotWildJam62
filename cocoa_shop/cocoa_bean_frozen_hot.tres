@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CocoaBean" load_steps=2 format=3 uid="uid://dw5qbbljxki7p"]
+[gd_resource type="Resource" script_class="CocoaBeanResource" load_steps=2 format=3 uid="uid://dw5qbbljxki7p"]
 
 [ext_resource type="Script" path="res://scripts/cocoa_bean_resource.gd" id="1_wqdfi"]
 
