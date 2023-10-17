@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 class_name Player
 
-signal interacted
+signal interacted(player: Player)
 
 @export var speed = 300.0
 @export var jump_velocity = -400.0
@@ -13,14 +13,17 @@ signal interacted
 @onready var _label_message = $ControlDialogue/Panel/MarginContainer/GridContainer/Label_Message
 @onready var _control_dialogue = $ControlDialogue
 
+var bean_ctr = 0
 var has_bean = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _interact_action_event = InputMap.action_get_events("interact")[0]
 var _interact_action_key = OS.get_keycode_string(_interact_action_event.physical_keycode)
 
+
 func _ready():
 	_animation_player.play("Idle_Blinking")
 	_control_dialogue.set_visible(false)
+
 
 func _physics_process(delta):
 	if not is_on_floor():
@@ -48,15 +51,29 @@ func _physics_process(delta):
 		
 	move_and_slide()
 
+
 func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
-		interacted.emit()
+		interacted.emit(self)
+
+
+func give_bean(beanResourceType):
+	bean_ctr += 1
+	has_bean = bean_ctr > 0
+
+
+func take_bean():
+	bean_ctr -= 1
+	bean_ctr = max(0, bean_ctr)
+	has_bean = bean_ctr > 0
+
 
 func start_notify_interactable(interact_msg = ""):
 	_control_dialogue.set_visible(true)
 	_label_key.set_text("'" + _interact_action_key + "'")
 	_label_message.set_text(interact_msg)
-	
+
+
 func stop_notify_interactable():
 	_control_dialogue.set_visible(false)
 	_label_key.set_text("")
