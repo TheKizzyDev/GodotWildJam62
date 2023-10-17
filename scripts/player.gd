@@ -46,12 +46,12 @@ func _physics_process(delta):
 		
 	move_and_slide()
 
-func start_interact(interact_msg = ""):
+func start_notify_interactable(interact_msg = ""):
 	_control_dialogue.set_visible(true)
 	_label_key.set_text("'" + _interact_action_key + "'")
 	_label_message.set_text(interact_msg)
 	
-func stop_interact():
+func stop_notify_interactable():
 	_control_dialogue.set_visible(false)
 	_label_key.set_text("")
 	_label_message.set_text("")

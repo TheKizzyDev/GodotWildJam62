@@ -25,9 +25,9 @@ func _on_area_2d_body_entered(body):
 	if player:
 		# TODO: Make sure the player can't lose a bean, if the current store hasn't a different bean type.
 		if player.has_bean:
-			player.start_interact(deposit_bean_msg)
+			player.start_notify_interactable(deposit_bean_msg)
 		elif _hasBeans or has_infinite_beans:
-			player.start_interact(take_bean_msg)
+			player.start_notify_interactable(take_bean_msg)
 		else:
 			print("There are no beans to do anything with...")
 	else:
@@ -37,6 +37,6 @@ func _on_area_2d_body_entered(body):
 func _on_area_2d_body_exited(body):
 	var player := body as Player
 	if player:
-		player.stop_interact()
+		player.stop_notify_interactable()
 	else:
 		print("Not the player...")
