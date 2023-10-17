@@ -31,6 +31,11 @@ func is_in_combat_zone():
 	return false
 
 
+func _handle_input_combat_zone(delta):
+	# TODO: Implement. This is a stub to implement combat zone movement.
+	pass
+
+
 func _handle_cocoa_shop_input(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -57,11 +62,6 @@ func _handle_cocoa_shop_input(delta):
 		_animation_player.play("Idle_Blinking")
 		
 	move_and_slide()
-
-
-func _handle_input_combat_zone(delta):
-	# TODO: Implement. This is a stub to implement combat zone movement.
-	pass
 
 
 func _physics_process(delta):
