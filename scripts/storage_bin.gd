@@ -10,7 +10,6 @@ class_name StorageBin
 @export var deposit_bean_msg = "Deposit Bean"
 @export var take_bean_msg = "Take Bean"
 
-@onready var _label = $Sprite2D/DebugLabel
 
 enum InteractableState {NONE, TAKE_BEAN, DEPOSIT_BEAN}
 
@@ -19,11 +18,6 @@ var _has_beans = false
 var _curr_player_is_leaving = false
 var _curr_player: Player
 var _curr_interactable_state = InteractableState.NONE
-
-
-func _ready():
-	if cocoa_bean_resource_type and "debugDisplayName" in cocoa_bean_resource_type:
-		_label.set_text(cocoa_bean_resource_type.debugDisplayName)
 
 
 func _on_area_2d_body_entered(body):

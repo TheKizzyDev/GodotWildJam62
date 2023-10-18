@@ -1,14 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfkro1u8aeger"]
+[gd_scene load_steps=4 format=3 uid="uid://dfkro1u8aeger"]
 
 [ext_resource type="Script" path="res://scripts/storage_bin.gd" id="1_fut1y"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1wx8h"]
 size = Vector2(16, 24)
-
-[sub_resource type="LabelSettings" id="LabelSettings_o0yd5"]
-line_spacing = 0.0
-font_size = 9
-shadow_size = 0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iv56g"]
 size = Vector2(2, 16)
@@ -21,20 +16,6 @@ script = ExtResource("1_fut1y")
 texture_filter = 1
 position = Vector2(0, 4)
 texture = SubResource("PlaceholderTexture2D_1wx8h")
-
-[node name="DebugLabel" type="Label" parent="Sprite2D"]
-texture_filter = 1
-anchors_preset = -1
-anchor_right = 0.908
-offset_left = -16.0
-offset_top = -24.0
-offset_right = 1.472
-offset_bottom = -11.0
-text = "Hello"
-label_settings = SubResource("LabelSettings_o0yd5")
-horizontal_alignment = 1
-vertical_alignment = 1
-text_overrun_behavior = 1
 
 [node name="Area2D" type="Area2D" parent="Sprite2D"]
 position = Vector2(0, 4)
