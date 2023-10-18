@@ -145,3 +145,7 @@ func _on_notice_player_area_body_exited(body):
 	if current_state == States.NOTICE or current_state == States.ATTACK:
 		enter_idle()
 		$TemporaryExclamationMark.visible = false
+
+
+func _on_hurtbox_died():
+	queue_free()

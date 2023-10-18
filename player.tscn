@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b5qco31hfuv3q"]
+[gd_scene load_steps=14 format=3 uid="uid://b5qco31hfuv3q"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_eck68"]
 [ext_resource type="Texture2D" uid="uid://jmrlbm8odah" path="res://art/characters/barista/barista_blinking.png" id="2_6pvsp"]
 [ext_resource type="Texture2D" uid="uid://fs8ixgnmjv8x" path="res://art/characters/barista/barista_walk.png" id="2_d7yes"]
 [ext_resource type="LabelSettings" uid="uid://cws2v00gppk42" path="res://player_message_font.tres" id="4_nm3bn"]
+[ext_resource type="PackedScene" uid="uid://fmy4e7q8y2ie" path="res://components/hitbox.tscn" id="5_ma1pi"]
+[ext_resource type="PackedScene" uid="uid://cho7o3kcm17lq" path="res://components/hurtbox.tscn" id="6_gv1vv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vgsx4"]
 size = Vector2(14, 32)
@@ -100,6 +102,12 @@ _data = {
 "Walking": SubResource("Animation_tjffe")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3sjy"]
+size = Vector2(18, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfq1i"]
+size = Vector2(16, 33)
+
 [node name="Player2D" type="CharacterBody2D"]
 script = ExtResource("1_eck68")
 
@@ -179,3 +187,19 @@ size_flags_horizontal = 0
 text = "Press Hello"
 label_settings = ExtResource("4_nm3bn")
 vertical_alignment = 1
+
+[node name="Hitbox" parent="." instance=ExtResource("5_ma1pi")]
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(12, -2)
+shape = SubResource("RectangleShape2D_w3sjy")
+
+[node name="Hurtbox" parent="." instance=ExtResource("6_gv1vv")]
+collision_layer = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(2, -0.5)
+shape = SubResource("RectangleShape2D_tfq1i")
+
+[connection signal="health_changed" from="Hurtbox" to="." method="_on_hurtbox_health_changed"]

@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cbtkxmgwfteas"]
+[gd_scene load_steps=10 format=3 uid="uid://cbtkxmgwfteas"]
 
 [ext_resource type="Script" path="res://enemies/enemy_base.gd" id="1_vmtl5"]
 [ext_resource type="Texture2D" uid="uid://wwt7c50i7vob" path="res://art/characters/barista/barista.png" id="2_hiqjj"]
+[ext_resource type="PackedScene" uid="uid://fmy4e7q8y2ie" path="res://components/hitbox.tscn" id="3_3xltf"]
+[ext_resource type="PackedScene" uid="uid://cho7o3kcm17lq" path="res://components/hurtbox.tscn" id="4_vumk1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_itdl4"]
 size = Vector2(6, 19)
@@ -12,6 +14,12 @@ size = Vector2(154, 35)
 [sub_resource type="LabelSettings" id="LabelSettings_ims5m"]
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ymnc7"]
+size = Vector2(14, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fnrto"]
+size = Vector2(11, 28)
 
 [node name="EnemyBase" type="CharacterBody2D"]
 collision_layer = 0
@@ -67,6 +75,22 @@ offset_bottom = -31.0
 text = "!"
 label_settings = SubResource("LabelSettings_ims5m")
 
+[node name="Hitbox" parent="." instance=ExtResource("3_3xltf")]
+collision_layer = 32
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, -14)
+shape = SubResource("RectangleShape2D_ymnc7")
+
+[node name="Hurtbox" parent="." instance=ExtResource("4_vumk1")]
+collision_layer = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(-1.5, -14)
+shape = SubResource("RectangleShape2D_fnrto")
+
 [connection signal="body_entered" from="NoticePlayerArea" to="." method="_on_notice_player_area_body_entered"]
 [connection signal="body_exited" from="NoticePlayerArea" to="." method="_on_notice_player_area_body_exited"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="died" from="Hurtbox" to="." method="_on_hurtbox_died"]
