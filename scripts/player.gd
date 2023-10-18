@@ -4,7 +4,7 @@ class_name Player
 
 signal interacted(player: Player)
 
-@export var speed = 300.0
+@export var speed = 150
 @export var jump_velocity = -400.0
 
 @onready var _animation_player = $AnimationPlayer
@@ -37,20 +37,26 @@ func _handle_input_combat_zone(delta):
 
 
 func _handle_cocoa_shop_input(delta):
-	if not is_on_floor():
-		velocity.y += gravity * delta
+#	if not is_on_floor():
+#		velocity.y += gravity * delta
 		
 	# TODO: Remove, if confident jump is not needed in the cocoa shop.
 #	if Input.is_action_just_pressed("jump") and is_on_floor():
 #		velocity.y = jump_velocity
 
-	var direction = Input.get_axis("move_left", "move_right")
-	if direction:
-		velocity.x = direction * speed
+	var _up_down_direction = Input.get_axis("move_up", "move_down")
+	if _up_down_direction:
+		velocity.y = _up_down_direction * speed
+	else:
+		velocity.y = move_toward(velocity.y, 0, speed)
+	
+	var _left_right_direction = Input.get_axis("move_left", "move_right")
+	if _left_right_direction:
+		velocity.x = _left_right_direction * speed
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
 		
-	if abs(velocity.x) > 0:
+	if abs(velocity.x) > 0 or abs(velocity.y) > 0:
 		if sign(velocity.x) >= 0:
 			_sprite.set_flip_h(false)
 			_animation_player.play("Walking")
@@ -97,4 +103,3 @@ func stop_notify_interactable():
 	_control_dialogue.set_visible(false)
 	_label_key.set_text("")
 	_label_message.set_text("")
-

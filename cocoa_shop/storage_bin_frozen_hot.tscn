@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cajrfrbr777te"]
+[gd_scene load_steps=4 format=3 uid="uid://cajrfrbr777te"]
 
 [ext_resource type="PackedScene" uid="uid://dfkro1u8aeger" path="res://cocoa_shop/storage_bin.tscn" id="1_s4ltd"]
 [ext_resource type="Resource" uid="uid://dw5qbbljxki7p" path="res://cocoa_shop/cocoa_bean_frozen_hot.tres" id="2_1gavw"]
+[ext_resource type="Texture2D" uid="uid://dwua5ip8need3" path="res://art/cocoa_shop/storage_bin_blue.png" id="3_5wdbi"]
 
 [node name="CocoaStorageBin" instance=ExtResource("1_s4ltd")]
 cocoa_bean_resource_type = ExtResource("2_1gavw")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_5wdbi")

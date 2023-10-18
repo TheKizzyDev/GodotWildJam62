@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://csqa3j1ecd6rx"
-path="res://.godot/imported/shop.png-cfa5854c031b025d70bd10bc510c9b21.ctex"
+path="res://.godot/imported/cocoa_shop.png-084b2de40d80e9d5b43b7a0d1682b6a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/cocoa_shop/shop.png"
-dest_files=["res://.godot/imported/shop.png-cfa5854c031b025d70bd10bc510c9b21.ctex"]
+source_file="res://art/cocoa_shop/cocoa_shop.png"
+dest_files=["res://.godot/imported/cocoa_shop.png-084b2de40d80e9d5b43b7a0d1682b6a0.ctex"]
 
 [params]
 
