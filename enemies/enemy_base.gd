@@ -22,7 +22,7 @@ enum States {
 	IDLE,
 	WALK,
 	NOTICE,
-	HUNT,
+	CHASE,
 	JUMP,
 	FALL,
 	DEATH
@@ -43,8 +43,8 @@ func _physics_process(delta):
 			walk_state()
 		States.NOTICE:
 			notice_state()
-		States.HUNT:
-			hunt_state()
+		States.CHASE:
+			chase_state()
 		States.JUMP:
 			jump_state()
 		States.FALL:
@@ -58,20 +58,21 @@ func _physics_process(delta):
 
 
 func attack():
+	is_attacking = true
 	skin.play("attack")
 	velocity.x = 0
-	is_attacking = true
 	print("OPEN")
 	await get_tree().create_timer(.7).timeout
 	hitbox.enable()
 	$AttackPlayerArea.set_deferred("monitoring", false)
 	print("OPEN2")
-	await skin.animation_finished
+	#await skin.animation_finished
+	await get_tree().create_timer(.4).timeout
 	$AttackPlayerArea.set_deferred("monitoring", true)
 	hitbox.disable()
-	is_attacking = false
 	print("CLOSING")
 	skin.play("walk")
+	is_attacking = false
 
 
 ############################### STATE MACHINE ###############################
@@ -123,15 +124,19 @@ func notice_state():
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-func enter_hunt():
-	current_state = States.HUNT
+func enter_chase():
+	current_state = States.CHASE
 	$TemporaryExclamationMark.visible = false
 	skin.play("walk")
 
-func hunt_state():
+func chase_state():
 	if not is_attacking:
 		velocity.x = (player.global_position - global_position).normalized().x * speed
 		skin.flip_h = true if velocity.x<0 else false
+		if facing_right and not $BorderRightArea.get_overlapping_bodies().is_empty():
+			velocity.y = -200
+		elif facing_left and not $BorderLeftArea.get_overlapping_bodies().is_empty():
+			velocity.y = -200
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
@@ -172,7 +177,7 @@ func _on_notice_player_area_body_entered(body):
 
 func _on_notice_player_area_body_exited(body):
 	if is_attacking: return
-	if current_state == States.NOTICE or current_state == States.HUNT:
+	if current_state == States.NOTICE or current_state == States.CHASE:
 		enter_idle()
 		$TemporaryExclamationMark.visible = false
 
@@ -181,11 +186,11 @@ func _on_hurtbox_died():
 	enter_death()
 
 
-func _on_hunt_player_area_body_entered(body):
-	if is_attacking: return
-	player = body as Player
-	enter_hunt()
-
-
 func _on_attack_player_area_body_entered(body):
 	attack()
+
+
+func _on_chase_player_area_body_entered(body):
+	if is_attacking: return
+	player = body as Player
+	enter_chase()

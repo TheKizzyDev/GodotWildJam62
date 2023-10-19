@@ -132,6 +132,9 @@ size = Vector2(18, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfq1i"]
 size = Vector2(16, 33)
 
+[sub_resource type="Animation" id="Animation_vacbk"]
+length = 0.001
+
 [sub_resource type="Animation" id="Animation_0q3ga"]
 resource_name = "hurt"
 length = 0.5
@@ -147,9 +150,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 0.270588, 0.270588, 1), Color(1, 1, 1, 1), Color(1, 0.270588, 0.270588, 1), Color(1, 1, 1, 1), Color(1, 0.270588, 0.270588, 1), Color(1, 1, 1, 1)]
 }
-
-[sub_resource type="Animation" id="Animation_vacbk"]
-length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kh33r"]
 _data = {

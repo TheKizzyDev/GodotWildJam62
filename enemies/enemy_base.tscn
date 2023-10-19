@@ -46,10 +46,10 @@ position = Vector2(0, 2.9719)
 scale = Vector2(1, 1.02646)
 polygon = PackedVector2Array(-124, -78.8843, -124, 32.1766, -1, -4, 125, 31.2024, 125, -76.9359, 0, -36.9929)
 
-[node name="HuntPlayerArea" type="Area2D" parent="."]
+[node name="ChasePlayerArea" type="Area2D" parent="."]
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HuntPlayerArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChasePlayerArea"]
 position = Vector2(0, -17.5)
 shape = SubResource("RectangleShape2D_i15u8")
 
@@ -91,6 +91,6 @@ collision_mask = 8
 
 [connection signal="body_entered" from="NoticePlayerArea" to="." method="_on_notice_player_area_body_entered"]
 [connection signal="body_exited" from="NoticePlayerArea" to="." method="_on_notice_player_area_body_exited"]
-[connection signal="body_entered" from="HuntPlayerArea" to="." method="_on_hunt_player_area_body_entered"]
+[connection signal="body_entered" from="ChasePlayerArea" to="." method="_on_chase_player_area_body_entered"]
 [connection signal="body_entered" from="AttackPlayerArea" to="." method="_on_attack_player_area_body_entered"]
 [connection signal="died" from="Hurtbox" to="." method="_on_hurtbox_died"]

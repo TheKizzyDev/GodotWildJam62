@@ -1,16 +1,10 @@
 extends "res://enemies/enemy_base.gd"
 
-
-func attack():
-	$Skin.play("attack")
-	super.attack()
+@onready var smash_particles = $SmashParticles
 
 
-func enter_idle():
-	super.enter_idle()
-	$Skin.play("idle")
-
-
-func enter_walk():
-	super.enter_walk()
-	$Skin.play("walk")
+func _physics_process(delta):
+	super._physics_process(delta)
+	if is_attacking and skin.frame == 6 and not smash_particles.emitting:
+		smash_particles.restart()
+		#smash_particles.emitting = true
