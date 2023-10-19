@@ -220,10 +220,11 @@ vertical_alignment = 1
 text_overrun_behavior = 1
 
 [node name="Hitbox" parent="." instance=ExtResource("5_ma1pi")]
+position = Vector2(3, 0)
 collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(12, -2)
+position = Vector2(10, -2)
 shape = SubResource("RectangleShape2D_w3sjy")
 
 [node name="Hurtbox" parent="." instance=ExtResource("6_gv1vv")]
