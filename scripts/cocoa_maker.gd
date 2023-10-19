@@ -40,163 +40,129 @@ func _ready():
 	_determine_cocoa_maker_state()
 
 
-func _curr_player_exists():
-	return _curr_player and not _curr_player_is_leaving
-
-
 func _process(delta):
+	_update_current_state()
+	
+	# TODO: Move this to the cocoa drink queue
 	if _curr_cocoa_drink:
 			_pathfollow_drink_output.progress += drink_output_speed * delta
 
 
+func _clear_player_is_leaving():
+	_curr_player_is_leaving = false
+
+
+###### STATE MACHINE ######
 func _determine_cocoa_maker_state():
 	var _new_cocoa_maker_state = CocoaMakerState.WAITING
-	if _curr_cocoa_maker_state == CocoaMakerState.WAITING:
-		if _curr_player_exists():
-			if not _curr_cocoa_bean:	
-				if _curr_player.has_bean:
-					_new_cocoa_maker_state = CocoaMakerState.INSERT_BEAN
-				else:
-					_new_cocoa_maker_state = CocoaMakerState.REQUIRES_BEAN
-	elif _curr_cocoa_maker_state == CocoaMakerState.INSERT_BEAN:
-		if _curr_cocoa_bean:
-			_new_cocoa_maker_state = CocoaMakerState.GRINDING_COCOA_BEAN
-	elif _curr_cocoa_maker_state == CocoaMakerState.GRINDING_COCOA_BEAN:
-		if _grinding_cocoa_bean:
-			_new_cocoa_maker_state = CocoaMakerState.GRINDING_COCOA_BEAN
-		else:
-			_new_cocoa_maker_state = CocoaMakerState.READY_TO_MAKE_COCOA
-	elif _curr_cocoa_maker_state == CocoaMakerState.READY_TO_MAKE_COCOA:
-		if _turned_on:
-			_new_cocoa_maker_state = CocoaMakerState.MAKING_COCOA
-		else:
-			_new_cocoa_maker_state = CocoaMakerState.READY_TO_MAKE_COCOA
-	elif _curr_cocoa_maker_state == CocoaMakerState.MAKING_COCOA:
-		if _making_cocoa:
-			_new_cocoa_maker_state = CocoaMakerState.MAKING_COCOA
-		else:
-			_new_cocoa_maker_state = CocoaMakerState.WAITING
+	match _curr_cocoa_maker_state:
+		CocoaMakerState.WAITING:
+			if _curr_player:
+				if not _curr_player_is_leaving:
+					if not _curr_cocoa_bean:	
+						if _curr_player.has_bean:
+							_new_cocoa_maker_state = CocoaMakerState.INSERT_BEAN
+						else:
+							_new_cocoa_maker_state = CocoaMakerState.REQUIRES_BEAN
+		CocoaMakerState.REQUIRES_BEAN:
+			pass
+		CocoaMakerState.INSERT_BEAN:
+			if _curr_cocoa_bean:
+				_new_cocoa_maker_state = CocoaMakerState.GRINDING_COCOA_BEAN
+		CocoaMakerState.GRINDING_COCOA_BEAN:
+			if _grinding_cocoa_bean:
+				_new_cocoa_maker_state = CocoaMakerState.GRINDING_COCOA_BEAN
+			else:
+				_new_cocoa_maker_state = CocoaMakerState.READY_TO_MAKE_COCOA
+		CocoaMakerState.READY_TO_MAKE_COCOA:
+			if _turned_on:
+				_new_cocoa_maker_state = CocoaMakerState.MAKING_COCOA
+			else:
+				_new_cocoa_maker_state = CocoaMakerState.READY_TO_MAKE_COCOA
+		CocoaMakerState.MAKING_COCOA:
+			if _making_cocoa:
+				_new_cocoa_maker_state = CocoaMakerState.MAKING_COCOA
+			else:
+				_new_cocoa_maker_state = CocoaMakerState.WAITING
 			
 	_set_cocoa_maker_state(_new_cocoa_maker_state)
 
 
 func _set_cocoa_maker_state(_new_cocoa_maker_state):
-	# Update Current State
+	# Retrigger Current State
 	if _curr_cocoa_maker_state == _new_cocoa_maker_state:
-		print("Updating State: %s" % CocoaMakerState.keys()[_curr_cocoa_maker_state])
+		print("Retriggering State: %s" % CocoaMakerState.keys()[_curr_cocoa_maker_state])
 		match _curr_cocoa_maker_state:
 			CocoaMakerState.WAITING:
-				_update_waiting_state()
+				_retrigger_waiting_state()
+			CocoaMakerState.REQUIRES_BEAN:
+				_retrigger_requires_bean_state()
+			CocoaMakerState.INSERT_BEAN:
+				_retrigger_insert_bean_state()
 			CocoaMakerState.GRINDING_COCOA_BEAN:
-				_update_grinding_cocoa_bean_state()
+				_retrigger_grinding_cocoa_bean_state()
 			CocoaMakerState.READY_TO_MAKE_COCOA:
-				print("Hovering Switch: %s, Grinder: %s" % [_is_hovering_switch, _is_hovering_grinder])
-				if _curr_player:
-					if _curr_player_is_leaving:
-						_curr_player.stop_notify_interactable()
-						_curr_player.stop_message()
-						_curr_player_is_leaving = false
-					else:
-						_update_ready_to_make_cocoa_state()
+				_retrigger_ready_to_make_cocoa_state()
 			CocoaMakerState.MAKING_COCOA:
-				_update_making_cocoa_state()
+				_retrigger_making_cocoa_state()
 		return
 	
 	# Exit State
-	if _curr_cocoa_maker_state == CocoaMakerState.INSERT_BEAN:
-		if _curr_player:
-			_curr_player.interacted.disconnect(_on_insert_bean_into_grinder)
-			_curr_player.stop_notify_interactable()
-	elif _curr_cocoa_maker_state == CocoaMakerState.REQUIRES_BEAN:
-		if _curr_player:
-			_curr_player.stop_message()
-	elif _curr_cocoa_maker_state == CocoaMakerState.GRINDING_COCOA_BEAN:
-		_grinding_cocoa_bean = false
-		_timer_grinding_cocoa_bean.stop()
-		_timer_grinding_cocoa_bean.disconnect("timeout", _on_timer_grinding_cocoa_bean_timeout)
-		
-		if _curr_player:
-			_curr_player.stop_message()
-	elif _curr_cocoa_maker_state == CocoaMakerState.READY_TO_MAKE_COCOA:
-		if _curr_player:
-			_curr_player.stop_notify_interactable()
-	elif _curr_cocoa_maker_state == CocoaMakerState.MAKING_COCOA:
-		_curr_cocoa_drink = COCOA_DRINK.instantiate()
-		_pathfollow_drink_output.add_child(_curr_cocoa_drink)
-		
-		_making_cocoa = false
-		_curr_cocoa_bean = null
-		_timer_making_cocoa.stop()
-		_timer_making_cocoa.disconnect("timeout", _on_timer_making_cocoa_timeout)
+	match _curr_cocoa_maker_state:
+		CocoaMakerState.WAITING:
+			_exit_waiting_state()
+		CocoaMakerState.REQUIRES_BEAN:
+			_exit_requires_bean_state()
+		CocoaMakerState.INSERT_BEAN:
+			_exit_insert_bean_state()
+		CocoaMakerState.GRINDING_COCOA_BEAN:
+			_exit_grinding_cocoa_bean_state()
+		CocoaMakerState.READY_TO_MAKE_COCOA:
+			_exit_ready_to_make_cocoa_state()
+		CocoaMakerState.MAKING_COCOA:
+			_exit_making_cocoa_state()
 	
-	print("Cocoa Maker Transition: [%s]->[%s]" % [CocoaMakerState.keys()[_curr_cocoa_maker_state], CocoaMakerState.keys()[_new_cocoa_maker_state]])
+	print("Cocoa Maker Transition: [%s]->[%s]" % [ \
+		CocoaMakerState.keys()[_curr_cocoa_maker_state], \
+		CocoaMakerState.keys()[_new_cocoa_maker_state] \
+	])
 	_curr_cocoa_maker_state = _new_cocoa_maker_state
 	
 	# Enter State
-	if _curr_cocoa_maker_state == CocoaMakerState.WAITING:
-		_update_waiting_state()
-	elif _curr_cocoa_maker_state == CocoaMakerState.INSERT_BEAN:
-		if _curr_player_exists():
-			_curr_player.interacted.connect(_on_insert_bean_into_grinder)
-			_curr_player.start_notify_interactable(insert_bean_interact_messsage)
-	elif _curr_cocoa_maker_state == CocoaMakerState.REQUIRES_BEAN:
-		if _curr_player_exists():
-			_curr_player.start_message(requires_bean_warning_message)
-	elif _curr_cocoa_maker_state == CocoaMakerState.GRINDING_COCOA_BEAN:
-		if not _grinding_cocoa_bean:
-			_grinding_cocoa_bean = true
-			_timer_grinding_cocoa_bean.wait_time = grinding_cocoa_bean_time
-			_timer_grinding_cocoa_bean.one_shot = true
-			_timer_grinding_cocoa_bean.connect("timeout", _on_timer_grinding_cocoa_bean_timeout)
-			_timer_grinding_cocoa_bean.start()
-			# TODO: Play animation for grinding cocoa bean.
-			
-		_update_grinding_cocoa_bean_state()
-	elif _curr_cocoa_maker_state == CocoaMakerState.READY_TO_MAKE_COCOA:
-		_update_ready_to_make_cocoa_state()
-	elif _curr_cocoa_maker_state == CocoaMakerState.MAKING_COCOA:
-		_making_cocoa = true
-		_update_making_cocoa_state()
-		_timer_making_cocoa.wait_time = making_cocoa_time
-		_timer_making_cocoa.one_shot = true
-		_timer_making_cocoa.connect("timeout", _on_timer_making_cocoa_timeout)
-		_timer_making_cocoa.start()
-		# TODO: Play animation for making cocoa.
+	match _curr_cocoa_maker_state:
+		CocoaMakerState.WAITING:
+			_enter_waiting_state()
+		CocoaMakerState.REQUIRES_BEAN:
+			_enter_requires_bean_state()
+		CocoaMakerState.INSERT_BEAN:
+			_enter_insert_bean_state()
+		CocoaMakerState.GRINDING_COCOA_BEAN:
+			_enter_grinding_cocoa_bean_state()
+		CocoaMakerState.READY_TO_MAKE_COCOA:
+			_enter_ready_to_make_cocoa_state()
+		CocoaMakerState.MAKING_COCOA:
+			_enter_making_cocoa_state()
 
 
-func _update_making_cocoa_state():
-	if _curr_player:
-		if _curr_player_is_leaving:
-			_curr_player_is_leaving = false
-			_curr_player.stop_message()
-		else:
-			_curr_player.start_message("Making cocoa...")
+func _update_current_state():
+	match _curr_cocoa_maker_state:
+		CocoaMakerState.WAITING:
+			_update_waiting_state()
+		CocoaMakerState.REQUIRES_BEAN:
+			_update_requires_bean_state()
+		CocoaMakerState.INSERT_BEAN:
+			_update_requires_bean_state()
+		CocoaMakerState.GRINDING_COCOA_BEAN:
+			_update_grinding_cocoa_bean_state()
+		CocoaMakerState.READY_TO_MAKE_COCOA:
+			_update_ready_to_make_cocoa_state()
+		CocoaMakerState.MAKING_COCOA:
+			_update_making_cocoa_state()
 
 
-func _update_grinding_cocoa_bean_state():
-	if _curr_player:
-		if _curr_player_is_leaving:
-			_curr_player_is_leaving = false
-			_curr_player.stop_message()
-		else:
-			_curr_player.start_message(grinding_bean_message)
-
-
-func _update_ready_to_make_cocoa_state():
-	if _curr_player:
-		if _curr_player_exists():
-			if _is_hovering_switch:
-				_curr_player.interacted.connect(_on_turn_on)
-				_curr_player.start_notify_interactable(turn_on_interact_message)
-			else:
-				_curr_player.interacted.disconnect(_on_turn_on)
-				_curr_player.stop_notify_interactable()
-		else:
-			_curr_player.interacted.disconnect(_on_turn_on)
-			_curr_player.stop_notify_interactable()
-
-func _update_waiting_state():
-	_curr_player_is_leaving = false
+### WAITING STATE ###
+func _retrigger_waiting_state():
+	_clear_player_is_leaving()
 	_curr_cocoa_bean = null
 	_grinding_cocoa_bean = false
 	_making_cocoa = false
@@ -211,10 +177,181 @@ func _update_waiting_state():
 		_curr_player.stop_message()
 
 
+func _update_waiting_state():
+	pass
+
+
+func _enter_waiting_state():
+	_retrigger_waiting_state()
+
+
+func _exit_waiting_state():
+	pass
+
+
+### REQUIRES BEAN STATE ###
+func _retrigger_requires_bean_state():
+	pass
+
+
+func _update_requires_bean_state():
+	pass
+
+
+func _enter_requires_bean_state():
+	if _curr_player:
+		_curr_player.start_message(requires_bean_warning_message)
+
+
+func _exit_requires_bean_state():
+	if _curr_player:
+		_curr_player.stop_message()
+
+
+### INSERT BEAN STATE ###
+func _retrigger_insert_bean_state():
+	pass
+
+
+func _update_insert_bean_state():
+	pass
+
+
+func _enter_insert_bean_state():
+	if _curr_player:
+		_curr_player.interacted.connect(_on_insert_bean_into_grinder)
+		_curr_player.start_notify_interactable(insert_bean_interact_messsage)
+
+
+func _exit_insert_bean_state():
+	if _curr_player:
+		_curr_player.interacted.disconnect(_on_insert_bean_into_grinder)
+		_curr_player.stop_notify_interactable()
+
+
+func _on_insert_bean_into_grinder(player: Player):
+	if not player:
+		printerr("Invalid player")
+		return
+	
+	if not _curr_cocoa_bean:
+		_curr_cocoa_bean = player.take_bean() as CocoaBeanResource
+		if not _curr_cocoa_bean:
+			printerr("Bean did not exist.")
+		else:
+			print("%s inserted." % _curr_cocoa_bean.get_display_name())
+		_determine_cocoa_maker_state()
+	else:
+		player.start_message("Already has cocoa bean.")
+		printerr("Already has cocoa bean: %s" % _curr_cocoa_bean.get_display_name())
+
+
+### GRINDING COCOA BEAN STATE ###
+func _retrigger_grinding_cocoa_bean_state():
+	if _curr_player:
+		if _curr_player_is_leaving:
+			_curr_player.stop_message()
+		else:
+			_curr_player.start_message(grinding_bean_message)
+	
+	_clear_player_is_leaving()
+
+
+func _update_grinding_cocoa_bean_state():
+	pass
+
+
+func _enter_grinding_cocoa_bean_state():
+	_grinding_cocoa_bean = true
+	_timer_grinding_cocoa_bean.wait_time = grinding_cocoa_bean_time
+	_timer_grinding_cocoa_bean.one_shot = true
+	_timer_grinding_cocoa_bean.connect("timeout", _on_timer_grinding_cocoa_bean_timeout)
+	_timer_grinding_cocoa_bean.start()
+	# TODO: Play animation for grinding cocoa bean.
+		
+	_retrigger_grinding_cocoa_bean_state()
+
+
+func _exit_grinding_cocoa_bean_state():
+	_grinding_cocoa_bean = false
+	_timer_grinding_cocoa_bean.stop()
+	_timer_grinding_cocoa_bean.disconnect("timeout", _on_timer_grinding_cocoa_bean_timeout)
+	
+	if _curr_player:
+		_curr_player.stop_message()
+
+
 func _on_timer_grinding_cocoa_bean_timeout():
 	print("Done grinding cocoa bean.")
 	_grinding_cocoa_bean = false
 	_determine_cocoa_maker_state()
+
+
+### READY TO MAKE COCOA STATE ###
+func _retrigger_ready_to_make_cocoa_state():
+	if _curr_player:
+		if _curr_player and not _curr_player_is_leaving:
+			if _is_hovering_switch:
+				_curr_player.interacted.connect(_on_turn_on)
+				_curr_player.start_notify_interactable(turn_on_interact_message)
+			else:
+				_curr_player.interacted.disconnect(_on_turn_on)
+				_curr_player.stop_notify_interactable()
+		else:
+			_curr_player.interacted.disconnect(_on_turn_on)
+			_curr_player.stop_notify_interactable()
+	
+	_clear_player_is_leaving()
+
+
+func _update_ready_to_make_cocoa_state():
+	pass
+
+
+func _enter_ready_to_make_cocoa_state():
+	_retrigger_ready_to_make_cocoa_state()
+
+
+func _exit_ready_to_make_cocoa_state():
+	if _curr_player:
+		_curr_player.stop_notify_interactable()
+
+
+### MAKING COCOA ###
+func _retrigger_making_cocoa_state():
+	if _curr_player:
+		if _curr_player_is_leaving:
+			_curr_player.stop_message()
+		else:
+			_curr_player.start_message("Making cocoa...")
+	
+	if _curr_player_is_leaving:
+		_curr_player_is_leaving = false
+
+
+func _update_making_cocoa_state():
+	pass
+
+
+func _enter_making_cocoa_state():
+	_making_cocoa = true
+	_timer_making_cocoa.wait_time = making_cocoa_time
+	_timer_making_cocoa.one_shot = true
+	_timer_making_cocoa.connect("timeout", _on_timer_making_cocoa_timeout)
+	_timer_making_cocoa.start()
+	_retrigger_making_cocoa_state()
+	# TODO: Play animation for making cocoa.
+
+
+func _exit_making_cocoa_state():
+	_curr_cocoa_drink = COCOA_DRINK.instantiate()
+	_pathfollow_drink_output.add_child(_curr_cocoa_drink)
+	_making_cocoa = false
+	_curr_cocoa_bean = null
+	_timer_making_cocoa.stop()
+	_timer_making_cocoa.disconnect("timeout", _on_timer_making_cocoa_timeout)
+	if _curr_player:
+		_curr_player.stop_message()
 
 
 func _on_timer_making_cocoa_timeout():
@@ -235,23 +372,6 @@ func _on_area_2d_grinder_body_entered(body):
 	_is_hovering_grinder = true
 	_is_hovering_switch = false
 	_determine_cocoa_maker_state()
-
-
-func _on_insert_bean_into_grinder(player: Player):
-	if not player:
-		printerr("Invalid player")
-		return
-	
-	if not _curr_cocoa_bean:
-		_curr_cocoa_bean = player.take_bean() as CocoaBeanResource
-		if not _curr_cocoa_bean:
-			printerr("Bean did not exist.")
-		else:
-			print("%s inserted." % _curr_cocoa_bean.get_display_name())
-		_determine_cocoa_maker_state()
-	else:
-		player.start_message("Already has cocoa bean.")
-		printerr("Already has cocoa bean: %s" % _curr_cocoa_bean.get_display_name())
 
 
 func _on_area_2d_turn_on_body_entered(body):
