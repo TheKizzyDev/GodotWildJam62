@@ -5,6 +5,7 @@ extends Node2D
 @export_group("Config")
 @export var grinding_cocoa_bean_time = 1.0
 @export var making_cocoa_time = 1.0
+@export var drink_output_speed = 12.0
 
 @export_group("Interaction Messages")
 @export var insert_bean_interact_messsage = "Insert Bean"
@@ -21,6 +22,7 @@ var _curr_player: Player
 var _curr_player_is_leaving = false
 var _curr_cocoa_maker_state = CocoaMakerState.NONE
 var _curr_cocoa_bean: CocoaBeanResource
+var _curr_cocoa_drink: CocoaDrink
 
 var _is_hovering_grinder = false
 var _is_hovering_switch = false
@@ -31,6 +33,7 @@ var _grinding_cocoa_bean = false
 @onready var _timer_grinding_cocoa_bean = $Sprite2D/Area2D_Grinder/Timer
 @onready var _timer_making_cocoa = $Sprite2D/Area2D_TurnOn/Timer
 @onready var _marker_drink_output = $Sprite2D/DrinkOutputMarker
+@onready var _pathfollow_drink_output = $Path2D/PathFollow2D
 
 
 func _ready():
@@ -39,6 +42,11 @@ func _ready():
 
 func _curr_player_exists():
 	return _curr_player and not _curr_player_is_leaving
+
+
+func _process(delta):
+	if _curr_cocoa_drink:
+			_pathfollow_drink_output.progress += drink_output_speed * delta
 
 
 func _determine_cocoa_maker_state():
@@ -113,9 +121,8 @@ func _set_cocoa_maker_state(_new_cocoa_maker_state):
 		if _curr_player:
 			_curr_player.stop_notify_interactable()
 	elif _curr_cocoa_maker_state == CocoaMakerState.MAKING_COCOA:
-		var _new_cocoa_drink = COCOA_DRINK.instantiate()
-		add_child(_new_cocoa_drink)
-		_new_cocoa_drink.set_global_transform(_marker_drink_output.get_global_transform())
+		_curr_cocoa_drink = COCOA_DRINK.instantiate()
+		_pathfollow_drink_output.add_child(_curr_cocoa_drink)
 		
 		_making_cocoa = false
 		_curr_cocoa_bean = null
