@@ -15,6 +15,8 @@ signal interacted(player: Player)
 @onready var _label_message_text = $MessageDialogue/PanelContainer/Label_Text
 
 const _interactable_message_format = "[%s] %s"
+@onready var hitbox = $Hitbox as Hitbox
+@onready var hurtbox = $Hurtbox as Hurtbox
 
 var bean_ctr = 0
 var has_bean = false
@@ -24,6 +26,7 @@ var _interact_action_key = OS.get_keycode_string(_interact_action_event.physical
 
 
 func _ready():
+	hitbox.disable()
 	_animation_player.play("Idle_Blinking")
 	stop_notify_interactable()
 	stop_message()
@@ -32,12 +35,17 @@ func _ready():
 func is_in_combat_zone():
 	# TODO Determine when player is in combat zone. This is probably the player
 	#      portaling to another world.
-	return false
+	return true
 
 
 func _handle_input_combat_zone(delta):
 	# TODO: Implement. This is a stub to implement combat zone movement.
-	pass
+	if Input.is_action_just_pressed("attack"):
+		hitbox.enable()
+		await get_tree().create_timer(.1).timeout
+		hitbox.disable()
+	
+	_handle_cocoa_shop_input(delta)
 
 
 func _handle_cocoa_shop_input(delta):
@@ -120,3 +128,6 @@ func start_message(warning_msg = ""):
 func stop_message():
 	_message_dialogue_control.set_visible(false)
 	_label_message_text.set_text("")
+
+func _on_hurtbox_health_changed():
+	print("ouch")
