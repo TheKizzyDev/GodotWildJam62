@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xjymgedkv8s2"
-path="res://.godot/imported/forest_biome_tiles.png-41ed9c672218dbcf884d2755441336ea.ctex"
+uid="uid://cyt2s6hhos6lm"
+path="res://.godot/imported/GWJ Cocoa Trees.png-88e4b029768d5bdae6e3a27c59b86998.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/environment/forest_biome_tiles.png"
-dest_files=["res://.godot/imported/forest_biome_tiles.png-41ed9c672218dbcf884d2755441336ea.ctex"]
+source_file="res://art/environment/GWJ Cocoa Trees.png"
+dest_files=["res://.godot/imported/GWJ Cocoa Trees.png-88e4b029768d5bdae6e3a27c59b86998.ctex"]
 
 [params]
 

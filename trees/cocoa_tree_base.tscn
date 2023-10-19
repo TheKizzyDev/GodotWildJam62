@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://3flj1703u148"]
+
+[ext_resource type="PackedScene" uid="uid://cho7o3kcm17lq" path="res://components/hurtbox.tscn" id="1_txggn"]
+[ext_resource type="Script" path="res://trees/cocoa_tree_base.gd" id="1_v37r0"]
+
+[node name="CocoaTreeBase" type="Node2D"]
+script = ExtResource("1_v37r0")
+Cocoabean = "<null>"
+
+[node name="Hurtbox" parent="." instance=ExtResource("1_txggn")]
+collision_layer = 32
+max_health = 999
+
+[node name="Skin" type="Sprite2D" parent="."]
+texture_filter = 1
+
+[node name="CocoasLocation" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="CocoasLocation"]
+
+[node name="DetectPlayer" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectPlayer"]
+
+[connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
+[connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]

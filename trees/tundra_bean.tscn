@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://dro1d3r6oskmf"]
+
+[ext_resource type="PackedScene" uid="uid://y3r5jtjnwcye" path="res://trees/cocoa_bean_base.tscn" id="1_0p1qs"]
+[ext_resource type="Texture2D" uid="uid://cyt2s6hhos6lm" path="res://art/environment/GWJ Cocoa Trees.png" id="2_33xbo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_r65q0"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bslcd"]
+radius = 47.0106
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ds26g"]
+atlas = ExtResource("2_33xbo")
+region = Rect2(31, 10, 17, 18)
+
+[node name="TundraBean" instance=ExtResource("1_0p1qs")]
+collision_layer = 0
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_r65q0")
+
+[node name="CollisionShape2D" parent="PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_bslcd")
+
+[node name="Skin" parent="." index="2"]
+texture_filter = 1
+texture = SubResource("AtlasTexture_ds26g")
