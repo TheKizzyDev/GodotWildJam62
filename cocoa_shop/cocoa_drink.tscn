@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dvrd08onfjrsj"]
 
-[ext_resource type="Script" path="res://cocoa_drink.gd" id="1_hua2o"]
+[ext_resource type="Script" path="res://cocoa_shop/cocoa_drink.gd" id="1_hua2o"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_o0arc"]
 size = Vector2(8, 8)

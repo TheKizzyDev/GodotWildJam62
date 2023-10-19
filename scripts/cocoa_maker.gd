@@ -13,7 +13,7 @@ extends Node2D
 @export var requires_bean_warning_message = "Requires bean to start..."
 @export var grinding_bean_message = "Grinding bean..."
 
-const COCOA_DRINK = preload("res://cocoa_drink.tscn")
+const COCOA_DRINK = preload("res://cocoa_shop/cocoa_drink.tscn")
 
 enum CocoaMakerState {NONE, WAITING, REQUIRES_BEAN, INSERT_BEAN,
 	GRINDING_COCOA_BEAN, READY_TO_MAKE_COCOA, MAKING_COCOA}
