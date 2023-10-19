@@ -9,6 +9,7 @@ extends CharacterBody2D
 @onready var ground_detector_right = $GroundDetectorRight
 @onready var hitbox = $Hitbox
 @onready var hurtbox = $Hurtbox
+@onready var notice_player_timer = $NoticePlayerArea/NoticePlayerTimer
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var facing_left : bool:
@@ -118,9 +119,12 @@ func enter_notice():
 	$TemporaryExclamationMark.visible = true
 	skin.play("idle")
 	velocity.x = 0
+	notice_player_timer.start()
 
 func notice_state():
-	pass
+	if notice_player_timer.is_stopped():
+		enter_walk()
+		$TemporaryExclamationMark.visible = false
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-

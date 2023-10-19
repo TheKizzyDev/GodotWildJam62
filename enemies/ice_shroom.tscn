@@ -266,8 +266,8 @@ size = Vector2(3, 20)
 size = Vector2(3, 20)
 
 [sub_resource type="Gradient" id="Gradient_xx53l"]
-offsets = PackedFloat32Array(0.488889, 0.637037)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0.185185, 0.488889, 0.637037)
+colors = PackedColorArray(0.57, 0.992833, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_y0ilb"]
 gradient = SubResource("Gradient_xx53l")

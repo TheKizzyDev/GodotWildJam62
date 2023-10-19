@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cho7o3kcm17lq" path="res://components/hurtbox.tscn" id="4_vumk1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i15u8"]
-size = Vector2(154, 35)
+size = Vector2(246, 35)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ims5m"]
 outline_size = 4
@@ -44,7 +44,11 @@ collision_layer = 0
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NoticePlayerArea"]
 position = Vector2(0, 2.9719)
 scale = Vector2(1, 1.02646)
-polygon = PackedVector2Array(-124, -78.8843, -124, 32.1766, -1, -4, 125, 31.2024, 125, -76.9359, 0, -36.9929)
+polygon = PackedVector2Array(-150, -83.7557, -150, 33.1509, 0, -1.92107, 153, 29.254, 153, -86.6784, 0, -38.9415)
+
+[node name="NoticePlayerTimer" type="Timer" parent="NoticePlayerArea"]
+wait_time = 2.0
+one_shot = true
 
 [node name="ChasePlayerArea" type="Area2D" parent="."]
 collision_layer = 0
