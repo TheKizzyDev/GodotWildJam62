@@ -1,10 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://ceaqba1tfm53p"]
+[gd_scene load_steps=16 format=3 uid="uid://ceaqba1tfm53p"]
 
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
 [ext_resource type="PackedScene" uid="uid://cajrfrbr777te" path="res://cocoa_shop/storage_bin_frozen_hot.tscn" id="4_ijhgt"]
 [ext_resource type="PackedScene" uid="uid://3x053tsyf2x4" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
 [ext_resource type="PackedScene" uid="uid://bxgcocrl30nkv" path="res://cocoa_shop/cocoa_maker.tscn" id="5_whk2x"]
+[ext_resource type="PackedScene" uid="uid://dgk46o6opmr5y" path="res://customers/customer.tscn" id="6_aoukr"]
 [ext_resource type="Texture2D" uid="uid://bftnw1khp2p6x" path="res://art/cocoa_shop/cocoa_shop.png" id="6_sw7d1"]
+[ext_resource type="PackedScene" uid="uid://cs4htygbkv0uv" path="res://cocoa_shop/cash_register.tscn" id="7_bknay"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(422, 20)
@@ -100,3 +102,11 @@ has_infinite_beans = true
 
 [node name="CocoaMaker" parent="CocoaShop" instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
+
+[node name="Customer" parent="." instance=ExtResource("6_aoukr")]
+position = Vector2(359, 72)
+
+[node name="CashRegister" parent="." instance=ExtResource("7_bknay")]
+position = Vector2(339, 76)
+
+[editable path="CocoaShop/CocoaMaker"]
