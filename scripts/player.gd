@@ -9,9 +9,12 @@ signal interacted(player: Player)
 
 @onready var _animation_player = $AnimationPlayer
 @onready var _sprite = $CollisionShape2D/Sprite2D
-@onready var _label_key = $ControlDialogue/Panel/MarginContainer/GridContainer/Label_Key
-@onready var _label_message = $ControlDialogue/Panel/MarginContainer/GridContainer/Label_Message
-@onready var _control_dialogue = $ControlDialogue
+@onready var _label_text = $InteractableDialogue/PanelContainer/Label_Text
+@onready var _interactable_dialogue_control = $InteractableDialogue
+@onready var _message_dialogue_control = $MessageDialogue
+@onready var _label_message_text = $MessageDialogue/PanelContainer/Label_Text
+
+const _interactable_message_format = "[%s] %s"
 
 var bean_ctr = 0
 var has_bean = false
@@ -22,7 +25,8 @@ var _interact_action_key = OS.get_keycode_string(_interact_action_event.physical
 
 func _ready():
 	_animation_player.play("Idle_Blinking")
-	_control_dialogue.set_visible(false)
+	stop_notify_interactable()
+	stop_message()
 
 
 func is_in_combat_zone():
@@ -91,15 +95,28 @@ func take_bean():
 	bean_ctr -= 1
 	bean_ctr = max(0, bean_ctr)
 	has_bean = bean_ctr > 0
+	return CocoaBeanResource.new("Test Bean")
 
 
 func start_notify_interactable(interact_msg = ""):
-	_control_dialogue.set_visible(true)
-	_label_key.set_text("'" + _interact_action_key + "'")
-	_label_message.set_text(interact_msg)
+	stop_message()
+	
+	_interactable_dialogue_control.set_visible(true)
+	_label_text.set_text(_interactable_message_format % [_interact_action_key, interact_msg])
 
 
 func stop_notify_interactable():
-	_control_dialogue.set_visible(false)
-	_label_key.set_text("")
-	_label_message.set_text("")
+	_interactable_dialogue_control.set_visible(false)
+	_label_text.set_text("")
+
+
+func start_message(warning_msg = ""):
+	stop_notify_interactable()
+	
+	_label_message_text.set_text(warning_msg)
+	_message_dialogue_control.set_visible(true)
+
+
+func stop_message():
+	_message_dialogue_control.set_visible(false)
+	_label_message_text.set_text("")

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvrd08onfjrsj"]
+
+[ext_resource type="Script" path="res://cocoa_drink.gd" id="1_hua2o"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_o0arc"]
+size = Vector2(8, 8)
+
+[node name="CocoaDrink" type="Node2D"]
+z_index = 3
+script = ExtResource("1_hua2o")
+
+[node name="Pivot" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+texture = SubResource("PlaceholderTexture2D_o0arc")
+offset = Vector2(4, -4)

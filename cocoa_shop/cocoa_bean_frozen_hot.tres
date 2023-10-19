@@ -4,5 +4,4 @@
 
 [resource]
 script = ExtResource("1_wqdfi")
-displayName = "Frozen Hot Cocoa Bean"
-debugDisplayName = "Frozen Hot"
+display_name = "Frozen Hot Cocoa Bean"

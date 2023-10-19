@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://ceaqba1tfm53p"]
+[gd_scene load_steps=14 format=3 uid="uid://ceaqba1tfm53p"]
 
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
 [ext_resource type="PackedScene" uid="uid://cajrfrbr777te" path="res://cocoa_shop/storage_bin_frozen_hot.tscn" id="4_ijhgt"]
-[ext_resource type="PackedScene" uid="uid://drkwuug42vcry" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
+[ext_resource type="PackedScene" uid="uid://3x053tsyf2x4" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
+[ext_resource type="PackedScene" uid="uid://bxgcocrl30nkv" path="res://cocoa_shop/cocoa_maker.tscn" id="5_whk2x"]
 [ext_resource type="Texture2D" uid="uid://bftnw1khp2p6x" path="res://art/cocoa_shop/cocoa_shop.png" id="6_sw7d1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
@@ -39,14 +40,6 @@ collision_mask = 15
 [node name="Camera2D" type="Camera2D" parent="Player2D"]
 offset = Vector2(0, -32)
 zoom = Vector2(4, 4)
-
-[node name="CocoaStorageBin_FrozenHot" parent="." instance=ExtResource("4_ijhgt")]
-position = Vector2(207, 58)
-has_infinite_beans = true
-
-[node name="CocoaStorageBin_Regular" parent="." instance=ExtResource("5_h35n2")]
-position = Vector2(227, 58)
-has_infinite_beans = true
 
 [node name="CocoaShop" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -96,3 +89,14 @@ shape = SubResource("RectangleShape2D_ekb72")
 [node name="CollisionShape2D_RightWall" type="CollisionShape2D" parent="CocoaShop/Collisions"]
 position = Vector2(427, 58)
 shape = SubResource("RectangleShape2D_dli1n")
+
+[node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
+position = Vector2(207, 58)
+has_infinite_beans = true
+
+[node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
+position = Vector2(227, 58)
+has_infinite_beans = true
+
+[node name="CocoaMaker" parent="CocoaShop" instance=ExtResource("5_whk2x")]
+position = Vector2(285, 46)
