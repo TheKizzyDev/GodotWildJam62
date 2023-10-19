@@ -6,6 +6,7 @@ extends Node2D
 @export var grinding_cocoa_bean_time = 1.0
 @export var making_cocoa_time = 1.0
 @export var drink_output_speed = 12.0
+@export var cocoa_drink_queue: CocoaDrinkQueue
 
 @export_group("Interaction Messages")
 @export var insert_bean_interact_messsage = "Insert Bean"
@@ -22,7 +23,6 @@ var _curr_player: Player
 var _curr_player_is_leaving = false
 var _curr_cocoa_maker_state = CocoaMakerState.NONE
 var _curr_cocoa_bean: CocoaBeanResource
-var _curr_cocoa_drink: CocoaDrink
 
 var _is_hovering_grinder = false
 var _is_hovering_switch = false
@@ -33,21 +33,49 @@ var _grinding_cocoa_bean = false
 @onready var _timer_grinding_cocoa_bean = $Sprite2D/Area2D_Grinder/Timer
 @onready var _timer_making_cocoa = $Sprite2D/Area2D_TurnOn/Timer
 @onready var _marker_drink_output = $Sprite2D/DrinkOutputMarker
-@onready var _pathfollow_drink_output = $Path2D/PathFollow2D
 
 
 func _ready():
+	if not cocoa_drink_queue:
+		printerr("No cocoa drink queue configured.")
+		return
+
 	_determine_cocoa_maker_state()
 
 
 func _process(delta):
 	_update_current_state()
-	
-	# TODO: Move this to the cocoa drink queue
-	if _curr_cocoa_drink:
-			_pathfollow_drink_output.progress += drink_output_speed * delta
 
 
+func _on_area_2d_grinder_body_exited(body):
+	_curr_player_is_leaving = true
+	_is_hovering_grinder = false
+	_determine_cocoa_maker_state()
+	_curr_player = null
+
+
+func _on_area_2d_grinder_body_entered(body):
+	_curr_player = body as Player
+	_is_hovering_grinder = true
+	_is_hovering_switch = false
+	_determine_cocoa_maker_state()
+
+
+func _on_area_2d_turn_on_body_entered(body):
+	_curr_player = body as Player
+	_is_hovering_grinder = false
+	_is_hovering_switch = true
+	_determine_cocoa_maker_state()
+
+
+func _on_area_2d_turn_on_body_exited(body):
+	_curr_player_is_leaving = true
+	_is_hovering_switch = false
+	_determine_cocoa_maker_state()
+	_curr_player = null
+
+
+##### UTILITIES #####
 func _clear_player_is_leaving():
 	_curr_player_is_leaving = false
 
@@ -317,6 +345,15 @@ func _exit_ready_to_make_cocoa_state():
 		_curr_player.stop_notify_interactable()
 
 
+func _on_turn_on(player: Player):
+	if not player:
+		printerr("Invalid player")
+		return
+
+	_turned_on = true
+	_determine_cocoa_maker_state()
+
+
 ### MAKING COCOA ###
 func _retrigger_making_cocoa_state():
 	if _curr_player:
@@ -344,8 +381,8 @@ func _enter_making_cocoa_state():
 
 
 func _exit_making_cocoa_state():
-	_curr_cocoa_drink = COCOA_DRINK.instantiate()
-	_pathfollow_drink_output.add_child(_curr_cocoa_drink)
+	var _cocoa_drink = COCOA_DRINK.instantiate()
+	cocoa_drink_queue.enqueue(_cocoa_drink)
 	_making_cocoa = false
 	_curr_cocoa_bean = null
 	_timer_making_cocoa.stop()
@@ -355,43 +392,5 @@ func _exit_making_cocoa_state():
 
 
 func _on_timer_making_cocoa_timeout():
-	print("Done making cocoa.")
 	_making_cocoa = false
-	_determine_cocoa_maker_state()
-
-
-func _on_area_2d_grinder_body_exited(body):
-	_curr_player_is_leaving = true
-	_is_hovering_grinder = false
-	_determine_cocoa_maker_state()
-	_curr_player = null
-
-
-func _on_area_2d_grinder_body_entered(body):
-	_curr_player = body as Player
-	_is_hovering_grinder = true
-	_is_hovering_switch = false
-	_determine_cocoa_maker_state()
-
-
-func _on_area_2d_turn_on_body_entered(body):
-	_curr_player = body as Player
-	_is_hovering_grinder = false
-	_is_hovering_switch = true
-	_determine_cocoa_maker_state()
-
-
-func _on_area_2d_turn_on_body_exited(body):
-	_curr_player_is_leaving = true
-	_is_hovering_switch = false
-	_determine_cocoa_maker_state()
-	_curr_player = null
-
-
-func _on_turn_on(player: Player):
-	if not player:
-		printerr("Invalid player")
-		return
-
-	_turned_on = true
 	_determine_cocoa_maker_state()

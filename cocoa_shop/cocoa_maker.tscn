@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxgcocrl30nkv"]
+[gd_scene load_steps=5 format=3 uid="uid://bxgcocrl30nkv"]
 
 [ext_resource type="Script" path="res://scripts/cocoa_maker.gd" id="1_rrbp6"]
 [ext_resource type="Texture2D" uid="uid://cuqw7w3rkhvj3" path="res://art/cocoa_shop/cocoa_maker.png" id="2_glwi0"]
@@ -8,12 +8,6 @@ size = Vector2(3, 29)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7d7av"]
 size = Vector2(4, 18)
-
-[sub_resource type="Curve2D" id="Curve2D_ax0ae"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0)
-}
-point_count = 2
 
 [node name="CocoaMaker" type="Node2D"]
 script = ExtResource("1_rrbp6")
@@ -41,13 +35,6 @@ position = Vector2(10, 6)
 shape = SubResource("RectangleShape2D_7d7av")
 
 [node name="Timer" type="Timer" parent="Sprite2D/Area2D_TurnOn"]
-
-[node name="Path2D" type="Path2D" parent="."]
-position = Vector2(15, 5)
-curve = SubResource("Curve2D_ax0ae")
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-loop = false
 
 [connection signal="body_entered" from="Sprite2D/Area2D_Grinder" to="." method="_on_area_2d_grinder_body_entered"]
 [connection signal="body_exited" from="Sprite2D/Area2D_Grinder" to="." method="_on_area_2d_grinder_body_exited"]
