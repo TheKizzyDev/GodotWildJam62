@@ -55,9 +55,10 @@ func _ready():
 	stop_message()
 	
 	if _player_vars.has_bean_inventory_initialized:
-		print("LOADING BEANS INVENTORY FROM GLOBAL")
+		print("Loading bean inventory...")
 		_bean_inventory = _player_vars.bean_inventory
 	else:
+		print("Initializing bean inventory...")
 		for bean in beans:
 			_bean_inventory[bean] = 0
 	
