@@ -4,9 +4,12 @@ extends CharacterBody2D
 @export var jump_velocity = -400.0
 
 @onready var idle_walk_timer : Timer = $IdleWalkTimer
-@onready var skin : Sprite2D = $Skin
+@onready var skin : AnimatedSprite2D = $Skin
 @onready var ground_detector_left = $GroundDetectorLeft
 @onready var ground_detector_right = $GroundDetectorRight
+@onready var hitbox = $Hitbox
+@onready var hurtbox = $Hurtbox
+@onready var notice_player_timer = $NoticePlayerArea/NoticePlayerTimer
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var facing_left : bool:
@@ -14,12 +17,13 @@ var facing_left : bool:
 var facing_right : bool:
 	get: return not skin.flip_h
 var player : Player = null
+var is_attacking = false
 
 enum States {
 	IDLE,
 	WALK,
 	NOTICE,
-	ATTACK,
+	CHASE,
 	JUMP,
 	FALL,
 	DEATH
@@ -29,6 +33,7 @@ var current_state = States.IDLE
 
 func _ready():
 	enter_idle()
+	hitbox.disable()
 
 
 func _physics_process(delta):
@@ -39,8 +44,8 @@ func _physics_process(delta):
 			walk_state()
 		States.NOTICE:
 			notice_state()
-		States.ATTACK:
-			attack_state()
+		States.CHASE:
+			chase_state()
 		States.JUMP:
 			jump_state()
 		States.FALL:
@@ -53,11 +58,29 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+func attack():
+	is_attacking = true
+	skin.play("attack")
+	velocity.x = 0
+	print("OPEN")
+	await get_tree().create_timer(.7).timeout
+	hitbox.enable()
+	$AttackPlayerArea.set_deferred("monitoring", false)
+	print("OPEN2")
+	#await skin.animation_finished
+	await get_tree().create_timer(.4).timeout
+	$AttackPlayerArea.set_deferred("monitoring", true)
+	hitbox.disable()
+	print("CLOSING")
+	skin.play("walk")
+	is_attacking = false
+
 
 ############################### STATE MACHINE ###############################
 
 
 func enter_idle():
+	skin.play("idle")
 	current_state = States.IDLE
 	idle_walk_timer.start(randi_range(1, 2))
 	velocity.x = 0
@@ -72,6 +95,7 @@ func idle_state():
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 func enter_walk():
+	skin.play("walk")
 	current_state = States.WALK
 	idle_walk_timer.start(randi_range(3, 6))
 	velocity.x = speed if facing_right else -speed
@@ -82,26 +106,41 @@ func walk_state():
 	else:
 		if facing_left and not ground_detector_left.get_collider():
 			enter_idle()
-		if facing_right and not ground_detector_right.get_collider():
+		elif facing_right and not ground_detector_right.get_collider():
 			enter_idle()
-
+		elif facing_right and not $BorderRightArea.get_overlapping_bodies().is_empty():
+			enter_idle()
+		elif facing_left and not $BorderLeftArea.get_overlapping_bodies().is_empty():
+			enter_idle()
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 func enter_notice():
 	current_state = States.NOTICE
 	$TemporaryExclamationMark.visible = true
+	skin.play("idle")
+	velocity.x = 0
+	notice_player_timer.start()
 
 func notice_state():
-	pass
+	if notice_player_timer.is_stopped():
+		enter_walk()
+		$TemporaryExclamationMark.visible = false
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
-func enter_attack():
-	current_state = States.ATTACK
+func enter_chase():
+	current_state = States.CHASE
+	$TemporaryExclamationMark.visible = false
+	skin.play("walk")
 
-func attack_state():
-	velocity.x = (player.global_position - global_position).normalized().x * speed
-	skin.flip_h = true if velocity.x<0 else false
+func chase_state():
+	if not is_attacking:
+		velocity.x = (player.global_position - global_position).normalized().x * speed
+		skin.flip_h = true if velocity.x<0 else false
+		if facing_right and not $BorderRightArea.get_overlapping_bodies().is_empty():
+			velocity.y = -200
+		elif facing_left and not $BorderLeftArea.get_overlapping_bodies().is_empty():
+			velocity.y = -200
 
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
@@ -123,29 +162,39 @@ func fall_state():
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 func enter_death():
 	current_state = States.DEATH
+	skin.play("die")
 
 func death_state():
-	pass
+	await skin.animation_finished
+	queue_free()
 
 
 ################################## SIGNALS ##################################
 
 
 func _on_notice_player_area_body_entered(body):
+	if is_attacking: return
 	if current_state == States.IDLE or current_state == States.WALK:
+		skin.flip_h = true if body.global_position.x > global_position.x else true
 		enter_notice()
 
 
-func _on_attack_area_body_entered(body):
-	player = body as Player
-	enter_attack()
-
-
 func _on_notice_player_area_body_exited(body):
-	if current_state == States.NOTICE or current_state == States.ATTACK:
+	if is_attacking: return
+	if current_state == States.NOTICE or current_state == States.CHASE:
 		enter_idle()
 		$TemporaryExclamationMark.visible = false
 
 
 func _on_hurtbox_died():
-	queue_free()
+	enter_death()
+
+
+func _on_attack_player_area_body_entered(body):
+	attack()
+
+
+func _on_chase_player_area_body_entered(body):
+	if is_attacking: return
+	player = body as Player
+	enter_chase()

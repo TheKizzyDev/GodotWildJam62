@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xjymgedkv8s2"
-path="res://.godot/imported/forest_biome_tiles.png-41ed9c672218dbcf884d2755441336ea.ctex"
+uid="uid://dxut5jrjsrwn5"
+path="res://.godot/imported/IceShroom_attack.png-6911f28cb8fea90d76953c789d4de615.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/environment/forest_biome_tiles.png"
-dest_files=["res://.godot/imported/forest_biome_tiles.png-41ed9c672218dbcf884d2755441336ea.ctex"]
+source_file="res://art/enemies/snow mushroom/IceShroom_attack.png"
+dest_files=["res://.godot/imported/IceShroom_attack.png-6911f28cb8fea90d76953c789d4de615.ctex"]
 
 [params]
 

@@ -15,10 +15,6 @@ var health = max_health:
 			emit_signal("died")
 
 
-func _ready():
-	health = max_health
-
-
 func take_damage(_damage : int = 1):
 	health -= _damage
 

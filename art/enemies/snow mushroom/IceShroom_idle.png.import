@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dbe7scemgvvn3"
-path="res://.godot/imported/tundra_biome_tiles.png-30602410f275b8ca236dfdc1f0bc9b51.ctex"
+uid="uid://dyq6irpojtkdx"
+path="res://.godot/imported/IceShroom_idle.png-88e79dc269890329dc6f2919fb3a4d63.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/environment/tundra_biome_tiles.png"
-dest_files=["res://.godot/imported/tundra_biome_tiles.png-30602410f275b8ca236dfdc1f0bc9b51.ctex"]
+source_file="res://art/enemies/snow mushroom/IceShroom_idle.png"
+dest_files=["res://.godot/imported/IceShroom_idle.png-88e79dc269890329dc6f2919fb3a4d63.ctex"]
 
 [params]
 
