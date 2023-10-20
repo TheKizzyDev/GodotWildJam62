@@ -1,12 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://dbm6vwvp11ylg"]
+[gd_scene load_steps=10 format=3 uid="uid://dbm6vwvp11ylg"]
 
 [ext_resource type="PackedScene" uid="uid://cbat4a7e823wn" path="res://levels/level_base.tscn" id="1_810be"]
 [ext_resource type="PackedScene" uid="uid://w1c2h2wni577" path="res://trees/forest_tree.tscn" id="2_f7a03"]
 [ext_resource type="Texture2D" uid="uid://khqtdquh8auq" path="res://art/environment/GWJ FOREST N TUNDRA TILES.png" id="2_s5qob"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="2_whxw7"]
 [ext_resource type="Texture2D" uid="uid://isus10wml4ii" path="res://art/environment/pine_trees.png" id="3_2c0ly"]
-[ext_resource type="PackedScene" uid="uid://bg1f2y3b7uyqp" path="res://enemies/bungaroo.tscn" id="5_i54nw"]
 [ext_resource type="PackedScene" uid="uid://xda7ltp02lsc" path="res://cocoa_shop/teleporter_home.tscn" id="5_5yjlm"]
+[ext_resource type="PackedScene" uid="uid://bg1f2y3b7uyqp" path="res://enemies/bungaroo.tscn" id="5_i54nw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rl5wb"]
 atlas = ExtResource("2_s5qob")
@@ -103,29 +103,29 @@ position = Vector2(963, -25)
 position = Vector2(1055, -24)
 
 [node name="Player2D" parent="." index="1" instance=ExtResource("2_whxw7")]
-position = Vector2(-255, -21)
+position = Vector2(16, -79)
 collision_mask = 8
 
 [node name="Camera2D" type="Camera2D" parent="Player2D" index="6"]
 zoom = Vector2(3, 3)
 
-[node name="Bungaroo" parent="." index="2" instance=ExtResource("5_i54nw")]
-position = Vector2(159, 1)
-
-[node name="Bungaroo2" parent="." index="3" instance=ExtResource("5_i54nw")]
-position = Vector2(86, -323)
-
-[node name="Bungaroo4" parent="." index="4" instance=ExtResource("5_i54nw")]
-position = Vector2(417, -158)
-
-[node name="Bungaroo5" parent="." index="5" instance=ExtResource("5_i54nw")]
-position = Vector2(933, -1)
-
-[node name="Bungaroo6" parent="." index="6" instance=ExtResource("5_i54nw")]
-position = Vector2(1097, 0)
-
-[node name="Bungaroo3" parent="." index="7" instance=ExtResource("5_i54nw")]
-position = Vector2(39, -542)
-
 [node name="teleporter" parent="." index="2" instance=ExtResource("5_5yjlm")]
 position = Vector2(-252, -18)
+
+[node name="Bungaroo" parent="." index="3" instance=ExtResource("5_i54nw")]
+position = Vector2(159, 1)
+
+[node name="Bungaroo2" parent="." index="4" instance=ExtResource("5_i54nw")]
+position = Vector2(86, -323)
+
+[node name="Bungaroo4" parent="." index="5" instance=ExtResource("5_i54nw")]
+position = Vector2(417, -158)
+
+[node name="Bungaroo5" parent="." index="6" instance=ExtResource("5_i54nw")]
+position = Vector2(933, -1)
+
+[node name="Bungaroo6" parent="." index="7" instance=ExtResource("5_i54nw")]
+position = Vector2(1097, 0)
+
+[node name="Bungaroo3" parent="." index="8" instance=ExtResource("5_i54nw")]
+position = Vector2(39, -542)
