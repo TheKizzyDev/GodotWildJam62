@@ -1,19 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://ceaqba1tfm53p"]
+[gd_scene load_steps=17 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
 [ext_resource type="PackedScene" uid="uid://cajrfrbr777te" path="res://cocoa_shop/storage_bin_frozen_hot.tscn" id="4_ijhgt"]
 [ext_resource type="PackedScene" uid="uid://3x053tsyf2x4" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
 [ext_resource type="PackedScene" uid="uid://bxgcocrl30nkv" path="res://cocoa_shop/cocoa_maker.tscn" id="5_whk2x"]
-[ext_resource type="PackedScene" uid="uid://dgk46o6opmr5y" path="res://customers/customer.tscn" id="6_aoukr"]
-[ext_resource type="PackedScene" uid="uid://d0jbnwrqs6ixo" path="res://cocoa_shop/cocoa_drink_queue.tscn" id="6_kyvrf"]
+[ext_resource type="PackedScene" uid="uid://drcpw0xggagca" path="res://cocoa_shop/cocoa_drink_queue.tscn" id="6_kyvrf"]
 [ext_resource type="Texture2D" uid="uid://bftnw1khp2p6x" path="res://art/cocoa_shop/cocoa_shop.png" id="6_sw7d1"]
 [ext_resource type="PackedScene" uid="uid://cs4htygbkv0uv" path="res://cocoa_shop/cash_register.tscn" id="7_bknay"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
-size = Vector2(422, 20)
+[ext_resource type="PackedScene" uid="uid://4dq3n0l8brvk" path="res://cocoa_shop/customer_manager.tscn" id="8_v77dm"]
+[ext_resource type="PackedScene" uid="uid://b44ilsix0n2yn" path="res://customers/customer_queue.tscn" id="9_au2g1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bc4ou"]
-size = Vector2(160.25, 41)
+size = Vector2(86, 41)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_orq78"]
 size = Vector2(22, 47)
@@ -30,8 +28,8 @@ size = Vector2(6.5, 57.5)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ekb72"]
 size = Vector2(13, 116)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dli1n"]
-size = Vector2(10, 116)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
+size = Vector2(348, 20)
 
 [node name="main" type="Node2D"]
 
@@ -49,20 +47,12 @@ texture_filter = 1
 texture = ExtResource("6_sw7d1")
 centered = false
 
-[node name="Floor" type="StaticBody2D" parent="CocoaShop"]
-collision_layer = 8
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CocoaShop/Floor"]
-position = Vector2(211, 106)
-shape = SubResource("RectangleShape2D_p5g5t")
-
 [node name="Collisions" type="StaticBody2D" parent="CocoaShop"]
 collision_layer = 8
 collision_mask = 0
 
 [node name="CollisionShape2D_StoreFront" type="CollisionShape2D" parent="CocoaShop/Collisions"]
-position = Vector2(342.125, 20.5)
+position = Vector2(305, 20.5)
 shape = SubResource("RectangleShape2D_bc4ou")
 
 [node name="CollisionShape2D_SackPickup" type="CollisionShape2D" parent="CocoaShop/Collisions"]
@@ -89,9 +79,9 @@ shape = SubResource("RectangleShape2D_ikb3e")
 position = Vector2(-6.5, 58)
 shape = SubResource("RectangleShape2D_ekb72")
 
-[node name="CollisionShape2D_RightWall" type="CollisionShape2D" parent="CocoaShop/Collisions"]
-position = Vector2(427, 58)
-shape = SubResource("RectangleShape2D_dli1n")
+[node name="CollisionShape2D_Floor" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(174, 106)
+shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(207, 58)
@@ -109,18 +99,26 @@ cocoa_drink_queue = NodePath("../CocoaDrinkQueue")
 position = Vector2(299, 51)
 
 [node name="EndOfQueueMarker" parent="CocoaShop/CocoaDrinkQueue" index="1"]
-position = Vector2(43, 0)
+position = Vector2(41, 0)
 
-[node name="PickupArea" parent="CocoaShop/CocoaDrinkQueue" index="2"]
-position = Vector2(59, -5)
-
-[node name="CollisionShape2D" parent="CocoaShop/CocoaDrinkQueue/PickupArea" index="0"]
-position = Vector2(1, 5)
-
-[node name="Customer" parent="." instance=ExtResource("6_aoukr")]
-position = Vector2(359, 72)
-
-[node name="CashRegister" parent="." instance=ExtResource("7_bknay")]
+[node name="CashRegister" parent="CocoaShop" instance=ExtResource("7_bknay")]
 position = Vector2(339, 76)
 
+[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "spawn_marker", "exit_marker") instance=ExtResource("8_v77dm")]
+cocoa_drink_queue = NodePath("../CocoaDrinkQueue")
+cash_register = NodePath("../CashRegister")
+customer_queue = NodePath("../CustomerQueue")
+spawn_marker = NodePath("SpawnMarker")
+exit_marker = NodePath("ExitMarker")
+
+[node name="SpawnMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
+position = Vector2(411, 90)
+
+[node name="ExitMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
+position = Vector2(411, 75)
+
+[node name="CustomerQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
+position = Vector2(359, 90)
+
 [editable path="CocoaShop/CocoaDrinkQueue"]
+[editable path="CocoaShop/CustomerQueue"]

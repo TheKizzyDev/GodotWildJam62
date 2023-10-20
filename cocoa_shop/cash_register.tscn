@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cs4htygbkv0uv"]
+[gd_scene load_steps=5 format=3 uid="uid://cs4htygbkv0uv"]
 
 [ext_resource type="Texture2D" uid="uid://cucgar3gwn6uo" path="res://art/cocoa_shop/cash_register_on_display_case.png" id="1_0vexl"]
+[ext_resource type="Script" path="res://cocoa_shop/cash_register.gd" id="1_rkju8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h8ufv"]
 size = Vector2(18, 40)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rcy3p"]
+size = Vector2(5, 5)
+
 [node name="CashRegister" type="Node2D"]
+script = ExtResource("1_rkju8")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
@@ -15,3 +20,13 @@ texture = ExtResource("1_0vexl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("RectangleShape2D_h8ufv")
+
+[node name="AreaRegister" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AreaRegister"]
+position = Vector2(-15, 0)
+shape = SubResource("RectangleShape2D_rcy3p")
+
+[connection signal="body_entered" from="AreaRegister" to="." method="_on_area_register_body_entered"]
+[connection signal="body_exited" from="AreaRegister" to="." method="_on_area_register_body_exited"]

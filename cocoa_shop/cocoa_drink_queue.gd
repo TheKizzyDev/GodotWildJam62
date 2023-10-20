@@ -18,17 +18,6 @@ var _queue_end_position: Vector2
 var _curr_cocoa_drink_queue_state = CocoaDrinkQueueState.NONE
 
 
-func _unhandled_key_input(event):
-	# TODO: Remove
-	if event.keycode == KEY_J and event.is_pressed():
-		var drink = take_drink()
-		if drink:
-			print("DRINKING!")
-			drink.queue_free()
-		else:
-			print("NO DRINK!!!")
-
-
 func _process(delta):
 	_update_current_state(delta)
 

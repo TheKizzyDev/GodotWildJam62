@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b44ilsix0n2yn"]
+
+[ext_resource type="Script" path="res://customers/customer_queue.gd" id="1_hcbty"]
+
+[sub_resource type="Curve2D" id="Curve2D_v2rpj"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 55, 0)
+}
+point_count = 4
+
+[node name="CustomerQueue" type="Node2D"]
+script = ExtResource("1_hcbty")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_v2rpj")

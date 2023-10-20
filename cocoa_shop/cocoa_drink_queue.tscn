@@ -1,21 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0jbnwrqs6ixo"]
+[gd_scene load_steps=3 format=3 uid="uid://drcpw0xggagca"]
 
-[ext_resource type="Script" path="res://cocoa_drink_queue.gd" id="1_g7rtv"]
+[ext_resource type="Script" path="res://cocoa_shop/cocoa_drink_queue.gd" id="1_d64l4"]
 
 [sub_resource type="Curve2D" id="Curve2D_5ow1q"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jqebo"]
-size = Vector2(5, 5)
-
 [node name="CocoaDrinkQueue" type="Node2D"]
-script = ExtResource("1_g7rtv")
+script = ExtResource("1_d64l4")
 
 [node name="QueuePath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_5ow1q")
 
 [node name="EndOfQueueMarker" type="Marker2D" parent="."]
-
-[node name="PickupArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea"]
-shape = SubResource("RectangleShape2D_jqebo")
