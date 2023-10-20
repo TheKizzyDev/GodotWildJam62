@@ -1,0 +1,33 @@
+[gd_scene load_steps=7 format=3 uid="uid://by3mxlk03kpgr"]
+
+[ext_resource type="PackedScene" uid="uid://y3r5jtjnwcye" path="res://trees/cocoa_bean_base.tscn" id="1_ohn1w"]
+[ext_resource type="Texture2D" uid="uid://cyt2s6hhos6lm" path="res://art/environment/GWJ Cocoa Trees.png" id="2_2cfv3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pl5yj"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_of0ki"]
+radius = 30.0167
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qc3i0"]
+radius = 4.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3igug"]
+atlas = ExtResource("2_2cfv3")
+region = Rect2(3, 17, 11, 12)
+
+[node name="DessertBean" instance=ExtResource("1_ohn1w")]
+collision_layer = 0
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_pl5yj")
+
+[node name="CollisionShape2D" parent="PlayerDetection" index="0"]
+shape = SubResource("CircleShape2D_of0ki")
+
+[node name="CollisionShape2D" parent="ColllectArea" index="0"]
+shape = SubResource("CircleShape2D_qc3i0")
+
+[node name="Skin" parent="." index="3"]
+texture_filter = 1
+texture = SubResource("AtlasTexture_3igug")
