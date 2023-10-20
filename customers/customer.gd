@@ -42,7 +42,7 @@ func has_ordered():
 
 
 func is_at_destination():
-	return _curr_destination.distance_to(position) < 0.1
+	return _curr_destination.distance_to(position) < 0.5
 
 
 func request_move_to(new_position: Vector2):
