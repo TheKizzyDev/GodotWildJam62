@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://51uahjl0k484"]
+[gd_scene load_steps=22 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="Script" path="res://level.gd" id="1_l0bix"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://cs4htygbkv0uv" path="res://cocoa_shop/cash_register.tscn" id="7_bknay"]
 [ext_resource type="PackedScene" uid="uid://4dq3n0l8brvk" path="res://cocoa_shop/customer_manager.tscn" id="8_v77dm"]
 [ext_resource type="PackedScene" uid="uid://b44ilsix0n2yn" path="res://customers/customer_queue.tscn" id="9_au2g1"]
+[ext_resource type="PackedScene" uid="uid://o1v5p4btyuc8" path="res://cocoa_shop/teleporter_forest.tscn" id="11_e4pxn"]
+[ext_resource type="PackedScene" uid="uid://durwdddnipnjx" path="res://cocoa_shop/teleporter_tundra.tscn" id="12_r2wa3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bc4ou"]
 size = Vector2(86, 41)
@@ -155,6 +157,12 @@ collision_mask = 15
 [node name="Camera2D" type="Camera2D" parent="Node/Player2D"]
 offset = Vector2(0, -16)
 zoom = Vector2(4, 4)
+
+[node name="TeleporterTundra" parent="." instance=ExtResource("12_r2wa3")]
+position = Vector2(33, 51)
+
+[node name="TeleporterForest" parent="." instance=ExtResource("11_e4pxn")]
+position = Vector2(95, 51)
 
 [editable path="CocoaShop/CocoaDrinkQueue"]
 [editable path="CocoaShop/OrderQueue"]

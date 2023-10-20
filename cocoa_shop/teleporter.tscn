@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfbhw5fwy2fm7"]
+
+[ext_resource type="Script" path="res://cocoa_shop/teleporter.gd" id="1_d7eks"]
+[ext_resource type="Texture2D" uid="uid://ce1spm001qwam" path="res://art/cocoa_shop/teleporter_red.png" id="2_o741x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7s04e"]
+size = Vector2(26, 53)
+
+[node name="teleporter" type="Node2D"]
+script = ExtResource("1_d7eks")
+
+[node name="TeleportOverlap" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportOverlap"]
+shape = SubResource("RectangleShape2D_7s04e")
+
+[node name="Sprite2D" type="Sprite2D" parent="TeleportOverlap"]
+texture_filter = 1
+texture = ExtResource("2_o741x")
+
+[connection signal="body_entered" from="TeleportOverlap" to="." method="_on_teleport_overlap_body_entered"]
+[connection signal="body_exited" from="TeleportOverlap" to="." method="_on_teleport_overlap_body_exited"]

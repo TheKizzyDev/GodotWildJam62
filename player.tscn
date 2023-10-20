@@ -160,6 +160,7 @@ _data = {
 }
 
 [node name="Player2D" type="CharacterBody2D"]
+z_index = 10
 script = ExtResource("1_eck68")
 beans = [ExtResource("2_drl03"), ExtResource("3_02bmm")]
 

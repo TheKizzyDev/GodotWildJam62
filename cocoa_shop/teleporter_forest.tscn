@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://o1v5p4btyuc8"]
+
+[ext_resource type="PackedScene" uid="uid://cfbhw5fwy2fm7" path="res://cocoa_shop/teleporter.tscn" id="1_tl2n7"]
+[ext_resource type="Texture2D" uid="uid://1yumen0d2uao" path="res://art/cocoa_shop/teleporter_green.png" id="2_tak6o"]
+
+[node name="TeleporterForest" instance=ExtResource("1_tl2n7")]
+level_key = 2
+
+[node name="Sprite2D" parent="TeleportOverlap" index="1"]
+texture = ExtResource("2_tak6o")

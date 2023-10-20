@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://xda7ltp02lsc"]
+
+[ext_resource type="PackedScene" uid="uid://cfbhw5fwy2fm7" path="res://cocoa_shop/teleporter.tscn" id="1_nsxrf"]
+
+[node name="teleporter" instance=ExtResource("1_nsxrf")]

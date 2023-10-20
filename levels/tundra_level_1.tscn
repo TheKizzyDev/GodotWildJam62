@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ommeotjsv13k"]
+[gd_scene load_steps=10 format=3 uid="uid://ommeotjsv13k"]
 
 [ext_resource type="PackedScene" uid="uid://cbat4a7e823wn" path="res://levels/level_base.tscn" id="1_m3m4r"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="2_5s6af"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ws1ibj5dognk" path="res://trees/tundra_tree.tscn" id="2_xjkxj"]
 [ext_resource type="Texture2D" uid="uid://isus10wml4ii" path="res://art/environment/pine_trees.png" id="3_6rxdo"]
 [ext_resource type="PackedScene" uid="uid://bgxtey0jamw32" path="res://enemies/ice_shroom.tscn" id="4_metum"]
+[ext_resource type="PackedScene" uid="uid://xda7ltp02lsc" path="res://cocoa_shop/teleporter_home.tscn" id="7_mgl5o"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x4lm4"]
 atlas = ExtResource("2_kk01b")
@@ -176,3 +177,6 @@ position = Vector2(836, -22)
 
 [node name="IceShroom4" parent="." index="7" instance=ExtResource("4_metum")]
 position = Vector2(306, -229)
+
+[node name="teleporter" parent="." index="8" instance=ExtResource("7_mgl5o")]
+position = Vector2(0, 109)

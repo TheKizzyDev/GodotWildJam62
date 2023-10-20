@@ -143,8 +143,6 @@ func _unhandled_input(event):
 		interacted.emit(self)
 	if event.is_action_pressed("interact_secondary"):
 		interacted_with_secondary.emit(self)
-	if Input.is_key_pressed(KEY_J):
-		_global_vars.goto_level_key(_global_vars.LevelKeys.TUNDRA)
 
 
 func get_selected_bean():

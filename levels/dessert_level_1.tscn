@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbm6vwvp11ylg"]
+[gd_scene load_steps=7 format=3 uid="uid://dbm6vwvp11ylg"]
 
 [ext_resource type="PackedScene" uid="uid://cbat4a7e823wn" path="res://levels/level_base.tscn" id="1_810be"]
 [ext_resource type="PackedScene" uid="uid://w1c2h2wni577" path="res://trees/dessert_tree.tscn" id="2_f7a03"]
 [ext_resource type="Texture2D" uid="uid://khqtdquh8auq" path="res://art/environment/GWJ FOREST N TUNDRA TILES.png" id="2_s5qob"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="2_whxw7"]
+[ext_resource type="PackedScene" uid="uid://xda7ltp02lsc" path="res://cocoa_shop/teleporter_home.tscn" id="5_5yjlm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rl5wb"]
 atlas = ExtResource("2_s5qob")
@@ -66,3 +67,6 @@ collision_mask = 8
 
 [node name="Camera2D" type="Camera2D" parent="Player2D" index="6"]
 zoom = Vector2(3, 3)
+
+[node name="teleporter" parent="." index="2" instance=ExtResource("5_5yjlm")]
+position = Vector2(-252, -18)
