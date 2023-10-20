@@ -1,9 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://4dq3n0l8brvk"]
+[gd_scene load_steps=4 format=3 uid="uid://4dq3n0l8brvk"]
 
 [ext_resource type="Script" path="res://cocoa_shop/customer_manager.gd" id="1_fbi7q"]
+[ext_resource type="Resource" uid="uid://dpfjv56uw65d0" path="res://customers/customer_order_normal_hot_cocoa.tres" id="2_7hpu2"]
+[ext_resource type="Resource" uid="uid://clb0ek1h4k6at" path="res://customers/customer_order_frozen_hot_cocoa.tres" id="3_2hbi5"]
 
 [node name="CustomerManager" type="Node"]
 script = ExtResource("1_fbi7q")
+possible_orders = [ExtResource("2_7hpu2"), ExtResource("3_2hbi5")]
 
 [node name="TimerCustomerSpawning" type="Timer" parent="."]
 one_shot = true

@@ -3,6 +3,7 @@ class_name CustomerQueue
 extends Node2D
 
 signal dequeued(customer: Customer)
+signal first_customer_readied(customer: Customer)
 
 @onready var _queue_path = $Path2D
 
@@ -46,10 +47,16 @@ func _draw():
 
 func _update_customer_positions():
 	for idx in _customers.size():
-		var curr_customer = _customers[idx]
+		var curr_customer = _customers[idx] as Customer
 		var exp_pos = _queue_slots[idx]
 		if curr_customer and curr_customer.position.distance_to(exp_pos) > 0.1:
+			if idx == 0:
+				curr_customer.move_to_succeeded.connect(_on_first_customer_ready)
 			curr_customer.request_move_to(exp_pos)
+
+
+func _on_first_customer_ready(customer: Customer, destination: Vector2):
+	first_customer_readied.emit(customer)
 
 
 func is_empty():
@@ -60,16 +67,31 @@ func has_capacity():
 	return _customers.size() < _queue_capacity
 
 
+func can_dequeue():
+	if _customers.is_empty():
+		return false
+	
+	return _customers[0].is_at_destination()
+
+
+func get_first_customer():
+	return _customers[0]
+
+
 func enqueue(new_customer: Customer):
 	if has_capacity() && new_customer:
 		new_customer.reparent(self)
 		_customers.push_back(new_customer)
 		_update_customer_positions()
+		return true
+	
+	return false
 
 
 func dequeue():
-	if not _customers.is_empty():
-		var popped_customer = _customers.pop_front()
+	if can_dequeue():
+		var popped_customer = _customers.pop_front() as Customer
+		popped_customer.move_to_succeeded.disconnect(_on_first_customer_ready)
 		dequeued.emit(popped_customer)
 		_update_customer_positions()
 		return popped_customer

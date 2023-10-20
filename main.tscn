@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://51uahjl0k484"]
+[gd_scene load_steps=19 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
 [ext_resource type="PackedScene" uid="uid://cajrfrbr777te" path="res://cocoa_shop/storage_bin_frozen_hot.tscn" id="4_ijhgt"]
@@ -30,6 +30,20 @@ size = Vector2(13, 116)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
+
+[sub_resource type="Curve2D" id="Curve2D_wyemm"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 55, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_6snlm"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 55, 0)
+}
+point_count = 4
 
 [node name="main" type="Node2D"]
 
@@ -104,10 +118,11 @@ position = Vector2(41, 0)
 [node name="CashRegister" parent="CocoaShop" instance=ExtResource("7_bknay")]
 position = Vector2(339, 76)
 
-[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "spawn_marker", "exit_marker") instance=ExtResource("8_v77dm")]
+[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "pickup_queue", "spawn_marker", "exit_marker") instance=ExtResource("8_v77dm")]
 cocoa_drink_queue = NodePath("../CocoaDrinkQueue")
 cash_register = NodePath("../CashRegister")
-customer_queue = NodePath("../CustomerQueue")
+customer_queue = NodePath("../OrderQueue")
+pickup_queue = NodePath("../PickupQueue")
 spawn_marker = NodePath("SpawnMarker")
 exit_marker = NodePath("ExitMarker")
 
@@ -117,8 +132,18 @@ position = Vector2(411, 90)
 [node name="ExitMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
 position = Vector2(411, 75)
 
-[node name="CustomerQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
+[node name="OrderQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
 position = Vector2(359, 90)
 
+[node name="Path2D" parent="CocoaShop/OrderQueue" index="0"]
+curve = SubResource("Curve2D_wyemm")
+
+[node name="PickupQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
+position = Vector2(359, 77)
+
+[node name="Path2D" parent="CocoaShop/PickupQueue" index="0"]
+curve = SubResource("Curve2D_6snlm")
+
 [editable path="CocoaShop/CocoaDrinkQueue"]
-[editable path="CocoaShop/CustomerQueue"]
+[editable path="CocoaShop/OrderQueue"]
+[editable path="CocoaShop/PickupQueue"]

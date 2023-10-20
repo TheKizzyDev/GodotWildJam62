@@ -7,6 +7,10 @@ extends Node
 @export var cash_register: CashRegister
 @export var customer_spawn_time := 1
 @export var customer_queue: CustomerQueue
+@export var pickup_queue: CustomerQueue
+
+@export_group("Orders")
+@export var possible_orders: Array
 
 @export_group("Markers")
 @export var spawn_marker: Marker2D
@@ -22,17 +26,38 @@ func _ready():
 	_timer_customer_spawning.set_one_shot(true)
 	_timer_customer_spawning.timeout.connect(_spawn_customer)
 	_timer_customer_spawning.start(customer_spawn_time)
-	customer_queue.dequeued.connect(_on_queue_changed)
+	customer_queue.dequeued.connect(_on_dequeued)
+	customer_queue.first_customer_readied.connect(_on_first_customer_readied)
+	cash_register.order_taken.connect(_on_order_taken)
 
 
-func _on_queue_changed(customer: Customer):
+func _on_order_taken(customer: Customer):
+	var cust = customer_queue.dequeue()
+	if not cust:
+		printerr("Could not dequeue customer: %s" % str(cust))
+		return
+	
+	cash_register.set_current_customer(null)
+	pickup_queue.enqueue(cust)
+
+
+func _on_first_customer_readied(customer: Customer):
+	cash_register.set_current_customer(customer)
+
+
+func _on_dequeued(customer: Customer):
 	if _timer_customer_spawning.is_stopped() and customer_queue.has_capacity():
 		_timer_customer_spawning.start(customer_spawn_time)
+		
+
+func _get_random_order():
+	return possible_orders[0]
 
 
 func _spawn_customer():
-	if customer_queue.has_capacity():
+	if customer_queue.has_capacity() and pickup_queue.has_capacity():
 		var new_cust = CUSTOMER.instantiate() as Customer
+		new_cust.set_order(_get_random_order())
 		add_child(new_cust)
 		new_cust.set_position(spawn_marker.position)
 		customer_queue.enqueue(new_cust)

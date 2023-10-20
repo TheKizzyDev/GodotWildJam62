@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://customers/customer_queue.gd" id="1_hcbty"]
 
 [sub_resource type="Curve2D" id="Curve2D_v2rpj"]
+resource_local_to_scene = true
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 55, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 55, 0)
 }
 point_count = 4
 
@@ -12,4 +13,5 @@ point_count = 4
 script = ExtResource("1_hcbty")
 
 [node name="Path2D" type="Path2D" parent="."]
+position = Vector2(0, -1)
 curve = SubResource("Curve2D_v2rpj")

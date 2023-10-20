@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CustomerOrder" load_steps=3 format=3 uid="uid://dpfjv56uw65d0"]
+
+[ext_resource type="Script" path="res://customers/customer_order.gd" id="1_f7wi0"]
+[ext_resource type="Resource" uid="uid://b8x2qec5jlmi4" path="res://cocoa_shop/cocoa_bean_normal.tres" id="1_pthw6"]
+
+[resource]
+script = ExtResource("1_f7wi0")
+_cocoa_bean_resource = ExtResource("1_pthw6")
