@@ -16,6 +16,7 @@ atlas = ExtResource("3_6rxdo")
 region = Rect2(0, 0, 199, 305)
 
 [node name="TundraLevel1" instance=ExtResource("1_m3m4r")]
+combat_zone = true
 
 [node name="TileMap" parent="." index="0"]
 texture_filter = 1

@@ -51,9 +51,8 @@ func _ready():
 
 
 func is_in_combat_zone():
-	# TODO Determine when player is in combat zone. This is probably the player
-	#      portaling to another world.
-	return true
+	var level = get_parent() as Level
+	return level.combat_zone
 
 
 func _handle_input_combat_zone(delta):
