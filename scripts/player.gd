@@ -9,10 +9,11 @@ signal interacted(player: Player)
 
 @onready var _animation_player = $AnimationPlayer
 @onready var _sprite = $CollisionShape2D/Sprite2D
-@onready var _label_text = $InteractableDialogue/PanelContainer/Label_Text
+@onready var _label_text = $InteractableDialogue/PanelContainer/Label_Text as Label
 @onready var _interactable_dialogue_control = $InteractableDialogue
 @onready var _message_dialogue_control = $MessageDialogue
-@onready var _label_message_text = $MessageDialogue/PanelContainer/Label_Text
+@onready var _panelcontainer_message = $MessageDialogue/PanelContainer as PanelContainer
+@onready var _label_message_text = $MessageDialogue/PanelContainer/Label_Text as Label
 
 const _interactable_message_format = "[%s] %s"
 @onready var hitbox = $Hitbox as Hitbox
@@ -143,6 +144,9 @@ func stop_notify_interactable():
 func start_message(warning_msg = ""):
 	stop_notify_interactable()
 	
+	var font = _label_message_text.label_settings.font
+	var msg_size = font.get_string_size(warning_msg) as Vector2
+	_panelcontainer_message.set_size(msg_size)
 	_label_message_text.set_text(warning_msg)
 	_message_dialogue_control.set_visible(true)
 
