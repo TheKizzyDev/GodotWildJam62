@@ -11,6 +11,7 @@ var _curr_direction: Vector2
 var _is_fulfilling_move_to_request = false
 var _curr_order: CustomerOrder: set = set_order, get = get_order
 var _order_taken = false
+var _curr_drink: CocoaDrink
 
 
 func _physics_process(delta):
@@ -25,6 +26,12 @@ func _physics_process(delta):
 
 func set_order(new_order: CustomerOrder):
 	_curr_order = new_order
+
+
+func give_drink(drink: CocoaDrink):
+	_curr_drink = drink
+	if _curr_drink:
+		_curr_drink.reparent(self)
 
 
 func take_order():

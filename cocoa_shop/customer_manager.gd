@@ -26,11 +26,34 @@ func _ready():
 	_timer_customer_spawning.set_one_shot(true)
 	_timer_customer_spawning.timeout.connect(_spawn_customer)
 	_timer_customer_spawning.start(customer_spawn_time)
+	
+	cocoa_drink_queue.first_drink_readied.connect(_on_first_drink_readied)
+	
 	customer_queue.dequeued.connect(_on_order_queue_dequeued)
-	customer_queue.first_customer_readied.connect(_on_first_customer_readied)
+	customer_queue.first_customer_readied.connect(_on_order_queue_first_customer_readied)
+	
 	pickup_queue.dequeued.connect(_on_pickup_queue_dequeued)
 	pickup_queue.queue_full.connect(_on_pickup_queue_full)
+	pickup_queue.first_customer_readied.connect(_on_pickup_queue_first_customer_readied)
+	
 	cash_register.order_taken.connect(_on_order_taken)
+
+func _pickup_drink():
+	if not pickup_queue.is_empty() and cocoa_drink_queue.can_take_drink():
+		var customer = pickup_queue.dequeue() as Customer
+		var drink = cocoa_drink_queue.take_drink()
+		customer.reparent(self)
+		customer.give_drink(drink)
+		customer.move_to_succeeded.connect(_on_customer_exit)
+		customer.request_move_to(exit_marker.global_position)
+
+
+func _on_first_drink_readied():
+	_pickup_drink()
+
+
+func _on_customer_exit(customer: Customer, destination: Vector2):
+	customer.queue_free()
 
 
 func _on_order_taken(customer: Customer):
@@ -43,7 +66,7 @@ func _on_order_taken(customer: Customer):
 	pickup_queue.enqueue(cust)
 
 
-func _on_first_customer_readied(customer: Customer):
+func _on_order_queue_first_customer_readied(customer: Customer):
 	cash_register.set_current_customer(customer)
 
 
@@ -59,6 +82,10 @@ func _on_pickup_queue_full():
 func _on_pickup_queue_dequeued(customer: Customer):
 	if pickup_queue.has_capacity() and cash_register.is_stopped():
 		cash_register.set_pickup_queue_full(false)
+
+
+func _on_pickup_queue_first_customer_readied(customer: Customer):
+	_pickup_drink()
 
 
 func _get_random_order():

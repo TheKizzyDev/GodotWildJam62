@@ -2,6 +2,8 @@ class_name CocoaDrinkQueue
 
 extends Node2D
 
+signal first_drink_readied()
+
 @export var speed = 12.0
 @export var spacing = 10.0
 
@@ -170,4 +172,5 @@ func _enter_moving_drinks_state():
 
 
 func _exit_moving_drinks_state():
-	pass
+	if can_take_drink():
+		first_drink_readied.emit()

@@ -8,6 +8,7 @@
 script = ExtResource("1_d64l4")
 
 [node name="QueuePath" type="Path2D" parent="."]
+visible = false
 curve = SubResource("Curve2D_5ow1q")
 
 [node name="EndOfQueueMarker" type="Marker2D" parent="."]
