@@ -22,6 +22,8 @@ const _interactable_message_format = "[%s] %s"
 const _interactable_message_with_secondary_format = "[%s] %s\n[%s] %s"
 @onready var hitbox = $Hitbox as Hitbox
 @onready var hurtbox = $Hurtbox as Hurtbox
+@onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
+@onready var _global_vars = get_node("/root/Global") as Global
 
 var bean_ctr = 0
 var has_bean = false
@@ -38,14 +40,26 @@ var _bean_inventory: Dictionary
 var _curr_selected_bean_index := 0
 var _curr_bean_key: CocoaBeanResource
 
+
+func _exit_tree():
+	print("Saving bean inventory...")
+	_player_vars.bean_inventory = _bean_inventory
+	if not _player_vars.has_bean_inventory_initialized:
+		_player_vars.has_bean_inventory_initialized = true
+
+
 func _ready():
 	hitbox.disable()
 	_animation_player.play("Idle_Blinking")
 	stop_notify_interactable()
 	stop_message()
 	
-	for bean in beans:
-		_bean_inventory[bean] = 0
+	if _player_vars.has_bean_inventory_initialized:
+		print("LOADING BEANS INVENTORY FROM GLOBAL")
+		_bean_inventory = _player_vars.bean_inventory
+	else:
+		for bean in beans:
+			_bean_inventory[bean] = 0
 	
 	_curr_bean_key = beans[_curr_selected_bean_index]
 
@@ -129,6 +143,8 @@ func _unhandled_input(event):
 		interacted.emit(self)
 	if event.is_action_pressed("interact_secondary"):
 		interacted_with_secondary.emit(self)
+	if Input.is_key_pressed(KEY_J):
+		_global_vars.goto_scene("res://levels/tundra_level_1.tscn")
 
 
 func get_selected_bean():
