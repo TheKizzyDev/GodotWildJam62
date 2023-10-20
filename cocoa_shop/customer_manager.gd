@@ -26,8 +26,10 @@ func _ready():
 	_timer_customer_spawning.set_one_shot(true)
 	_timer_customer_spawning.timeout.connect(_spawn_customer)
 	_timer_customer_spawning.start(customer_spawn_time)
-	customer_queue.dequeued.connect(_on_dequeued)
+	customer_queue.dequeued.connect(_on_order_queue_dequeued)
 	customer_queue.first_customer_readied.connect(_on_first_customer_readied)
+	pickup_queue.dequeued.connect(_on_pickup_queue_dequeued)
+	pickup_queue.queue_full.connect(_on_pickup_queue_full)
 	cash_register.order_taken.connect(_on_order_taken)
 
 
@@ -45,17 +47,26 @@ func _on_first_customer_readied(customer: Customer):
 	cash_register.set_current_customer(customer)
 
 
-func _on_dequeued(customer: Customer):
+func _on_order_queue_dequeued(customer: Customer):
 	if _timer_customer_spawning.is_stopped() and customer_queue.has_capacity():
 		_timer_customer_spawning.start(customer_spawn_time)
-		
+
+
+func _on_pickup_queue_full():
+	cash_register.set_pickup_queue_full(true)
+
+
+func _on_pickup_queue_dequeued(customer: Customer):
+	if pickup_queue.has_capacity() and cash_register.is_stopped():
+		cash_register.set_pickup_queue_full(false)
+
 
 func _get_random_order():
 	return possible_orders[0]
 
 
 func _spawn_customer():
-	if customer_queue.has_capacity() and pickup_queue.has_capacity():
+	if customer_queue.has_capacity():
 		var new_cust = CUSTOMER.instantiate() as Customer
 		new_cust.set_order(_get_random_order())
 		add_child(new_cust)

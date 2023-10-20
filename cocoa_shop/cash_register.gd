@@ -4,12 +4,14 @@ extends Node2D
 
 signal order_taken(customer: Customer)
 
-enum CashRegisterState { NONE, WAITING, READY_TO_SERVE, READY_TO_TAKE_ORDER }
+enum CashRegisterState { NONE, WAITING, READY_TO_SERVE, READY_TO_TAKE_ORDER, PICKUP_QUEUE_FULL }
 
 var _curr_player: Player
 var _curr_player_is_leaving = false
 var _curr_customer: Customer: set = set_current_customer
 var _curr_state: CashRegisterState
+
+var _is_pickup_queue_full = false
 
 func _is_customer_ready_to_give_order():
 	return false
@@ -39,6 +41,15 @@ func set_current_customer(new_customer: Customer):
 	_curr_customer = new_customer
 	_determine_state()
 
+
+func set_pickup_queue_full(queue_full: bool):
+	_is_pickup_queue_full = queue_full
+	_determine_state()
+
+
+func is_stopped():
+	return _is_pickup_queue_full
+
  
 ##### STATE MACHINE #####
 func _determine_state():
@@ -49,18 +60,32 @@ func _determine_state():
 			new_state = CashRegisterState.WAITING
 		CashRegisterState.WAITING:
 			if _curr_player_arrived():
-				if _curr_customer:
+				if _is_pickup_queue_full:
+					new_state = CashRegisterState.PICKUP_QUEUE_FULL
+				elif _curr_customer:
 					new_state = CashRegisterState.READY_TO_TAKE_ORDER
 				else:
 					new_state = CashRegisterState.READY_TO_SERVE
 		CashRegisterState.READY_TO_SERVE:
-			if _curr_player_arrived() and _curr_customer:
+			if _is_pickup_queue_full:
+				new_state = CashRegisterState.PICKUP_QUEUE_FULL
+			elif _curr_player_arrived() and _curr_customer:
 				new_state = CashRegisterState.READY_TO_TAKE_ORDER
 			elif not _curr_player_arrived():
 				new_state = CashRegisterState.WAITING
 		CashRegisterState.READY_TO_TAKE_ORDER:
-			if not _curr_player_arrived() or not _curr_customer:
+			if _is_pickup_queue_full:
+				new_state = CashRegisterState.PICKUP_QUEUE_FULL
+			elif not _curr_player_arrived() or not _curr_customer:
 				new_state = CashRegisterState.WAITING
+		CashRegisterState.PICKUP_QUEUE_FULL:
+			if not _is_pickup_queue_full:
+				if _curr_player_arrived() and _curr_customer:
+					new_state = CashRegisterState.READY_TO_TAKE_ORDER
+				elif _curr_player_arrived():
+					new_state = CashRegisterState.READY_TO_SERVE
+				else:
+					new_state = CashRegisterState.WAITING
 	
 	_set_state(new_state)
 
@@ -74,6 +99,8 @@ func _set_state(new_state):
 				_retrigger_ready_to_serve_state()
 			CashRegisterState.READY_TO_TAKE_ORDER:
 				_retrigger_ready_to_take_order_state()
+			CashRegisterState.PICKUP_QUEUE_FULL:
+				_retrigger_pickup_queue_full_state()
 	
 	# Exit State
 	match _curr_state:
@@ -83,6 +110,8 @@ func _set_state(new_state):
 			_exit_ready_to_serve_state()
 		CashRegisterState.READY_TO_TAKE_ORDER:
 			_exit_ready_to_take_order_state()
+		CashRegisterState.PICKUP_QUEUE_FULL:
+			_exit_pickup_queue_full_state()
 	
 	print("Cash Register Transition [%s]->[%s]" % \
 		[CashRegisterState.keys()[_curr_state], CashRegisterState.keys()[new_state]])
@@ -96,6 +125,8 @@ func _set_state(new_state):
 			_enter_ready_to_serve_state()
 		CashRegisterState.READY_TO_TAKE_ORDER:
 			_enter_ready_to_take_order_state()
+		CashRegisterState.PICKUP_QUEUE_FULL:
+			_enter_pickup_queue_full_state()
 
 
 ### WAITING STATE ###
@@ -160,3 +191,26 @@ func _exit_ready_to_take_order_state():
 func _on_take_order(player: Player):
 	_curr_customer.take_order()
 	order_taken.emit(_curr_customer)
+
+
+### PICKUP QUEUE FULL STATE ###
+func _retrigger_pickup_queue_full_state():
+	if _curr_player_arrived():
+		_enter_pickup_queue_full_state()
+	elif _curr_player:
+		_curr_player.stop_message()
+	_curr_player_is_leaving = false
+
+
+func _update_pickup_queue_full_state():
+	pass
+
+
+func _enter_pickup_queue_full_state():
+	if _curr_player:
+		_curr_player.start_message("Server some customers first...")
+
+
+func _exit_pickup_queue_full_state():
+	if _curr_player:
+		_curr_player.stop_message()

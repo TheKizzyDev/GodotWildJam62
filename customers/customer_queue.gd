@@ -4,23 +4,13 @@ extends Node2D
 
 signal dequeued(customer: Customer)
 signal first_customer_readied(customer: Customer)
+signal queue_full()
 
 @onready var _queue_path = $Path2D
 
 var _queue_capacity = 0
 var _customers: Array
 var _queue_slots: Array
-
-
-func _unhandled_key_input(event):
-	# TODO: Remove
-	if event.keycode == KEY_J and event.is_pressed():
-		var cust = dequeue()
-		if cust:
-			print("cust!")
-			cust.queue_free()
-		else:
-			print("NO cust!!!")
 
 
 func _ready():
@@ -82,6 +72,8 @@ func enqueue(new_customer: Customer):
 	if has_capacity() && new_customer:
 		new_customer.reparent(self)
 		_customers.push_back(new_customer)
+		if not has_capacity():
+			queue_full.emit()
 		_update_customer_positions()
 		return true
 	
