@@ -49,15 +49,6 @@ point_count = 4
 [node name="main" type="Node2D"]
 script = ExtResource("1_l0bix")
 
-[node name="Player2D" parent="." instance=ExtResource("1_qrxw1")]
-z_index = 10
-position = Vector2(245, 63)
-collision_mask = 15
-
-[node name="Camera2D" type="Camera2D" parent="Player2D"]
-offset = Vector2(0, -16)
-zoom = Vector2(4, 4)
-
 [node name="CocoaShop" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("6_sw7d1")
@@ -153,6 +144,17 @@ offset_right = 40.0
 offset_bottom = 23.0
 text = "TEST TEST
 "
+
+[node name="Node" type="Node" parent="."]
+
+[node name="Player2D" parent="Node" instance=ExtResource("1_qrxw1")]
+z_index = 10
+position = Vector2(245, 63)
+collision_mask = 15
+
+[node name="Camera2D" type="Camera2D" parent="Node/Player2D"]
+offset = Vector2(0, -16)
+zoom = Vector2(4, 4)
 
 [editable path="CocoaShop/CocoaDrinkQueue"]
 [editable path="CocoaShop/OrderQueue"]

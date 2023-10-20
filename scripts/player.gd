@@ -51,7 +51,7 @@ func _ready():
 
 
 func is_in_combat_zone():
-	var level = get_parent() as Level
+	var level = get_owner() as Level
 	return level.combat_zone
 
 

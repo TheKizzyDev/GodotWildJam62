@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.1", "Forward Plus")
 [autoload]
 
 FMODRuntime="*res://addons/FMOD/runtime/fmod_runtime_manager.gd"
+GlobalPlayerVariables="*res://scripts/global_player_variables.gd"
 
 [dotnet]
 
