@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbat4a7e823wn"]
+
+[ext_resource type="TileSet" uid="uid://dflvxyebh0t6r" path="res://levels/default_tileset.tres" id="1_58bim"]
+
+[node name="LevelBase" type="Node2D"]
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("1_58bim")
+format = 2
+
+[node name="DecorationFront" type="Node2D" parent="TileMap"]
+z_index = 1
+
+[node name="DecorationBack" type="Node2D" parent="TileMap"]
+
+[node name="CocoaTrees" type="Node2D" parent="TileMap"]
