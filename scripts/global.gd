@@ -16,7 +16,7 @@ func goto_level_key(level_key: LevelKeys):
 		LevelKeys.TUNDRA:
 			goto_scene("res://levels/tundra_level_1.tscn")
 		LevelKeys.FOREST:
-			goto_scene("res://levels/dessert_level_1.tscn")
+			goto_scene("res://levels/forest_level_1.tscn")
 
 
 func goto_scene(path):

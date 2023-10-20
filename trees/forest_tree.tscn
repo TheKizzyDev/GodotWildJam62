@@ -14,7 +14,7 @@ region = Rect2(0, 32, 128, 64)
 size = Vector2(28, 42)
 
 [node name="DessertTree" instance=ExtResource("1_3fq8d")]
-Cocoabean = "res://trees/dessert_bean.tscn"
+Cocoabean = "res://trees/forest_bean.tscn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 11)
