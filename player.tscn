@@ -1,8 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://b5qco31hfuv3q"]
+[gd_scene load_steps=21 format=3 uid="uid://b5qco31hfuv3q"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_eck68"]
 [ext_resource type="Texture2D" uid="uid://jmrlbm8odah" path="res://art/characters/barista/barista_blinking.png" id="2_6pvsp"]
 [ext_resource type="Texture2D" uid="uid://fs8ixgnmjv8x" path="res://art/characters/barista/barista_walk.png" id="2_d7yes"]
+[ext_resource type="Resource" uid="uid://b8x2qec5jlmi4" path="res://cocoa_shop/cocoa_bean_normal.tres" id="2_drl03"]
+[ext_resource type="Resource" uid="uid://dw5qbbljxki7p" path="res://cocoa_shop/cocoa_bean_frozen_hot.tres" id="3_02bmm"]
 [ext_resource type="LabelSettings" uid="uid://uqgq22oeyxme" path="res://player_message_font.tres" id="4_nm3bn"]
 [ext_resource type="PackedScene" uid="uid://fmy4e7q8y2ie" path="res://components/hitbox.tscn" id="5_ma1pi"]
 [ext_resource type="PackedScene" uid="uid://cho7o3kcm17lq" path="res://components/hurtbox.tscn" id="6_gv1vv"]
@@ -159,6 +161,7 @@ _data = {
 
 [node name="Player2D" type="CharacterBody2D"]
 script = ExtResource("1_eck68")
+beans = [ExtResource("2_drl03"), ExtResource("3_02bmm")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 0)
@@ -208,7 +211,6 @@ layout_mode = 2
 size_flags_vertical = 1
 text = "[e] Lorem ipsum dolor sit."
 label_settings = ExtResource("4_nm3bn")
-horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MessageDialogue" type="Control" parent="."]

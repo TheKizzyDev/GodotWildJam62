@@ -38,6 +38,7 @@ func _ready():
 	
 	cash_register.order_taken.connect(_on_order_taken)
 
+
 func _pickup_drink():
 	if not pickup_queue.is_empty() and cocoa_drink_queue.can_take_drink():
 		var customer = pickup_queue.dequeue() as Customer

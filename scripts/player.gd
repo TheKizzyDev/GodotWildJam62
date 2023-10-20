@@ -3,9 +3,12 @@ extends CharacterBody2D
 class_name Player
 
 signal interacted(player: Player)
+signal interacted_with_secondary(player: Player)
 
+@export_group("Config")
 @export var speed = 150
 @export var jump_velocity = -400.0
+@export var beans: Array
 
 @onready var _animation_player = $AnimationPlayer
 @onready var _sprite = $CollisionShape2D/Sprite2D
@@ -16,6 +19,7 @@ signal interacted(player: Player)
 @onready var _label_message_text = $MessageDialogue/PanelContainer/Label_Text as Label
 
 const _interactable_message_format = "[%s] %s"
+const _interactable_message_with_secondary_format = "[%s] %s\n[%s] %s"
 @onready var hitbox = $Hitbox as Hitbox
 @onready var hurtbox = $Hurtbox as Hurtbox
 
@@ -24,17 +28,26 @@ var has_bean = false
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var _interact_action_event = InputMap.action_get_events("interact")[0]
 var _interact_action_key = OS.get_keycode_string(_interact_action_event.physical_keycode)
+var _interact_secondary_action_event = InputMap.action_get_events("interact_secondary")[0]
+var _interact_secondary_action_key = OS.get_keycode_string(_interact_secondary_action_event.physical_keycode)
 var is_facing_left : bool:
 	get: return _sprite.flip_h
 var is_facing_right : bool:
 	get: return not _sprite.flip_h
-
+var _bean_inventory: Dictionary
+var _curr_selected_bean_index := 0
+var _curr_bean_key: CocoaBeanResource
 
 func _ready():
 	hitbox.disable()
 	_animation_player.play("Idle_Blinking")
 	stop_notify_interactable()
 	stop_message()
+	
+	for bean in beans:
+		_bean_inventory[bean] = 0
+	
+	_curr_bean_key = beans[_curr_selected_bean_index]
 
 
 func is_in_combat_zone():
@@ -115,25 +128,45 @@ func _physics_process(delta):
 func _unhandled_input(event):
 	if event.is_action_pressed("interact"):
 		interacted.emit(self)
+	if event.is_action_pressed("interact_secondary"):
+		interacted_with_secondary.emit(self)
 
 
-func give_bean(beanResourceType):
+func get_selected_bean():
+	return _curr_bean_key
+
+
+func give_bean(beanResourceType: CocoaBeanResource):
 	bean_ctr += 1
 	has_bean = bean_ctr > 0
+	if _bean_inventory.has(beanResourceType):
+		_bean_inventory[beanResourceType] += 1
+	print("Bean Inventory: %s" % str(_bean_inventory))
 
 
 func take_bean():
-	bean_ctr -= 1
-	bean_ctr = max(0, bean_ctr)
-	has_bean = bean_ctr > 0
-	return CocoaBeanResource.new("Test Bean")
+	if _curr_bean_key:
+		bean_ctr -= 1
+		bean_ctr = max(0, bean_ctr)
+		has_bean = bean_ctr > 0
+		_bean_inventory[_curr_bean_key] = max(0, _bean_inventory[_curr_bean_key] - 1)
+		print("Bean Inventory: %s" % str(_bean_inventory))
+		return _curr_bean_key
+	print("Bean Inventory: %s" % str(_bean_inventory))
 
 
-func start_notify_interactable(interact_msg = ""):
+func start_notify_interactable(interact_msg = "", interact_secondary_msg = ""):
 	stop_message()
 	
+	if not interact_msg.is_empty() and not interact_secondary_msg.is_empty():
+		_label_text.set_text(_interactable_message_with_secondary_format % [_interact_action_key, interact_msg, _interact_secondary_action_key, interact_secondary_msg])
+	elif not interact_msg.is_empty():
+		_label_text.set_text(_interactable_message_format % [_interact_action_key, interact_msg])
+	elif not interact_secondary_msg.is_empty():
+		_label_text.set_text(_interactable_message_format % [_interact_secondary_action_key, interact_secondary_msg])
+	else:
+		return
 	_interactable_dialogue_control.set_visible(true)
-	_label_text.set_text(_interactable_message_format % [_interact_action_key, interact_msg])
 
 
 func stop_notify_interactable():
