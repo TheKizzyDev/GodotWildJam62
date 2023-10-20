@@ -107,6 +107,7 @@ func _set_cocoa_drink_queue_state(new_cocoa_drink_queue_state: CocoaDrinkQueueSt
 				_retrigger_waiting_state()
 			CocoaDrinkQueueState.MOVING_DRINKS:
 				_retrigger_moving_drinks_state()
+		return
 	
 	# EXIT STATE
 	match _curr_cocoa_drink_queue_state:

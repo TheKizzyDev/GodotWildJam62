@@ -101,6 +101,7 @@ func _set_state(new_state):
 				_retrigger_ready_to_take_order_state()
 			CashRegisterState.PICKUP_QUEUE_FULL:
 				_retrigger_pickup_queue_full_state()
+		return
 	
 	# Exit State
 	match _curr_state:
