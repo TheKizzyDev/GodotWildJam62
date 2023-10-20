@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+signal interrupt
+
 @export var speed = 80.0
 @export var jump_velocity = -400.0
 
@@ -20,7 +22,7 @@ var player : Player = null
 var is_attacking = false
 
 enum States {
-	IDLE,
+	IDLE = 0,
 	WALK,
 	NOTICE,
 	CHASE,
@@ -58,18 +60,32 @@ func _physics_process(delta):
 	move_and_slide()
 
 
+func set_interrupt(_time):
+	await get_tree().create_timer(_time).timeout
+	emit_signal("interrupt")
+
+
 func attack():
 	is_attacking = true
 	skin.play("attack")
 	velocity.x = 0
 	print("OPEN")
-	await get_tree().create_timer(.7).timeout
+	Callable(set_interrupt.bind(.7)).call()
+	await interrupt
 	hitbox.enable()
-	$AttackPlayerArea.set_deferred("monitoring", false)
+	if is_instance_valid($AttackPlayerArea):
+		$AttackPlayerArea.set_deferred("monitoring", false)
+	else:
+		return
+	
 	print("OPEN2")
 	#await skin.animation_finished
-	await get_tree().create_timer(.4).timeout
-	$AttackPlayerArea.set_deferred("monitoring", true)
+	Callable(set_interrupt.bind(.4)).call()
+	await interrupt
+	if is_instance_valid($AttackPlayerArea):
+		$AttackPlayerArea.set_deferred("monitoring", true)
+	else:
+		return
 	hitbox.disable()
 	print("CLOSING")
 	skin.play("walk")
@@ -161,7 +177,15 @@ func fall_state():
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 func enter_death():
+	remove_child($AttackPlayerArea)
+	hitbox.disable()
+	hurtbox.disable()
 	current_state = States.DEATH
+	if is_attacking:
+		emit_signal("interrupt")
+		await get_tree().create_timer(.1).timeout
+		emit_signal("interrupt")
+	await get_tree().create_timer(.1).timeout
 	skin.play("die")
 
 func death_state():
@@ -175,7 +199,7 @@ func death_state():
 func _on_notice_player_area_body_entered(body):
 	if is_attacking: return
 	if current_state == States.IDLE or current_state == States.WALK:
-		skin.flip_h = true if body.global_position.x > global_position.x else true
+		skin.flip_h = true if body.global_position.x < global_position.x else false
 		enter_notice()
 
 

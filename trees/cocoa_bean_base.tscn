@@ -14,16 +14,17 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 
-[node name="Skin" type="Sprite2D" parent="."]
+[node name="ColllectArea" type="Area2D" parent="."]
+collision_layer = 0
 
-[node name="ConsumeTimer" type="Timer" parent="."]
-wait_time = 0.4
-one_shot = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColllectArea"]
+
+[node name="Skin" type="Sprite2D" parent="."]
 
 [node name="EnableTimer" type="Timer" parent="."]
 wait_time = 0.4
 one_shot = true
 
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_body_entered"]
-[connection signal="timeout" from="ConsumeTimer" to="." method="_on_consume_timer_timeout"]
+[connection signal="body_entered" from="ColllectArea" to="." method="_on_colllect_area_body_entered"]
 [connection signal="timeout" from="EnableTimer" to="." method="_on_enable_timer_timeout"]

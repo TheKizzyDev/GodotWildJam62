@@ -23,5 +23,6 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectPlayer"]
 
+[connection signal="health_changed" from="Hurtbox" to="." method="_on_hurtbox_health_changed"]
 [connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]

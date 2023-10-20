@@ -11,6 +11,7 @@ var player : Player = null
 func _ready():
 	gravity_scale = 0
 	$PlayerDetection.monitoring = false
+	$ColllectArea.monitoring = false
 
 
 func _process(delta):
@@ -20,12 +21,6 @@ func _process(delta):
 
 func _on_body_entered(body):
 	player = body
-	$ConsumeTimer.start()
-
-
-func _on_consume_timer_timeout():
-	emit_signal("collected")
-	queue_free()
 
 
 func enable():
@@ -36,3 +31,9 @@ func enable():
 
 func _on_enable_timer_timeout():
 	$PlayerDetection.monitoring = true
+	$ColllectArea.monitoring = true
+
+
+func _on_colllect_area_body_entered(body):
+	emit_signal("collected")
+	queue_free()

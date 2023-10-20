@@ -36,5 +36,3 @@ position = Vector2(18, 2)
 [node name="CollisionShape2D" parent="DetectPlayer" index="0"]
 position = Vector2(1, 11)
 shape = SubResource("RectangleShape2D_q5sn1")
-
-[connection signal="health_changed" from="Hurtbox" to="." method="_on_hurtbox_health_changed"]

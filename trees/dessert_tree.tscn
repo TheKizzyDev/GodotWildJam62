@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://w1c2h2wni577"]
+
+[ext_resource type="PackedScene" uid="uid://3flj1703u148" path="res://trees/cocoa_tree_base.tscn" id="1_3fq8d"]
+[ext_resource type="Texture2D" uid="uid://cyt2s6hhos6lm" path="res://art/environment/GWJ Cocoa Trees.png" id="2_dosc6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xomct"]
+size = Vector2(16, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulafv"]
+atlas = ExtResource("2_dosc6")
+region = Rect2(0, 32, 128, 64)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e8ocn"]
+size = Vector2(28, 42)
+
+[node name="DessertTree" instance=ExtResource("1_3fq8d")]
+Cocoabean = "res://trees/dessert_bean.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_xomct")
+
+[node name="Skin" parent="." index="1"]
+texture = SubResource("AtlasTexture_ulafv")
+hframes = 2
+
+[node name="Marker2D" parent="CocoasLocation" index="0"]
+position = Vector2(-15, 7)
+
+[node name="Marker2D2" type="Marker2D" parent="CocoasLocation" index="1"]
+position = Vector2(-1, -12)
+
+[node name="Marker2D3" type="Marker2D" parent="CocoasLocation" index="2"]
+position = Vector2(17, -1)
+
+[node name="CollisionShape2D" parent="DetectPlayer" index="0"]
+position = Vector2(0, 11)
+shape = SubResource("RectangleShape2D_e8ocn")
