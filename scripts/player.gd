@@ -66,8 +66,7 @@ func _ready():
 
 
 func is_in_combat_zone():
-	var level = get_owner() as Level
-	return level.combat_zone
+	return _global_vars.is_combat_scene()
 
 
 func _handle_input_combat_zone(delta):
@@ -145,7 +144,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("interact_secondary"):
 		interacted_with_secondary.emit(self)
 	if Input.is_key_pressed(KEY_J):
-		_global_vars.goto_scene("res://levels/tundra_level_1.tscn")
+		_global_vars.goto_level_key(_global_vars.LevelKeys.TUNDRA)
 
 
 func get_selected_bean():
