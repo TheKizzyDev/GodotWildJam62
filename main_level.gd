@@ -5,8 +5,10 @@ extends Level
 
 @onready var _curr_player = $Player2D as Player
 @onready var _ui = $UI
+@onready var _ncb_bean_icon = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
 @onready var _ncb_slot_panel = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot as PanelContainer
 @onready var _ncb_ctr = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/Counter as Label
+@onready var _fcb_bean_icon = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
 @onready var _fcb_slot_panel = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot as PanelContainer
 @onready var _fcb_ctr = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer/Counter as Label
 @onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables

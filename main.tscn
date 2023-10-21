@@ -15,6 +15,8 @@
 [ext_resource type="LabelSettings" uid="uid://bobhhvyolb4gx" path="res://main_ui_font.tres" id="11_8h3s3"]
 [ext_resource type="PackedScene" uid="uid://o1v5p4btyuc8" path="res://cocoa_shop/teleporter_forest.tscn" id="11_e4pxn"]
 [ext_resource type="PackedScene" uid="uid://durwdddnipnjx" path="res://cocoa_shop/teleporter_tundra.tscn" id="12_r2wa3"]
+[ext_resource type="Texture2D" uid="uid://dc6a77my6f3qv" path="res://art/environment/normal_cocoa_beans.png" id="14_jpfe7"]
+[ext_resource type="Texture2D" uid="uid://biguvukhk2nf0" path="res://art/environment/frozen_cocoa_beans.png" id="16_durbm"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dptm"]
 content_margin_left = 3.0
@@ -22,10 +24,10 @@ content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
 bg_color = Color(0.309804, 0.615686, 0.929412, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bc4ou"]
 size = Vector2(86, 41)
@@ -48,13 +50,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_nps3p"]
+[sub_resource type="Resource" id="Resource_kgl0r"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_gd3bq"]
+[sub_resource type="Resource" id="Resource_krj2r"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -90,20 +92,16 @@ line_spacing = 0.0
 font = ExtResource("10_ua5a3")
 font_size = 32
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3nkb"]
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2ue3"]
 content_margin_left = 3.0
 content_margin_top = 3.0
 content_margin_right = 3.0
 content_margin_bottom = 3.0
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 anti_aliasing = false
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_814k8"]
 
 [node name="main" type="Node2D"]
 script = ExtResource("1_f53xu")
@@ -153,11 +151,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_nps3p")
+cocoa_bean_resource_type = SubResource("Resource_kgl0r")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_gd3bq")
+cocoa_bean_resource_type = SubResource("Resource_krj2r")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
@@ -205,7 +203,6 @@ position = Vector2(99, 48)
 position = Vector2(28, 48)
 
 [node name="UI" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="UI"]
 offset_right = 40.0
@@ -243,7 +240,7 @@ custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = SubResource("PlaceholderTexture2D_i3nkb")
+texture = ExtResource("14_jpfe7")
 expand_mode = 4
 
 [node name="Counter" type="Label" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
@@ -276,7 +273,7 @@ modulate = Color(0.207843, 0.462745, 0.866667, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = SubResource("PlaceholderTexture2D_814k8")
+texture = ExtResource("16_durbm")
 expand_mode = 4
 
 [node name="Counter" type="Label" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]

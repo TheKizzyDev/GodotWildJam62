@@ -6,6 +6,7 @@ enum Type { Normal, Frozen }
 
 @export var display_name = "None": get = get_display_name
 @export var type: Type
+@export var bean_icon: Texture2D
 
 func get_display_name():
 	return display_name

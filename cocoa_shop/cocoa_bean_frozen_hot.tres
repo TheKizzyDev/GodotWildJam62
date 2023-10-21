@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CocoaBeanResource" load_steps=2 format=3 uid="uid://dw5qbbljxki7p"]
+[gd_resource type="Resource" script_class="CocoaBeanResource" load_steps=3 format=3 uid="uid://dw5qbbljxki7p"]
 
+[ext_resource type="Texture2D" uid="uid://biguvukhk2nf0" path="res://art/environment/frozen_cocoa_beans.png" id="1_707yg"]
 [ext_resource type="Script" path="res://scripts/cocoa_bean_resource.gd" id="1_wqdfi"]
 
 [resource]
@@ -7,3 +8,4 @@ resource_local_to_scene = true
 script = ExtResource("1_wqdfi")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
+bean_icon = ExtResource("1_707yg")

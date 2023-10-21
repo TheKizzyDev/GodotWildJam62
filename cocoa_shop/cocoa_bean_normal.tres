@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="CocoaBeanResource" load_steps=2 format=3 uid="uid://b8x2qec5jlmi4"]
+[gd_resource type="Resource" script_class="CocoaBeanResource" load_steps=3 format=3 uid="uid://b8x2qec5jlmi4"]
 
+[ext_resource type="Texture2D" uid="uid://dc6a77my6f3qv" path="res://art/environment/normal_cocoa_beans.png" id="1_gmtbi"]
 [ext_resource type="Script" path="res://scripts/cocoa_bean_resource.gd" id="1_x2w5i"]
 
 [resource]
@@ -7,3 +8,4 @@ resource_local_to_scene = true
 script = ExtResource("1_x2w5i")
 display_name = "Regular Hot Chocolate"
 type = 0
+bean_icon = ExtResource("1_gmtbi")
