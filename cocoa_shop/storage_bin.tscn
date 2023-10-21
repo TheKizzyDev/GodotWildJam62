@@ -1,12 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfkro1u8aeger"]
+[gd_scene load_steps=6 format=3 uid="uid://dfkro1u8aeger"]
 
 [ext_resource type="Script" path="res://scripts/storage_bin.gd" id="1_fut1y"]
+[ext_resource type="FontFile" uid="uid://q4oa315wkywd" path="res://art/font/m3x6.ttf" id="2_ibe3f"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_1wx8h"]
 size = Vector2(16, 24)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_iv56g"]
 size = Vector2(2, 8)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pw8ig"]
+resource_local_to_scene = true
+line_spacing = 0.0
+font = ExtResource("2_ibe3f")
+font_color = Color(0, 0, 0, 1)
 
 [node name="CocoaStorageBin" type="Node2D"]
 z_index = 2
@@ -24,6 +31,28 @@ collision_layer = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Area2D"]
 position = Vector2(0, -12)
 shape = SubResource("RectangleShape2D_iv56g")
+
+[node name="Control" type="Control" parent="Sprite2D"]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -13.0
+offset_right = -3.0
+offset_bottom = 10.0
+grow_horizontal = 2
+
+[node name="BeanCtr" type="Label" parent="Sprite2D/Control"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -15.0
+offset_right = 15.0
+offset_bottom = -2.0
+text = "20
+"
+label_settings = SubResource("LabelSettings_pw8ig")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Sprite2D/Area2D" to="." method="_on_area_2d_body_exited"]

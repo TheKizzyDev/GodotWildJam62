@@ -4,23 +4,31 @@ class_name StorageBin
 
 @export_group("Config")
 @export var cocoa_bean_resource_type: CocoaBeanResource
-@export var has_infinite_beans = false
+@export var initial_bean_amount := 3
+@export var has_infinite_beans := false
 
 @export_group("Interact Messages")
 @export var deposit_bean_msg = "Deposit Bean"
 @export var take_bean_msg = "Take Bean"
 
+@onready var _bean_ctr_label = $Sprite2D/Control/BeanCtr
+
 enum StorageBinState {NONE, WAITING, READY_TO_INTERACT, TAKE_BEAN, DEPOSIT_BEAN}
 
-var _bean_ctr = 0
-var _has_beans = false
-var _curr_player_is_leaving = false
+var _bean_ctr := 0
+var _has_beans := false
+var _curr_player_is_leaving := false
 var _curr_player: Player
-var _curr_state = StorageBinState.NONE
+var _curr_state := StorageBinState.NONE
 
 
 func _ready():
+	_bean_ctr = initial_bean_amount
 	_determine_state()
+
+
+func _process(delta):
+	_bean_ctr_label.set_text(str(_bean_ctr))
 
 
 func _on_area_2d_body_entered(body):
@@ -46,12 +54,11 @@ func _on_deposit_bean_interact(player: Player):
 
 
 func _on_take_bean_interact(player: Player):
-	if _curr_player:
+	if _curr_player and _bean_ctr > 0:
 		_curr_player.give_bean(cocoa_bean_resource_type)
+		_bean_ctr = max(0, _bean_ctr - 1)
 		_determine_state()
 		print("'%s' taken." % cocoa_bean_resource_type.get_display_name())
-	else:
-		printerr("'%s' NOT taken." % cocoa_bean_resource_type.get_display_name())
 
 
 func _determine_state():

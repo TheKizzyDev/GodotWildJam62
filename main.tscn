@@ -48,13 +48,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_q0lsc"]
+[sub_resource type="Resource" id="Resource_fm133"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_cgxfi"]
+[sub_resource type="Resource" id="Resource_r3v57"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -153,13 +153,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_q0lsc")
-has_infinite_beans = true
+cocoa_bean_resource_type = SubResource("Resource_fm133")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_cgxfi")
-has_infinite_beans = true
+cocoa_bean_resource_type = SubResource("Resource_r3v57")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)

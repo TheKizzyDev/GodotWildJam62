@@ -147,7 +147,7 @@ func take_bean_with_selection(cocoa_bean_resource_type: CocoaBeanResource):
 	if cocoa_bean_resource_type:
 		_curr_bean_key = cocoa_bean_resource_type
 		_select_bean(_curr_bean_key)
-		take_bean()
+		return take_bean()
 
 
 func take_bean():
@@ -155,8 +155,13 @@ func take_bean():
 		bean_ctr -= 1
 		bean_ctr = max(0, bean_ctr)
 		has_bean = bean_ctr > 0
-		_bean_inventory[_curr_bean_key] = max(0, _bean_inventory[_curr_bean_key] - 1)
-		return _curr_bean_key
+		for key in _bean_inventory:
+			var bean = key as CocoaBeanResource
+			if bean.type == _curr_bean_key.type:
+				var curr_bean_ctr = _bean_inventory[key]
+				if curr_bean_ctr > 0:
+					_bean_inventory[key] = max(0, curr_bean_ctr - 1)
+					return _curr_bean_key
 
 
 func start_notify_interactable(interact_msg = "", interact_secondary_msg = ""):
