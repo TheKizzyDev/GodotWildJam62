@@ -2,6 +2,8 @@ class_name CustomerManager
 
 extends Node
 
+enum EmotionalState { HAPPY = 0, SAD = 1 }
+
 @export_group("Config")
 @export var cocoa_drink_queue: CocoaDrinkQueue
 @export var cash_register: CashRegister
