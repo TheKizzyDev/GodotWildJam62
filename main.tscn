@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://3x053tsyf2x4" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
 [ext_resource type="PackedScene" uid="uid://bxgcocrl30nkv" path="res://cocoa_shop/cocoa_maker.tscn" id="5_whk2x"]
 [ext_resource type="PackedScene" uid="uid://drcpw0xggagca" path="res://cocoa_shop/cocoa_drink_queue.tscn" id="6_kyvrf"]
-[ext_resource type="Texture2D" uid="uid://bftnw1khp2p6x" path="res://art/cocoa_shop/cocoa_shop.png" id="6_sw7d1"]
+[ext_resource type="Texture2D" uid="uid://s5lkbrbsxk7v" path="res://art/cocoa_shop/cocoa_shop.png" id="6_sw7d1"]
 [ext_resource type="PackedScene" uid="uid://cs4htygbkv0uv" path="res://cocoa_shop/cash_register.tscn" id="7_bknay"]
 [ext_resource type="PackedScene" uid="uid://4dq3n0l8brvk" path="res://cocoa_shop/customer_manager.tscn" id="8_v77dm"]
 [ext_resource type="PackedScene" uid="uid://b44ilsix0n2yn" path="res://customers/customer_queue.tscn" id="9_au2g1"]
@@ -55,13 +55,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_g1nof"]
+[sub_resource type="Resource" id="Resource_srrri"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_04mds"]
+[sub_resource type="Resource" id="Resource_xqq2p"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -163,11 +163,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_g1nof")
+cocoa_bean_resource_type = SubResource("Resource_srrri")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_04mds")
+cocoa_bean_resource_type = SubResource("Resource_xqq2p")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
@@ -191,10 +191,10 @@ spawn_marker = NodePath("SpawnMarker")
 exit_marker = NodePath("ExitMarker")
 
 [node name="SpawnMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
-position = Vector2(411, 90)
+position = Vector2(384, 55)
 
 [node name="ExitMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
-position = Vector2(411, 75)
+position = Vector2(384, 40)
 
 [node name="OrderQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
 position = Vector2(359, 90)
