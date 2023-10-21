@@ -7,6 +7,7 @@ resource_local_to_scene = true
 line_spacing = 0.0
 font = ExtResource("1_gutlg")
 font_size = 64
+font_color = Color(0, 0, 0, 1)
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 shadow_offset = Vector2(0, 0)
