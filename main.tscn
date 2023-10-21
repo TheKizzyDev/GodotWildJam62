@@ -1,9 +1,13 @@
-[gd_scene load_steps=34 format=3 uid="uid://51uahjl0k484"]
+[gd_scene load_steps=40 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="Script" path="res://main_level.gd" id="1_f53xu"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
+[ext_resource type="BankAsset" uid="uid://cda55natrmvl3" path="res://addons/FMOD/editor/resources/banks/{091e65de-91ae-459d-990b-07d2c584af11}.tres" id="2_hpbs8"]
+[ext_resource type="BankAsset" uid="uid://b0d867sjtjuc7" path="res://addons/FMOD/editor/resources/banks/{c990e83b-035b-4796-8f61-e919009d0122}.tres" id="2_v76lp"]
+[ext_resource type="BankAsset" uid="uid://byruds3m0g5o3" path="res://addons/FMOD/editor/resources/banks/{806ebd2b-c74b-4025-bd19-000312dc609b}.tres" id="2_w4rpb"]
 [ext_resource type="Script" path="res://scripts/cocoa_bean_resource.gd" id="4_ec32g"]
 [ext_resource type="PackedScene" uid="uid://cajrfrbr777te" path="res://cocoa_shop/storage_bin_frozen_hot.tscn" id="4_ijhgt"]
+[ext_resource type="BankAsset" uid="uid://b4vm6wt5q2nh8" path="res://addons/FMOD/editor/resources/banks/{793b9fee-4fda-4909-94e5-be40265ea2b2}.tres" id="5_gmtmx"]
 [ext_resource type="PackedScene" uid="uid://3x053tsyf2x4" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
 [ext_resource type="PackedScene" uid="uid://bxgcocrl30nkv" path="res://cocoa_shop/cocoa_maker.tscn" id="5_whk2x"]
 [ext_resource type="PackedScene" uid="uid://drcpw0xggagca" path="res://cocoa_shop/cocoa_drink_queue.tscn" id="6_kyvrf"]
@@ -18,6 +22,8 @@
 [ext_resource type="PackedScene" uid="uid://bo7pe0aj6uhsv" path="res://cocoa_shop/arcade.tscn" id="13_ege18"]
 [ext_resource type="Texture2D" uid="uid://dc6a77my6f3qv" path="res://art/environment/normal_cocoa_beans.png" id="14_jpfe7"]
 [ext_resource type="Texture2D" uid="uid://biguvukhk2nf0" path="res://art/environment/frozen_cocoa_beans.png" id="16_durbm"]
+[ext_resource type="EventAsset" uid="uid://nervgptm5gff" path="res://addons/FMOD/editor/resources/events/{67151574-c35d-49a7-ad41-804dc024626c}.tres" id="20_7o3cb"]
+[ext_resource type="EventAsset" uid="uid://76tgv17d0xhe" path="res://addons/FMOD/editor/resources/events/{280be539-d470-40ff-9def-6bb33c0cd7fe}.tres" id="20_ydrvk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dptm"]
 content_margin_left = 3.0
@@ -56,13 +62,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_vfixc"]
+[sub_resource type="Resource" id="Resource_pifh3"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_k2mx0"]
+[sub_resource type="Resource" id="Resource_puqfu"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -120,6 +126,10 @@ anti_aliasing = false
 script = ExtResource("1_f53xu")
 cocoa_bean_selection_color = Color(0.286275, 0.501961, 1, 1)
 cocoa_bean_selection_theme_override = SubResource("StyleBoxFlat_0dptm")
+master_bank_asset = ExtResource("2_hpbs8")
+ambiance_bank_asset = ExtResource("2_v76lp")
+music_bank_asset = ExtResource("2_w4rpb")
+sfx_bank_asset = ExtResource("5_gmtmx")
 
 [node name="CocoaShop" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -164,11 +174,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_vfixc")
+cocoa_bean_resource_type = SubResource("Resource_pifh3")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_k2mx0")
+cocoa_bean_resource_type = SubResource("Resource_puqfu")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
@@ -307,6 +317,19 @@ zoom = Vector2(4, 4)
 [node name="Player2D" parent="." instance=ExtResource("1_qrxw1")]
 position = Vector2(292, 76)
 collision_mask = 15
+
+[node name="MusicEmitter" type="StudioEventEmitter2D" parent="."]
+play_event = 2
+stop_event = 3
+event = ExtResource("20_7o3cb")
+preload_samples = true
+
+[node name="AmbianceEmitter" type="StudioEventEmitter2D" parent="."]
+play_event = 2
+stop_event = 3
+event = ExtResource("20_ydrvk")
+preload_samples = true
+"parameter_Customer Amount" = 1.0
 
 [editable path="CocoaShop/CocoaDrinkQueue"]
 [editable path="CocoaShop/OrderQueue"]

@@ -3,6 +3,10 @@ extends Level
 @export var cocoa_bean_selection_color: Color
 @export var cocoa_bean_selection_theme_override: StyleBoxFlat
 @export var camera_speed = 300.0
+@export var master_bank_asset: BankAsset
+@export var ambiance_bank_asset: BankAsset
+@export var music_bank_asset: BankAsset
+@export var sfx_bank_asset: BankAsset
 
 @onready var _curr_player = $Player2D as Player
 @onready var _ui = $UI
@@ -18,8 +22,18 @@ extends Level
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
+var _master_bank: Bank
+var _ambi_bank: Bank
+var _music_bank: Bank
+var _sfx_bank: Bank
 
-func _ready():
+func _enter_tree() -> void:
+	_master_bank = FMODStudioModule.get_studio_system().load_bank_file(master_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
+	_ambi_bank = FMODStudioModule.get_studio_system().load_bank_file(ambiance_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
+	_music_bank = FMODStudioModule.get_studio_system().load_bank_file(music_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
+	_sfx_bank = FMODStudioModule.get_studio_system().load_bank_file(sfx_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
+
+func _ready():	
 	_curr_cocoa_bean_panel = _ncb_slot_panel
 	_cocoa_bean_default_theme_override = _ncb_slot_panel.get_theme_stylebox("panel") as StyleBoxFlat
 	_on_cocoa_bean_selected(CocoaBeanResource.Type.Normal)
