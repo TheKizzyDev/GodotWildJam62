@@ -204,3 +204,4 @@ func stop_message():
 
 func _on_hurtbox_health_changed():
 	$Hurtbox/AnimationPlayer.play("hurt")
+
