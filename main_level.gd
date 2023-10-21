@@ -48,10 +48,8 @@ func _on_cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type):
 	match cocoa_bean_type:
 		CocoaBeanResource.Type.Normal:
 			_curr_cocoa_bean_panel = _ncb_slot_panel
-			print("Normal")
 		CocoaBeanResource.Type.Frozen:
 			_curr_cocoa_bean_panel = _fcb_slot_panel
-			print("Frozen")
 	_curr_cocoa_bean_panel.add_theme_stylebox_override("panel", cocoa_bean_selection_theme_override)
 
 
