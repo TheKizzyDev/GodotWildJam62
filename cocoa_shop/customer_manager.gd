@@ -96,8 +96,9 @@ func _get_random_order():
 func _spawn_customer():
 	if customer_queue.has_capacity():
 		var new_cust = CUSTOMER.instantiate() as Customer
+		print("OWNER: %s" % str(get_owner()))
+		get_owner().add_child(new_cust)
 		new_cust.set_order(_get_random_order())
-		add_child(new_cust)
 		new_cust.set_position(spawn_marker.position)
 		customer_queue.enqueue(new_cust)
 		_timer_customer_spawning.start(customer_spawn_time)

@@ -13,6 +13,10 @@ content_margin_top = 1.0
 content_margin_right = 1.0
 content_margin_bottom = 1.0
 bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
 corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
@@ -57,7 +61,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_hlgpg")
 
-[node name="TextureRect" type="TextureRect" parent="CollisionShape2D/Sprite2D/OrderIcon/PanelContainer"]
+[node name="DrinkIcon" type="TextureRect" parent="CollisionShape2D/Sprite2D/OrderIcon/PanelContainer"]
 layout_mode = 2
 texture = SubResource("PlaceholderTexture2D_pyi7w")
 
