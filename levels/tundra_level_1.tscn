@@ -1,12 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://ommeotjsv13k"]
+[gd_scene load_steps=12 format=3 uid="uid://ommeotjsv13k"]
 
 [ext_resource type="PackedScene" uid="uid://cbat4a7e823wn" path="res://levels/level_base.tscn" id="1_m3m4r"]
-[ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="2_5s6af"]
 [ext_resource type="Texture2D" uid="uid://khqtdquh8auq" path="res://art/environment/GWJ FOREST N TUNDRA TILES.png" id="2_kk01b"]
 [ext_resource type="PackedScene" uid="uid://ws1ibj5dognk" path="res://trees/tundra_tree.tscn" id="2_xjkxj"]
 [ext_resource type="Texture2D" uid="uid://isus10wml4ii" path="res://art/environment/pine_trees.png" id="3_6rxdo"]
 [ext_resource type="PackedScene" uid="uid://bgxtey0jamw32" path="res://enemies/ice_shroom.tscn" id="4_metum"]
+[ext_resource type="PackedScene" uid="uid://6gdnak1v3ipl" path="res://tundra_player.tscn" id="7_03bd7"]
 [ext_resource type="PackedScene" uid="uid://xda7ltp02lsc" path="res://cocoa_shop/teleporter_home.tscn" id="7_mgl5o"]
+[ext_resource type="Resource" uid="uid://b8x2qec5jlmi4" path="res://cocoa_shop/cocoa_bean_normal.tres" id="8_6nmf6"]
+[ext_resource type="Resource" uid="uid://dw5qbbljxki7p" path="res://cocoa_shop/cocoa_bean_frozen_hot.tres" id="9_uurr8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x4lm4"]
 atlas = ExtResource("2_kk01b")
@@ -30,6 +32,9 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = -1
 layer_1/tile_data = PackedInt32Array(196580, 131072, 2, 262116, 131072, 2, 327652, 131072, 2, 393188, 131072, 2, 458724, 131072, 2, 196581, 131072, 2, 262117, 131072, 2, 327653, 131072, 2, 393189, 131072, 2, 458725, 131072, 2, 196582, 131072, 2, 262118, 131072, 2, 327654, 131072, 2, 393190, 131072, 2, 458726, 131072, 2, 196583, 131072, 2, 262119, 131072, 2, 327655, 131072, 2, 393191, 131072, 2, 458727, 131072, 2, 196584, 131072, 2, 262120, 131072, 2, 327656, 131072, 2, 393192, 131072, 2, 458728, 131072, 2, 196585, 131072, 2, 262121, 131072, 2, 327657, 131072, 2, 393193, 131072, 2, 458729, 131072, 2, 196586, 131072, 2, 262122, 131072, 2, 327658, 131072, 2, 393194, 131072, 2, 458730, 131072, 2, 196587, 131072, 2, 262123, 131072, 2, 327659, 131072, 2, 393195, 131072, 2, 458731, 131072, 2, 196588, 131072, 2, 262124, 131072, 2, 327660, 131072, 2, 393196, 131072, 2, 458732, 131072, 2, 131045, 131072, 2, 131046, 131072, 2, 131047, 131072, 2, 131048, 131072, 2, 131049, 131072, 2, 524260, 131072, 2, 589796, 131072, 2, 655332, 131072, 2, 720868, 131072, 2, 786404, 131072, 2, 851940, 131072, 2, 917476, 131072, 2, 983012, 131072, 2, 1048548, 131072, 2, 1114084, 131072, 2, 524261, 131072, 2, 589797, 131072, 2, 655333, 131072, 2, 720869, 131072, 2, 786405, 131072, 2, 851941, 131072, 2, 917477, 131072, 2, 983013, 131072, 2, 1048549, 131072, 2, 1114085, 131072, 2, 524262, 131072, 2, 589798, 131072, 2, 655334, 131072, 2, 720870, 131072, 2, 786406, 131072, 2, 851942, 131072, 2, 917478, 131072, 2, 983014, 131072, 2, 1048550, 131072, 2, 1114086, 131072, 2, 524263, 131072, 2, 589799, 131072, 2, 655335, 131072, 2, 720871, 131072, 2, 786407, 131072, 2, 851943, 131072, 2, 917479, 131072, 2, 983015, 131072, 2, 1048551, 131072, 2, 1114087, 131072, 2, 524264, 131072, 2, 589800, 131072, 2, 655336, 131072, 2, 720872, 131072, 2, 786408, 131072, 2, 851944, 131072, 2, 917480, 131072, 2, 983016, 131072, 2, 1048552, 131072, 2, 1114088, 131072, 2, 524265, 131072, 2, 589801, 131072, 2, 655337, 131072, 2, 720873, 131072, 2, 786409, 131072, 2, 851945, 131072, 2, 917481, 131072, 2, 983017, 131072, 2, 1048553, 131072, 2, 1114089, 131072, 2, 524266, 131072, 2, 589802, 131072, 2, 655338, 131072, 2, 720874, 131072, 2, 786410, 131072, 2, 851946, 131072, 2, 917482, 131072, 2, 983018, 131072, 2, 1048554, 131072, 2, 1114090, 131072, 2, 524267, 131072, 2, 589803, 131072, 2, 655339, 131072, 2, 720875, 131072, 2, 786411, 131072, 2, 851947, 131072, 2, 917483, 131072, 2, 983019, 131072, 2, 1048555, 131072, 2, 1114091, 131072, 2, 524268, 131072, 2, 589804, 131072, 2, 655340, 131072, 2, 720876, 131072, 2, 786412, 131072, 2, 851948, 131072, 2, 917484, 131072, 2, 983020, 131072, 2, 1048556, 131072, 2, 1114092, 131072, 2)
+
+[node name="DecorationFront" parent="TileMap" index="0"]
+z_index = 11
 
 [node name="Sprite2D" type="Sprite2D" parent="TileMap/DecorationFront" index="0"]
 position = Vector2(49, 126)
@@ -153,30 +158,31 @@ position = Vector2(572, 521)
 [node name="TundraTree6" parent="TileMap/CocoaTrees" index="6" instance=ExtResource("2_xjkxj")]
 position = Vector2(389, 649)
 
-[node name="Player2D" parent="." index="1" instance=ExtResource("2_5s6af")]
-position = Vector2(-3, 82)
-collision_mask = 9
-
-[node name="Camera2D" type="Camera2D" parent="Player2D" index="6"]
-zoom = Vector2(3, 3)
-
-[node name="IceShroom" parent="." index="2" instance=ExtResource("4_metum")]
+[node name="IceShroom" parent="." index="1" instance=ExtResource("4_metum")]
 position = Vector2(-475, 125)
 
-[node name="IceShroom5" parent="." index="3" instance=ExtResource("4_metum")]
+[node name="IceShroom5" parent="." index="2" instance=ExtResource("4_metum")]
 position = Vector2(93, 668)
 
-[node name="IceShroom6" parent="." index="4" instance=ExtResource("4_metum")]
+[node name="IceShroom6" parent="." index="3" instance=ExtResource("4_metum")]
 position = Vector2(304, 669)
 
-[node name="IceShroom2" parent="." index="5" instance=ExtResource("4_metum")]
+[node name="IceShroom2" parent="." index="4" instance=ExtResource("4_metum")]
 position = Vector2(870, -243)
 
-[node name="IceShroom3" parent="." index="6" instance=ExtResource("4_metum")]
+[node name="IceShroom3" parent="." index="5" instance=ExtResource("4_metum")]
 position = Vector2(836, -22)
 
-[node name="IceShroom4" parent="." index="7" instance=ExtResource("4_metum")]
+[node name="IceShroom4" parent="." index="6" instance=ExtResource("4_metum")]
 position = Vector2(306, -229)
 
-[node name="teleporter" parent="." index="8" instance=ExtResource("7_mgl5o")]
+[node name="teleporter" parent="." index="7" instance=ExtResource("7_mgl5o")]
 position = Vector2(0, 109)
+
+[node name="TundraPlayer" parent="." index="8" instance=ExtResource("7_03bd7")]
+position = Vector2(-2, 118)
+collision_mask = 9
+beans = [ExtResource("8_6nmf6"), ExtResource("9_uurr8")]
+
+[node name="Camera2D" type="Camera2D" parent="TundraPlayer" index="7"]
+zoom = Vector2(3, 3)

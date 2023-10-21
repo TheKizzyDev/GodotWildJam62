@@ -33,10 +33,6 @@ var _interact_action_event = InputMap.action_get_events("interact")[0]
 var _interact_action_key = OS.get_keycode_string(_interact_action_event.physical_keycode)
 var _interact_secondary_action_event = InputMap.action_get_events("interact_secondary")[0]
 var _interact_secondary_action_key = OS.get_keycode_string(_interact_secondary_action_event.physical_keycode)
-var is_facing_left : bool:
-	get: return _sprite.flip_h
-var is_facing_right : bool:
-	get: return not _sprite.flip_h
 var _bean_inventory: Dictionary
 var _curr_selected_bean_index := 0
 var _curr_bean_key: CocoaBeanResource
@@ -71,31 +67,7 @@ func is_in_combat_zone():
 
 
 func _handle_input_combat_zone(delta):
-	if not is_on_floor():
-		velocity.y += gravity * delta
-	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = jump_velocity
-	
-	if Input.is_action_just_pressed("attack"):
-		hitbox.scale.x = -1 if is_facing_left else 1
-		hitbox.enable()
-		await get_tree().create_timer(.1).timeout
-		hitbox.disable()
-	
-	var horizontal_direction = Input.get_axis("move_left", "move_right")
-	if horizontal_direction:
-		velocity.x = horizontal_direction * speed
-	else:
-		velocity.x = move_toward(velocity.x, 0, speed)
-	
-	if abs(velocity.x) > 0:
-		_sprite.flip_h = (sign(velocity.x) <= 0)
-		_animation_player.play("Walking")
-	else:
-		_animation_player.play("Idle_Blinking")
-		
-	move_and_slide()
+	pass
 
 
 func _find_bean(bean_type: CocoaBeanResource.Type):

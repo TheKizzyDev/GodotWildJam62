@@ -69,7 +69,7 @@ func attack():
 	is_attacking = true
 	skin.play("attack")
 	velocity.x = 0
-	print("OPEN")
+	#print("OPEN")
 	Callable(set_interrupt.bind(.7)).call()
 	await interrupt
 	hitbox.enable()
@@ -78,7 +78,7 @@ func attack():
 	else:
 		return
 	
-	print("OPEN2")
+	#print("OPEN2")
 	#await skin.animation_finished
 	Callable(set_interrupt.bind(.4)).call()
 	await interrupt
@@ -87,7 +87,7 @@ func attack():
 	else:
 		return
 	hitbox.disable()
-	print("CLOSING")
+	#print("CLOSING")
 	skin.play("walk")
 	is_attacking = false
 
@@ -177,7 +177,11 @@ func fall_state():
 
 #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-
 func enter_death():
+	print(name, " is dying")
+	velocity = Vector2.ZERO
 	remove_child($AttackPlayerArea)
+	remove_child($ChasePlayerArea)
+	remove_child($NoticePlayerArea)
 	hitbox.disable()
 	hurtbox.disable()
 	current_state = States.DEATH
@@ -187,10 +191,11 @@ func enter_death():
 		emit_signal("interrupt")
 	await get_tree().create_timer(.1).timeout
 	skin.play("die")
-
-func death_state():
 	await skin.animation_finished
 	queue_free()
+
+func death_state():
+	pass
 
 
 ################################## SIGNALS ##################################

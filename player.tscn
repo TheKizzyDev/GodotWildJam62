@@ -129,7 +129,7 @@ corner_radius_bottom_left = 3
 anti_aliasing = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w3sjy"]
-size = Vector2(18, 20)
+size = Vector2(31, 22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfq1i"]
 size = Vector2(16, 33)
