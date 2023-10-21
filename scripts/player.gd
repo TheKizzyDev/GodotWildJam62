@@ -10,6 +10,7 @@ signal cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type)
 @export var speed = 150
 @export var jump_velocity = -400.0
 @export var beans: Array
+@export var walking: EventAsset
 
 @onready var _animation_player = $AnimationPlayer
 @onready var _sprite = $CollisionShape2D/Sprite2D
@@ -75,6 +76,10 @@ func _find_bean(bean_type: CocoaBeanResource.Type):
 		var bean_typed = bean as CocoaBeanResource
 		if bean_typed.type == bean_type:
 			return bean_typed
+
+
+func _on_step():
+	FMODRuntime.play_one_shot(walking, self)
 
 
 func _handle_cocoa_shop_input(delta):
