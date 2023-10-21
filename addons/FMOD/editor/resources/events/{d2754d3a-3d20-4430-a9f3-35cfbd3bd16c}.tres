@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bg6ne7xr3tbgb"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Customer/Customer Door"
+guid = "{d2754d3a-3d20-4430-a9f3-35cfbd3bd16c}"
+name = "Customer Door"

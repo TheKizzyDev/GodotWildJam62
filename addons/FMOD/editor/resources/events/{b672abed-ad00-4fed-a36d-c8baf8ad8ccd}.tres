@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://d186kd2yq8dpp"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Walk Snow Player"
+guid = "{b672abed-ad00-4fed-a36d-c8baf8ad8ccd}"
+name = "Walk Snow Player"

@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bwk2o24e2egf3"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Gnome Enemy Hurt"
+guid = "{54dc6091-1ff2-4180-b2a7-28aa951916a7}"
+name = "Gnome Enemy Hurt"

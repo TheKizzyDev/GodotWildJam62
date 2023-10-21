@@ -1,0 +1,28 @@
+[gd_resource type="EventAsset" load_steps=4 format=3 uid="uid://cra3phxg4gh02"]
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_ndc66"]
+data1 = 2545859942
+data2 = 1828226535
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_o2qxh"]
+name = "Distance From Player"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_ndc66")
+maximum = 1.0
+guid = "{1d0e3eaf-37b5-4e8c-9366-37d03b28b63a}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_fw3s3"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_o2qxh")
+path = "parameter:/Distance From Player"
+guid = "{1d0e3eaf-37b5-4e8c-9366-37d03b28b63a}"
+name = "Distance From Player"
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+parameters = {
+"{1d0e3eaf-37b5-4e8c-9366-37d03b28b63a}": SubResource("ParameterAsset_fw3s3")
+}
+path = "event:/SFX/Player/Walk Wood"
+guid = "{4a62a86a-007e-4af6-8b8d-db56a0e960f4}"
+name = "Walk Wood"

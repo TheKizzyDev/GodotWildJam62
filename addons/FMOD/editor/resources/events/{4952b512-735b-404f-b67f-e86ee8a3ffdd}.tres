@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://n1yfjrqs40jc"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Home Door"
+guid = "{4952b512-735b-404f-b67f-e86ee8a3ffdd}"
+name = "Home Door"

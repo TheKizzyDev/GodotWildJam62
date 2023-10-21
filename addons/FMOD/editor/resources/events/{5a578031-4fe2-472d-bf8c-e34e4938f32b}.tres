@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://dd0dev86dmnx2"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Player Hurt"
+guid = "{5a578031-4fe2-472d-bf8c-e34e4938f32b}"
+name = "Player Hurt"

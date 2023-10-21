@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://cwtn6eotvfr1r"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Tree Enemy Alert"
+guid = "{e3bb510c-3dd0-4f53-adb5-4bbd29594d2f}"
+name = "Tree Enemy Alert"

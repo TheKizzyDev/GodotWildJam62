@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://cnaarvqw1cuqs"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Player Attack"
+guid = "{b75dc84b-8552-44bf-a2f1-c39123368f23}"
+name = "Player Attack"

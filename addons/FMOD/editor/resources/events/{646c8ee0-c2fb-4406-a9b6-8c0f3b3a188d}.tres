@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://b5cwvqcv6588x"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Mushroom Enemy Idle"
+guid = "{646c8ee0-c2fb-4406-a9b6-8c0f3b3a188d}"
+name = "Mushroom Enemy Idle"

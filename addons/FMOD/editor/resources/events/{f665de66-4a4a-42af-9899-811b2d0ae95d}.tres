@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://q5qkeq4u1t2t"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Rabbit Enemy Alert"
+guid = "{f665de66-4a4a-42af-9899-811b2d0ae95d}"
+name = "Rabbit Enemy Alert"

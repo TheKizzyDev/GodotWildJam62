@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://cers7jdwtdxav"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Mushroom Enemy Walk"
+guid = "{214ed060-75b1-4239-9a2f-409f54f40dc3}"
+name = "Mushroom Enemy Walk"

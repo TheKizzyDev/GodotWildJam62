@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://c5t58jbtrh3xv"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Cocoa Machine/Glass Interact"
+guid = "{c3f3c97a-dfad-408e-9beb-12fbc5731018}"
+name = "Glass Interact"

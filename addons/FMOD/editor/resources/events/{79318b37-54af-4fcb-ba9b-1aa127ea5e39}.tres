@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://4mnpo10bws6u"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Gnome Enemy Land"
+guid = "{79318b37-54af-4fcb-ba9b-1aa127ea5e39}"
+name = "Gnome Enemy Land"

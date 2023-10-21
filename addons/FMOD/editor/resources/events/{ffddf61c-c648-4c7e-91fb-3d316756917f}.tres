@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://qo0uauml00qq"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Jump Grass Player"
+guid = "{ffddf61c-c648-4c7e-91fb-3d316756917f}"
+name = "Jump Grass Player"

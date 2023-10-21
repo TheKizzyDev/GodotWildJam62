@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://c1du4bcrguu2e"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Gnome Enemy Walk"
+guid = "{73a25146-1f11-4082-9370-10a63706057f}"
+name = "Gnome Enemy Walk"

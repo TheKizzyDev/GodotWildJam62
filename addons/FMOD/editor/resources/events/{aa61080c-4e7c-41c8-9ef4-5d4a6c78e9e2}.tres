@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://e6iui0iyu261"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Customer/Customer Happy"
+guid = "{aa61080c-4e7c-41c8-9ef4-5d4a6c78e9e2}"
+name = "Customer Happy"

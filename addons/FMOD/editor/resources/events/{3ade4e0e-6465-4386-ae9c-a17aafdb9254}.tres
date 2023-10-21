@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://xmkghfdcx8tp"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Guitar"
+guid = "{3ade4e0e-6465-4386-ae9c-a17aafdb9254}"
+name = "Guitar"

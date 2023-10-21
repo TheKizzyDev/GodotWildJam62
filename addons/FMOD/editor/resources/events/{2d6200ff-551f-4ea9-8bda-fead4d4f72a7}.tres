@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://defxykdmswk7g"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/UI/UI Interact"
+guid = "{2d6200ff-551f-4ea9-8bda-fead4d4f72a7}"
+name = "UI Interact"

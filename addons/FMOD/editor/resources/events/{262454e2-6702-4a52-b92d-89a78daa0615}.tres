@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://didmm675435ne"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/UI/UI Hover"
+guid = "{262454e2-6702-4a52-b92d-89a78daa0615}"
+name = "UI Hover"

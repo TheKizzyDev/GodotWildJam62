@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://vk7xl6mvurm7"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Cocoa Machine/Insert Beans"
+guid = "{33c5eec7-16de-4d66-bac6-294aedde2b68}"
+name = "Insert Beans"

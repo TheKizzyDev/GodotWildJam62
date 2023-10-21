@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bdklyqwgbh8e1"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Customer/Customer Waiting"
+guid = "{db977f69-f579-4169-95f1-916da3f75a15}"
+name = "Customer Waiting"

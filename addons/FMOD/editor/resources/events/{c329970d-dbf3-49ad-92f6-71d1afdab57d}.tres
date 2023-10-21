@@ -1,5 +1,22 @@
 [gd_resource type="EventAsset" load_steps=10 format=3 uid="uid://rl77vgdd4knu"]
 
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_0lfl6"]
+data1 = 4009386179
+data2 = 1045598320
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_0o5yt"]
+name = "Jukebox Select"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_0lfl6")
+maximum = 3.0
+flags = 8
+guid = "{1a57a28f-ee84-485e-b9bb-2b0da3eacfba}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_5fqlp"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_0o5yt")
+path = "parameter:/Jukebox Select"
+guid = "{1a57a28f-ee84-485e-b9bb-2b0da3eacfba}"
+name = "Jukebox Select"
+
 [sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_fpmoh"]
 data1 = 159972537
 data2 = 1880754318
@@ -35,23 +52,6 @@ labels = ["Room", "Cafe"]
 path = "parameter:/Room"
 guid = "{83246c59-b7e4-4f0f-b2da-a290807b9821}"
 name = "Room"
-
-[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_0lfl6"]
-data1 = 4009386179
-data2 = 1045598320
-
-[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_0o5yt"]
-name = "Jukebox Select"
-id = SubResource("FMOD_STUDIO_PARAMETER_ID_0lfl6")
-maximum = 3.0
-flags = 8
-guid = "{1a57a28f-ee84-485e-b9bb-2b0da3eacfba}"
-
-[sub_resource type="ParameterAsset" id="ParameterAsset_5fqlp"]
-parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_0o5yt")
-path = "parameter:/Jukebox Select"
-guid = "{1a57a28f-ee84-485e-b9bb-2b0da3eacfba}"
-name = "Jukebox Select"
 
 [resource]
 min_distance = 1.0

@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bhh7cd0x1d6qx"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Gnome Enemy Jump"
+guid = "{184aa454-8359-4498-9351-feda55db3fde}"
+name = "Gnome Enemy Jump"

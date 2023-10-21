@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://ckimwyjb2ni7r"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Gnome Enemy Alert"
+guid = "{c93ad720-ca39-4b4e-96b6-4f782c2c842e}"
+name = "Gnome Enemy Alert"

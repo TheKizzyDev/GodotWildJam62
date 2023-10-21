@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bho660n67nrp5"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Rabbit Enemy Jump"
+guid = "{1ef64281-ea1a-40c0-a44a-ac84c3171809}"
+name = "Rabbit Enemy Jump"

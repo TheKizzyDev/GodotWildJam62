@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bvbj1od8d70ye"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Cocoa Collect"
+guid = "{3eb68c42-8e15-4fb1-aa11-4af771d92eea}"
+name = "Cocoa Collect"

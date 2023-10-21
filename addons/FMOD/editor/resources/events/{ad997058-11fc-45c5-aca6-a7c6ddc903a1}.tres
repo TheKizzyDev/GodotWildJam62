@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://mmvc7cm8istk"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Jump Snow Player"
+guid = "{ad997058-11fc-45c5-aca6-a7c6ddc903a1}"
+name = "Jump Snow Player"

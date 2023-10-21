@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://d33jfsafbpxnj"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Tree Enemy Jump"
+guid = "{b3c6ed19-73bd-4477-acde-f5e3769dc2d2}"
+name = "Tree Enemy Jump"

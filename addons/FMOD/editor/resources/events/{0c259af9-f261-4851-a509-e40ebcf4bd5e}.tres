@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://cbxkrdtvm2hxy"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Mushroom Enemy Land"
+guid = "{0c259af9-f261-4851-a509-e40ebcf4bd5e}"
+name = "Mushroom Enemy Land"

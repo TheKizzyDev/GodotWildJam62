@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://dbcxbgep6vdd4"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Idle Whistle"
+guid = "{39b4c3df-af4f-442c-906c-b4a8ecbcba62}"
+name = "Idle Whistle"

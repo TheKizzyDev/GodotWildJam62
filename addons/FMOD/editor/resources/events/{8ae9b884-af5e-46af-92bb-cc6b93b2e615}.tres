@@ -1,0 +1,8 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bopl6rfuv5s6n"]
+
+[resource]
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Player/Player Sleep"
+guid = "{8ae9b884-af5e-46af-92bb-cc6b93b2e615}"
+name = "Player Sleep"

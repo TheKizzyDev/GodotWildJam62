@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://c27x0s2h8fymb"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Mushroom Enemy Alert"
+guid = "{1054c70e-8310-4be7-93b2-a84f9135afcc}"
+name = "Mushroom Enemy Alert"

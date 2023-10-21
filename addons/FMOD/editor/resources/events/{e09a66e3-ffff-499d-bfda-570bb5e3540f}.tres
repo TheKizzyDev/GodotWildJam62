@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://dqajx2yxxfo5l"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Customer/Customer Money"
+guid = "{e09a66e3-ffff-499d-bfda-570bb5e3540f}"
+name = "Customer Money"

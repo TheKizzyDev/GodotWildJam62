@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://bvkxndp81ut5p"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Cocoa Machine/Mug Interact"
+guid = "{be741828-38e7-4717-8f33-49644dd48723}"
+name = "Mug Interact"

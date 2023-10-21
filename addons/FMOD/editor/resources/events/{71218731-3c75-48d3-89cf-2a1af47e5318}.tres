@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://csbqfrurfk3aj"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Rabbit Enemy Land"
+guid = "{71218731-3c75-48d3-89cf-2a1af47e5318}"
+name = "Rabbit Enemy Land"

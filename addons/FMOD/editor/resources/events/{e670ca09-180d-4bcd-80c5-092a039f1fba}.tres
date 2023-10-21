@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://4mobfd03xgsa"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Tree Enemy Walk"
+guid = "{e670ca09-180d-4bcd-80c5-092a039f1fba}"
+name = "Tree Enemy Walk"

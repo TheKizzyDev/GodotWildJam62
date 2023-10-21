@@ -1,0 +1,9 @@
+[gd_resource type="EventAsset" format=3 uid="uid://de2jq2lyi5lrm"]
+
+[resource]
+is_oneshot = true
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/SFX/Enemy/Gnome Enemy Idle"
+guid = "{f7392540-6072-4036-bc63-461edb8e29f3}"
+name = "Gnome Enemy Idle"
