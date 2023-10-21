@@ -12,12 +12,11 @@ extends Level
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
-var _curr_cocoa_bean_selection := CocoaBeanResource.Type.Normal
 
 func _ready():
 	_curr_cocoa_bean_panel = _ncb_slot_panel
 	_cocoa_bean_default_theme_override = _ncb_slot_panel.get_theme_stylebox("panel") as StyleBoxFlat
-	_on_cocoa_bean_selected(_curr_cocoa_bean_selection)
+	_on_cocoa_bean_selected(CocoaBeanResource.Type.Normal)
 	_curr_player.cocoa_bean_selected.connect(_on_cocoa_bean_selected)
 
 
@@ -33,7 +32,6 @@ func _on_cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type):
 			_curr_cocoa_bean_panel = _fcb_slot_panel
 			print("Frozen")
 	_curr_cocoa_bean_panel.add_theme_stylebox_override("panel", cocoa_bean_selection_theme_override)
-	_curr_cocoa_bean_selection = cocoa_bean_type
 
 
 func _process(delta):

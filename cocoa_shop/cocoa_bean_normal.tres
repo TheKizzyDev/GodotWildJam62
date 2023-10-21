@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/cocoa_bean_resource.gd" id="1_x2w5i"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_x2w5i")
 display_name = "Regular Hot Chocolate"
-type = 1
+type = 0

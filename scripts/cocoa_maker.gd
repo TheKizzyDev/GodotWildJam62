@@ -19,6 +19,11 @@ const COCOA_DRINK = preload("res://cocoa_shop/cocoa_drink.tscn")
 enum CocoaMakerState {NONE, WAITING, REQUIRES_BEAN, INSERT_BEAN,
 	GRINDING_COCOA_BEAN, READY_TO_MAKE_COCOA, MAKING_COCOA}
 
+var _cocoa_bean_to_drink = {
+	CocoaBeanResource.Type.Normal : "res://cocoa_shop/cocoa_drink_normal.tscn",
+	CocoaBeanResource.Type.Frozen : "res://cocoa_shop/cocoa_drink_frozen.tscn"
+}
+
 var _curr_player: Player
 var _curr_player_is_leaving = false
 var _curr_cocoa_maker_state = CocoaMakerState.NONE
@@ -381,8 +386,12 @@ func _enter_making_cocoa_state():
 
 
 func _exit_making_cocoa_state():
-	var _cocoa_drink = COCOA_DRINK.instantiate()
-	cocoa_drink_queue.enqueue(_cocoa_drink)
+	if _cocoa_bean_to_drink.has(_curr_cocoa_bean.type):
+		var cocoa_drink_path = _cocoa_bean_to_drink[_curr_cocoa_bean.type]
+		var cocoa_drink = ResourceLoader.load(cocoa_drink_path)
+		var _cocoa_drink = cocoa_drink.instantiate() # COCOA_DRINK.instantiate()
+		cocoa_drink_queue.enqueue(_cocoa_drink)
+		print("MADE COCOA: %s" % cocoa_drink_path)
 	_making_cocoa = false
 	_curr_cocoa_bean = null
 	_timer_making_cocoa.stop()

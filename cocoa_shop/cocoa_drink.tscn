@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://cocoa_shop/cocoa_drink.gd" id="1_yfjk6"]
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_o0arc"]
+resource_local_to_scene = true
 size = Vector2(8, 8)
 
 [node name="CocoaDrink" type="Node2D"]

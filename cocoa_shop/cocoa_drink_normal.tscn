@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://boo7lp8eakb4x"]
+
+[ext_resource type="PackedScene" uid="uid://dvrd08onfjrsj" path="res://cocoa_shop/cocoa_drink.tscn" id="1_b0cjw"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_0gn5x"]
+resource_local_to_scene = true
+size = Vector2(8, 8)
+
+[node name="CocoaDrink" instance=ExtResource("1_b0cjw")]
+
+[node name="Sprite2D" parent="Pivot" index="0"]
+texture = SubResource("PlaceholderTexture2D_0gn5x")

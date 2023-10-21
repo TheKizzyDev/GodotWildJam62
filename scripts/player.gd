@@ -98,12 +98,19 @@ func _handle_input_combat_zone(delta):
 	move_and_slide()
 
 
+func _find_bean(bean_type: CocoaBeanResource.Type):
+	for bean in beans:
+		var bean_typed = bean as CocoaBeanResource
+		if bean_typed.type == bean_type:
+			return bean_typed
+
+
 func _handle_cocoa_shop_input(delta):
 	if Input.is_action_just_pressed("frozen_cocoa_bean"):
-		_select_bean(CocoaBeanResource.Type.Frozen)
+		_select_bean(_find_bean(CocoaBeanResource.Type.Frozen))
 		
 	if Input.is_action_just_pressed("normal_cocoa_bean"):
-		_select_bean(CocoaBeanResource.Type.Normal)
+		_select_bean(_find_bean(CocoaBeanResource.Type.Normal))
 	
 	var _up_down_direction = Input.get_axis("move_up", "move_down")
 	if _up_down_direction:
@@ -145,8 +152,9 @@ func _unhandled_input(event):
 		interacted_with_secondary.emit(self)
 
 
-func _select_bean(beanResourceType: CocoaBeanResource.Type):
-	cocoa_bean_selected.emit(beanResourceType)
+func _select_bean(bean_resource: CocoaBeanResource):
+	_curr_bean_key = bean_resource
+	cocoa_bean_selected.emit(_curr_bean_key.type)
 
 
 func get_selected_bean():
@@ -156,16 +164,17 @@ func get_selected_bean():
 func give_bean(beanResourceType: CocoaBeanResource):
 	bean_ctr += 1
 	has_bean = bean_ctr > 0
-	if _bean_inventory.has(beanResourceType):
-		_bean_inventory[beanResourceType] += 1
-		_select_bean(beanResourceType.type)
-	print("Bean Inventory: %s" % str(_bean_inventory))
+	for key in _bean_inventory:
+		var bean = key as CocoaBeanResource
+		if bean.type == beanResourceType.type:
+			_bean_inventory[key] += 1
+			_select_bean(beanResourceType)
 
 
 func take_bean_with_selection(cocoa_bean_resource_type: CocoaBeanResource):
 	if cocoa_bean_resource_type:
 		_curr_bean_key = cocoa_bean_resource_type
-		_select_bean(_curr_bean_key.type)
+		_select_bean(_curr_bean_key)
 		take_bean()
 
 
@@ -175,9 +184,7 @@ func take_bean():
 		bean_ctr = max(0, bean_ctr)
 		has_bean = bean_ctr > 0
 		_bean_inventory[_curr_bean_key] = max(0, _bean_inventory[_curr_bean_key] - 1)
-		print("Bean Inventory: %s" % str(_bean_inventory))
 		return _curr_bean_key
-	print("Bean Inventory: %s" % str(_bean_inventory))
 
 
 func start_notify_interactable(interact_msg = "", interact_secondary_msg = ""):

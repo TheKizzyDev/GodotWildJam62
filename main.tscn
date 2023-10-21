@@ -217,6 +217,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+modulate = Color(0.615686, 0.623529, 0.384314, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
@@ -251,6 +252,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+modulate = Color(0.207843, 0.462745, 0.866667, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
