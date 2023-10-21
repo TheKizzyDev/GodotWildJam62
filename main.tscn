@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://51uahjl0k484"]
+[gd_scene load_steps=33 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="Script" path="res://main_level.gd" id="1_f53xu"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
+[ext_resource type="Script" path="res://scripts/cocoa_bean_resource.gd" id="4_ec32g"]
 [ext_resource type="PackedScene" uid="uid://cajrfrbr777te" path="res://cocoa_shop/storage_bin_frozen_hot.tscn" id="4_ijhgt"]
 [ext_resource type="PackedScene" uid="uid://3x053tsyf2x4" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
 [ext_resource type="PackedScene" uid="uid://bxgcocrl30nkv" path="res://cocoa_shop/cocoa_maker.tscn" id="5_whk2x"]
@@ -46,6 +47,18 @@ size = Vector2(13, 116)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
+
+[sub_resource type="Resource" id="Resource_q0lsc"]
+resource_local_to_scene = true
+script = ExtResource("4_ec32g")
+display_name = "Frozen Hot Cocoa Bean"
+type = 1
+
+[sub_resource type="Resource" id="Resource_cgxfi"]
+resource_local_to_scene = true
+script = ExtResource("4_ec32g")
+display_name = "Regular Hot Chocolate"
+type = 0
 
 [sub_resource type="Curve2D" id="Curve2D_wyemm"]
 resource_local_to_scene = true
@@ -140,10 +153,12 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
+cocoa_bean_resource_type = SubResource("Resource_q0lsc")
 has_infinite_beans = true
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
+cocoa_bean_resource_type = SubResource("Resource_cgxfi")
 has_infinite_beans = true
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
