@@ -1,14 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://4dq3n0l8brvk"]
+[gd_scene load_steps=7 format=3 uid="uid://4dq3n0l8brvk"]
 
 [ext_resource type="Script" path="res://cocoa_shop/customer_manager.gd" id="1_fbi7q"]
 [ext_resource type="Resource" uid="uid://dpfjv56uw65d0" path="res://customers/customer_order_normal_hot_cocoa.tres" id="2_7hpu2"]
 [ext_resource type="PackedScene" uid="uid://c4g3anuxulhe6" path="res://customers/customer_1.tscn" id="2_bwhgl"]
 [ext_resource type="Resource" uid="uid://clb0ek1h4k6at" path="res://customers/customer_order_frozen_hot_cocoa.tres" id="3_2hbi5"]
 [ext_resource type="PackedScene" uid="uid://blq74jh1lc7th" path="res://customers/customer_2.tscn" id="3_rbdfa"]
+[ext_resource type="PackedScene" uid="uid://byj2b7hg6pwyh" path="res://customers/customer_3.tscn" id="4_i0l3n"]
 
 [node name="CustomerManager" type="Node"]
 script = ExtResource("1_fbi7q")
-customer_types = [ExtResource("2_bwhgl"), ExtResource("3_rbdfa")]
+customer_types = [ExtResource("2_bwhgl"), ExtResource("3_rbdfa"), ExtResource("4_i0l3n")]
 possible_orders = [ExtResource("2_7hpu2"), ExtResource("3_2hbi5")]
 
 [node name="TimerCustomerSpawning" type="Timer" parent="."]
