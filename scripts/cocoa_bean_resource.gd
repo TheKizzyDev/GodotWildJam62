@@ -2,7 +2,10 @@ extends Resource
 
 class_name CocoaBeanResource
 
+enum Type { Normal, Frozen }
+
 @export var display_name = "None": get = get_display_name
+@export var type: Type
 
 func get_display_name():
 	return display_name

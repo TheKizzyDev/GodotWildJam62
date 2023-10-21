@@ -19,7 +19,6 @@ func _ready():
 		
 		_queue_slots.append(_queue_path.curve.get_point_position(idx))
 	print("Capacity: %d" % _queue_capacity)	
-	queue_redraw()
 
 
 func _process(delta):
@@ -30,10 +29,10 @@ func _process(delta):
 			curr_customer.request_move_to(exp_pos)
 
 
-func _draw():
-	for _slot in _queue_slots:
-		print("%s" % str(_slot))
-		draw_circle(_slot, 2, Color.RED)
+#func _draw():
+#	for _slot in _queue_slots:
+#		print("%s" % str(_slot))
+#		draw_circle(_slot, 2, Color.RED)
 
 func _update_customer_positions():
 	for idx in _customers.size():

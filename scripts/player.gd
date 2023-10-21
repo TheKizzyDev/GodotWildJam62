@@ -4,6 +4,7 @@ class_name Player
 
 signal interacted(player: Player)
 signal interacted_with_secondary(player: Player)
+signal cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type)
 
 @export_group("Config")
 @export var speed = 150
@@ -98,13 +99,12 @@ func _handle_input_combat_zone(delta):
 
 
 func _handle_cocoa_shop_input(delta):
-#	if not is_on_floor():
-#		velocity.y += gravity * delta
+	if Input.is_action_just_pressed("frozen_cocoa_bean"):
+		cocoa_bean_selected.emit(CocoaBeanResource.Type.Frozen)
 		
-	# TODO: Remove, if confident jump is not needed in the cocoa shop.
-#	if Input.is_action_just_pressed("jump") and is_on_floor():
-#		velocity.y = jump_velocity
-
+	if Input.is_action_just_pressed("normal_cocoa_bean"):
+		cocoa_bean_selected.emit(CocoaBeanResource.Type.Normal)
+	
 	var _up_down_direction = Input.get_axis("move_up", "move_down")
 	if _up_down_direction:
 		velocity.y = _up_down_direction * speed

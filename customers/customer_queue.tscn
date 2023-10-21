@@ -13,5 +13,6 @@ point_count = 4
 script = ExtResource("1_hcbty")
 
 [node name="Path2D" type="Path2D" parent="."]
+visible = false
 position = Vector2(0, -1)
 curve = SubResource("Curve2D_v2rpj")

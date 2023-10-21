@@ -36,14 +36,13 @@ func _ready():
 	
 	for n in range(get_capacity() - 1, -1, -1):
 		_queue_path.curve.add_point(_queue_slots[n])
-	queue_redraw()
 	
 	_determine_cocoa_drink_queue_state()
 
 
-func _draw():
-	for p in _queue_slots:
-		draw_circle(p, 1.0, Color.RED)
+#func _draw():
+#	for p in _queue_slots:
+#		draw_circle(p, 1.0, Color.RED)
 
 
 func _are_all_drinks_slotted():
