@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgk46o6opmr5y"]
+[gd_scene load_steps=6 format=3 uid="uid://dgk46o6opmr5y"]
 
 [ext_resource type="Script" path="res://customers/customer.gd" id="1_6fyqn"]
 [ext_resource type="Texture2D" uid="uid://c5m0nlijkndoi" path="res://art/characters/customer_1/customer_1_idle.png" id="1_fmkyu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_604wk"]
 size = Vector2(14, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hlgpg"]
+resource_local_to_scene = true
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_pyi7w"]
 
 [node name="Customer" type="CharacterBody2D"]
 collision_layer = 2
@@ -18,5 +33,35 @@ shape = SubResource("RectangleShape2D_604wk")
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 texture_filter = 1
 texture = ExtResource("1_fmkyu")
-flip_h = true
 hframes = 2
+
+[node name="OrderIcon" type="Control" parent="CollisionShape2D/Sprite2D"]
+visible = false
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -24.0
+offset_top = -34.0
+offset_right = -8.0
+offset_bottom = -18.0
+grow_horizontal = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CollisionShape2D/Sprite2D/OrderIcon"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_hlgpg")
+
+[node name="TextureRect" type="TextureRect" parent="CollisionShape2D/Sprite2D/OrderIcon/PanelContainer"]
+layout_mode = 2
+texture = SubResource("PlaceholderTexture2D_pyi7w")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="DrinkPosition" type="Marker2D" parent="."]
+position = Vector2(4, -11)

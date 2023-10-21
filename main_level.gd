@@ -28,7 +28,6 @@ func _ready():
 	
 	if _player_vars.teleported:
 		_player_vars.teleported = false
-		print("Global Position: %s" % str(_player_vars.last_teleport_origin))
 		_curr_player.set_position(_player_vars.last_teleport_origin)
 
 
@@ -36,10 +35,6 @@ func _on_teleported(teleporter: Teleporter, origin: Vector2):
 	_player_vars.teleported = true
 	_player_vars.last_teleport_origin = origin
 	_global_vars.goto_level_key(teleporter.level_key)
-
-
-func _draw():
-	draw_circle(_player_vars.last_teleport_origin, 10, Color.RED)
 
 
 func _on_cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type):

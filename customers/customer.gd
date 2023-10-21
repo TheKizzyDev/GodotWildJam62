@@ -6,6 +6,8 @@ signal move_to_succeeded(customer: Customer, destination: Vector2)
 
 @export var speed = 20.0
 
+@onready var _order_icon = $CollisionShape2D/Sprite2D/OrderIcon
+
 var _curr_destination: Vector2
 var _curr_direction: Vector2
 var _is_fulfilling_move_to_request = false
@@ -31,11 +33,14 @@ func set_order(new_order: CustomerOrder):
 func give_drink(drink: CocoaDrink):
 	_curr_drink = drink
 	if _curr_drink:
+		_order_icon.set_visible(false)
 		_curr_drink.reparent(self)
+		_curr_drink.set_position($DrinkPosition.position)
 
 
 func take_order():
 	_order_taken = true
+	_order_icon.set_visible(true)
 	# TODO: Determine state.
 	return _curr_order
 

@@ -76,7 +76,6 @@ func can_take_drink():
 func take_drink():
 	if can_take_drink():
 		var drink = _drinks.pop_front()
-		remove_child(drink)
 		return drink
 	
 	return null

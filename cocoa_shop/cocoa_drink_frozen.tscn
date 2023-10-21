@@ -1,14 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://bu5njjvh23quy"]
 
 [ext_resource type="PackedScene" uid="uid://dvrd08onfjrsj" path="res://cocoa_shop/cocoa_drink.tscn" id="1_xon7m"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_uwt8a"]
-resource_local_to_scene = true
-size = Vector2(8, 8)
+[ext_resource type="Texture2D" uid="uid://37ixaayueodb" path="res://art/cocoa_shop/frozen_hot_cocoa.png" id="2_bn7x5"]
 
 [node name="CocoaDrink" instance=ExtResource("1_xon7m")]
 
 [node name="Sprite2D" parent="Pivot" index="0"]
-modulate = Color(0.184314, 0.372549, 0.694118, 1)
 texture_filter = 1
-texture = SubResource("PlaceholderTexture2D_uwt8a")
+position = Vector2(0, -5)
+texture = ExtResource("2_bn7x5")

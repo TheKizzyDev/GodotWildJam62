@@ -7,11 +7,12 @@ resource_local_to_scene = true
 size = Vector2(8, 8)
 
 [node name="CocoaDrink" type="Node2D"]
-z_index = 3
+z_index = 100
 script = ExtResource("1_yfjk6")
 
 [node name="Pivot" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="Pivot"]
+z_index = 3
+position = Vector2(0, -4)
 texture = SubResource("PlaceholderTexture2D_o0arc")
-offset = Vector2(4, -4)
