@@ -2,6 +2,7 @@ extends Level
 
 @export var cocoa_bean_selection_color: Color
 @export var cocoa_bean_selection_theme_override: StyleBoxFlat
+@export var camera_speed = 300.0
 
 @onready var _curr_player = $Player2D as Player
 @onready var _ui = $UI
@@ -13,6 +14,7 @@ extends Level
 @onready var _fcb_ctr = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer/Counter as Label
 @onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
 @onready var _global_vars = get_node("/root/Global") as Global
+@onready var _camera = get_node("Player2D/Camera2D") as Camera2D
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
@@ -55,6 +57,13 @@ func _on_cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type):
 
 func _process(delta):
 	if _curr_player:
+		if sign(_curr_player.velocity.x) > 0:
+			var new_offset_x = move_toward(_camera.offset.x, 64, delta * camera_speed)
+			_camera.set_offset(Vector2(new_offset_x, -16))
+		elif sign(_curr_player.velocity.x) < 0:
+			var new_offset_x = move_toward(_camera.offset.x, -64, delta * camera_speed)
+			_camera.set_offset(Vector2(new_offset_x, -16))
+			
 		var bi = _curr_player._bean_inventory
 		for key in bi:
 			var bean = key as CocoaBeanResource
