@@ -170,8 +170,9 @@ shape = SubResource("RectangleShape2D_vgsx4")
 
 [node name="Sprite2D" type="Sprite2D" parent="CollisionShape2D"]
 texture_filter = 1
-texture = ExtResource("2_d7yes")
-hframes = 4
+texture = ExtResource("2_6pvsp")
+hframes = 3
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle_Blinking"
@@ -259,6 +260,7 @@ shape = SubResource("RectangleShape2D_w3sjy")
 
 [node name="Hurtbox" parent="." instance=ExtResource("6_gv1vv")]
 collision_layer = 16
+max_health = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(2, -0.5)
@@ -268,5 +270,3 @@ shape = SubResource("RectangleShape2D_tfq1i")
 libraries = {
 "": SubResource("AnimationLibrary_kh33r")
 }
-
-[connection signal="health_changed" from="Hurtbox" to="." method="_on_hurtbox_health_changed"]

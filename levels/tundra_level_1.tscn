@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ommeotjsv13k"]
+[gd_scene load_steps=17 format=3 uid="uid://ommeotjsv13k"]
 
 [ext_resource type="PackedScene" uid="uid://cbat4a7e823wn" path="res://levels/level_base.tscn" id="1_m3m4r"]
 [ext_resource type="Texture2D" uid="uid://khqtdquh8auq" path="res://art/environment/GWJ FOREST N TUNDRA TILES.png" id="2_kk01b"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://xda7ltp02lsc" path="res://cocoa_shop/teleporter_home.tscn" id="7_mgl5o"]
 [ext_resource type="Resource" uid="uid://b8x2qec5jlmi4" path="res://cocoa_shop/cocoa_bean_normal.tres" id="8_6nmf6"]
 [ext_resource type="Resource" uid="uid://dw5qbbljxki7p" path="res://cocoa_shop/cocoa_bean_frozen_hot.tres" id="9_uurr8"]
+[ext_resource type="Texture2D" uid="uid://do3itkls4uslg" path="res://art/environment/GWJ Tundra Backdrop.png" id="10_4fkgq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x4lm4"]
 atlas = ExtResource("2_kk01b")
@@ -17,6 +18,20 @@ region = Rect2(96, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_r35as"]
 atlas = ExtResource("3_6rxdo")
 region = Rect2(0, 0, 199, 305)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jrnqo"]
+load_path = "res://.godot/imported/GWJ FOREST N TUNDRA TILES.png-bf6e413235162394ab0db5caa63246d1.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nm2ao"]
+atlas = SubResource("CompressedTexture2D_jrnqo")
+region = Rect2(128, 64, 32, 32)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_jy627"]
+load_path = "res://.godot/imported/GWJ FOREST N TUNDRA TILES.png-bf6e413235162394ab0db5caa63246d1.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h86xm"]
+atlas = SubResource("CompressedTexture2D_jy627")
+region = Rect2(163, 64, 29, 32)
 
 [node name="TundraLevel1" instance=ExtResource("1_m3m4r")]
 combat_zone = true
@@ -137,6 +152,30 @@ position = Vector2(885, -311)
 scale = Vector2(0.617462, 0.617462)
 texture = SubResource("AtlasTexture_r35as")
 
+[node name="Rock" type="Sprite2D" parent="TileMap/DecorationBack" index="9"]
+position = Vector2(504, -42)
+texture = SubResource("AtlasTexture_nm2ao")
+
+[node name="Rock2" type="Sprite2D" parent="TileMap/DecorationBack/Rock" index="0"]
+position = Vector2(30, 0)
+texture = SubResource("AtlasTexture_h86xm")
+
+[node name="Rock2" type="Sprite2D" parent="TileMap/DecorationBack" index="10"]
+position = Vector2(-418, 119)
+texture = SubResource("AtlasTexture_nm2ao")
+
+[node name="Rock2" type="Sprite2D" parent="TileMap/DecorationBack/Rock2" index="0"]
+position = Vector2(30, 0)
+texture = SubResource("AtlasTexture_h86xm")
+
+[node name="Rock4" type="Sprite2D" parent="TileMap/DecorationBack" index="11"]
+position = Vector2(-787, 409)
+texture = SubResource("AtlasTexture_nm2ao")
+
+[node name="Rock2" type="Sprite2D" parent="TileMap/DecorationBack/Rock4" index="0"]
+position = Vector2(30, 0)
+texture = SubResource("AtlasTexture_h86xm")
+
 [node name="TundraTree" parent="TileMap/CocoaTrees" index="0" instance=ExtResource("2_xjkxj")]
 position = Vector2(-565, -184)
 
@@ -186,3 +225,12 @@ beans = [ExtResource("8_6nmf6"), ExtResource("9_uurr8")]
 
 [node name="Camera2D" type="Camera2D" parent="TundraPlayer" index="7"]
 zoom = Vector2(3, 3)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="." index="9"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground" index="0"]
+motion_scale = Vector2(0.6, 0.6)
+
+[node name="GwjTundraBackdrop" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer" index="0"]
+texture_filter = 1
+texture = ExtResource("10_4fkgq")
