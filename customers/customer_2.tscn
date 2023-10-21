@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://c4g3anuxulhe6"]
+[gd_scene load_steps=9 format=3 uid="uid://blq74jh1lc7th"]
 
-[ext_resource type="PackedScene" uid="uid://dgk46o6opmr5y" path="res://customers/customer.tscn" id="1_wkuxi"]
-[ext_resource type="Texture2D" uid="uid://c3dwmy5454ubw" path="res://art/characters/customer_1/customer_1_walk.png" id="2_npkii"]
-[ext_resource type="Texture2D" uid="uid://c5m0nlijkndoi" path="res://art/characters/customer_1/customer_1_idle.png" id="3_l30ep"]
+[ext_resource type="PackedScene" uid="uid://dgk46o6opmr5y" path="res://customers/customer.tscn" id="1_junbp"]
+[ext_resource type="Texture2D" uid="uid://cmp4j2lni5aeo" path="res://art/characters/customer_2/customer_2_idle.png" id="2_cs2wv"]
+[ext_resource type="Texture2D" uid="uid://cd450yr5dm041" path="res://art/characters/customer_2/customer_2_walk.png" id="2_xpxkj"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1b8ru"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0466"]
 resource_local_to_scene = true
 content_margin_left = 1.0
 content_margin_top = 1.0
@@ -21,7 +21,47 @@ corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
 anti_aliasing = false
 
-[sub_resource type="Animation" id="Animation_6avob"]
+[sub_resource type="Animation" id="Animation_k6w6n"]
+resource_name = "Idle_Blinking"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_cs2wv")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D/Sprite2D:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D/Sprite2D:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7xs0p"]
 resource_name = "Walking"
 length = 0.3
 tracks/0/type = "value"
@@ -34,7 +74,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_npkii")]
+"values": [ExtResource("2_xpxkj")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -61,98 +101,38 @@ tracks/2/keys = {
 "values": [0, 1, 2, 3]
 }
 
-[sub_resource type="Animation" id="Animation_p114g"]
+[sub_resource type="Animation" id="Animation_ld7di"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D/Sprite2D:texture")
+tracks/0/path = NodePath("CollisionShape2D/Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("2_npkii")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D/Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"values": [1]
 }
 
-[sub_resource type="Animation" id="Animation_3vp30"]
-resource_name = "Idle_Blinking"
-length = 2.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CollisionShape2D/Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("3_l30ep")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CollisionShape2D/Sprite2D:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("CollisionShape2D/Sprite2D:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_umlpv"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wjju"]
 _data = {
-"Idle_Blinking": SubResource("Animation_3vp30"),
-"RESET": SubResource("Animation_p114g"),
-"Walking": SubResource("Animation_6avob")
+"Idle_Blinking": SubResource("Animation_k6w6n"),
+"RESET": SubResource("Animation_ld7di"),
+"Walking": SubResource("Animation_7xs0p")
 }
 
-[node name="Customer" instance=ExtResource("1_wkuxi")]
+[node name="Customer" instance=ExtResource("1_junbp")]
+
+[node name="Sprite2D" parent="CollisionShape2D" index="0"]
+texture = ExtResource("2_xpxkj")
+frame = 1
 
 [node name="PanelContainer" parent="CollisionShape2D/Sprite2D/OrderIcon" index="0"]
-theme_override_styles/panel = SubResource("StyleBoxFlat_1b8ru")
+theme_override_styles/panel = SubResource("StyleBoxFlat_l0466")
 
 [node name="AnimationPlayer" parent="." index="1"]
 libraries = {
-"": SubResource("AnimationLibrary_umlpv")
+"": SubResource("AnimationLibrary_4wjju")
 }

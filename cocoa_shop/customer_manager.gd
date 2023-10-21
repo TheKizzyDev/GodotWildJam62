@@ -10,6 +10,7 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 @export var customer_spawn_time := 1
 @export var customer_queue: CustomerQueue
 @export var pickup_queue: CustomerQueue
+@export var customer_types: Array
 
 @export_group("Orders")
 @export var possible_orders: Array
@@ -21,7 +22,7 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 @onready var _timer_customer_spawning = $TimerCustomerSpawning as Timer
 
 var _rand: RandomNumberGenerator
-const CUSTOMER = preload("res://customers/customer.tscn")
+const CUSTOMER = preload("res://customers/customer_1.tscn")
 
 
 func _ready():
@@ -100,7 +101,11 @@ func _get_random_order():
 
 func _spawn_customer():
 	if customer_queue.has_capacity():
-		var new_cust = CUSTOMER.instantiate() as Customer
+		var rng = RandomNumberGenerator.new()
+		rng.randomize()
+		var randi = rng.randi_range(0, customer_types.size() - 1)
+		var cust_template = customer_types[randi]
+		var new_cust = cust_template.instantiate() # CUSTOMER.instantiate() as Customer
 		add_child(new_cust)
 		new_cust.set_order(_get_random_order())
 		new_cust.set_position(spawn_marker.position)
