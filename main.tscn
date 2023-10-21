@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://51uahjl0k484"]
+[gd_scene load_steps=30 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="Script" path="res://main_level.gd" id="1_f53xu"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://cs4htygbkv0uv" path="res://cocoa_shop/cash_register.tscn" id="7_bknay"]
 [ext_resource type="PackedScene" uid="uid://4dq3n0l8brvk" path="res://cocoa_shop/customer_manager.tscn" id="8_v77dm"]
 [ext_resource type="PackedScene" uid="uid://b44ilsix0n2yn" path="res://customers/customer_queue.tscn" id="9_au2g1"]
+[ext_resource type="FontFile" uid="uid://q4oa315wkywd" path="res://art/font/m3x6.ttf" id="10_ua5a3"]
 [ext_resource type="LabelSettings" uid="uid://bobhhvyolb4gx" path="res://main_ui_font.tres" id="11_8h3s3"]
 [ext_resource type="PackedScene" uid="uid://o1v5p4btyuc8" path="res://cocoa_shop/teleporter_forest.tscn" id="11_e4pxn"]
 [ext_resource type="PackedScene" uid="uid://durwdddnipnjx" path="res://cocoa_shop/teleporter_tundra.tscn" id="12_r2wa3"]
@@ -70,6 +71,11 @@ corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
 anti_aliasing = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_ciiol"]
+line_spacing = 0.0
+font = ExtResource("10_ua5a3")
+font_size = 32
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_i3nkb"]
 
@@ -202,6 +208,14 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_x1nk3")
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot"]
 layout_mode = 2
 
+[node name="Label" type="Label" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Press 1"
+label_settings = SubResource("LabelSettings_ciiol")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
@@ -226,6 +240,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_x2ue3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Press 2
+"
+label_settings = SubResource("LabelSettings_ciiol")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
 texture_filter = 1

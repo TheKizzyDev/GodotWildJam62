@@ -5,3 +5,4 @@
 [resource]
 script = ExtResource("1_wqdfi")
 display_name = "Frozen Hot Cocoa Bean"
+type = 0
