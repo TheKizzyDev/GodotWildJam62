@@ -1,8 +1,89 @@
-[gd_scene load_steps=2 format=3 uid="uid://cho7o3kcm17lq"]
+[gd_scene load_steps=6 format=3 uid="uid://cho7o3kcm17lq"]
 
 [ext_resource type="Script" path="res://components/hurtbox.gd" id="1_t1x38"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7kj8b"]
+font_size = 8
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_0rn33"]
+resource_name = "default"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-14, -6), Vector2(-12, -53), Vector2(-11, 28)]
+}
+
+[sub_resource type="Animation" id="Animation_fnxif"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-14, -6)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k6p75"]
+_data = {
+"RESET": SubResource("Animation_fnxif"),
+"default": SubResource("Animation_0rn33")
+}
 
 [node name="Hurtbox" type="Area2D"]
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_t1x38")
+
+[node name="Label" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+offset_left = -14.0
+offset_top = -6.0
+offset_right = 8.00001
+offset_bottom = 9.0
+text = "- 1 hp"
+label_settings = SubResource("LabelSettings_7kj8b")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Label"]
+speed_scale = 1.6
+libraries = {
+"": SubResource("AnimationLibrary_k6p75")
+}
