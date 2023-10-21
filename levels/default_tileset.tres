@@ -1,6 +1,7 @@
-[gd_resource type="TileSet" load_steps=4 format=3 uid="uid://dflvxyebh0t6r"]
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://dflvxyebh0t6r"]
 
 [ext_resource type="Texture2D" uid="uid://khqtdquh8auq" path="res://art/environment/GWJ FOREST N TUNDRA TILES.png" id="1_cl6ec"]
+[ext_resource type="Texture2D" uid="uid://8ny21fr1nwel" path="res://art/environment/GWJ Jagged Underside Tile.png" id="2_2e1nj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oytgb"]
 resource_name = "Background walls"
@@ -106,9 +107,20 @@ texture_region_size = Vector2i(32, 32)
 5:2/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 5:2/0/physics_layer_0/angular_velocity = 0.0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vtcdh"]
+texture = ExtResource("2_2e1nj")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0 = 0
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+
 [resource]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 8
 physics_layer_0/collision_mask = 8
 sources/1 = SubResource("TileSetAtlasSource_8lpp5")
 sources/0 = SubResource("TileSetAtlasSource_oytgb")
+sources/3 = SubResource("TileSetAtlasSource_vtcdh")

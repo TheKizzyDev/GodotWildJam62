@@ -1,0 +1,178 @@
+[gd_scene load_steps=7 format=3 uid="uid://bsoj0jka0v2qp"]
+
+[ext_resource type="Script" path="res://hud/hud.gd" id="1_d8aua"]
+[ext_resource type="Texture2D" uid="uid://b7oqryomg5pn2" path="res://art/UI/GWJ Heart.png" id="1_t3qay"]
+
+[sub_resource type="Animation" id="Animation_12dxm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_2xwgb"]
+resource_name = "glow"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.839216), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ngpxj"]
+resource_name = "shrink"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kckd5"]
+_data = {
+"RESET": SubResource("Animation_12dxm"),
+"glow": SubResource("Animation_2xwgb"),
+"shrink": SubResource("Animation_ngpxj")
+}
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_d8aua")
+
+[node name="HealthBar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="1" type="TextureRect" parent="HealthBar"]
+texture_filter = 1
+layout_mode = 2
+offset_left = -6.0
+offset_top = 15.0
+offset_right = 100.0
+offset_bottom = 68.0
+pivot_offset = Vector2(53, 26)
+texture = ExtResource("1_t3qay")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HealthBar/1"]
+libraries = {
+"": SubResource("AnimationLibrary_kckd5")
+}
+
+[node name="2" type="TextureRect" parent="HealthBar"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 78.0
+offset_top = 15.0
+offset_right = 184.0
+offset_bottom = 68.0
+pivot_offset = Vector2(53, 26)
+texture = ExtResource("1_t3qay")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HealthBar/2"]
+libraries = {
+"": SubResource("AnimationLibrary_kckd5")
+}
+
+[node name="3" type="TextureRect" parent="HealthBar"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 163.0
+offset_top = 14.0
+offset_right = 269.0
+offset_bottom = 67.0
+pivot_offset = Vector2(53, 26)
+texture = ExtResource("1_t3qay")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HealthBar/3"]
+libraries = {
+"": SubResource("AnimationLibrary_kckd5")
+}
+
+[node name="4" type="TextureRect" parent="HealthBar"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 247.0
+offset_top = 14.0
+offset_right = 353.0
+offset_bottom = 67.0
+pivot_offset = Vector2(53, 26)
+texture = ExtResource("1_t3qay")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HealthBar/4"]
+libraries = {
+"": SubResource("AnimationLibrary_kckd5")
+}
+
+[node name="5" type="TextureRect" parent="HealthBar"]
+texture_filter = 1
+layout_mode = 2
+offset_left = 331.0
+offset_top = 14.0
+offset_right = 437.0
+offset_bottom = 67.0
+pivot_offset = Vector2(53, 26)
+texture = ExtResource("1_t3qay")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HealthBar/5"]
+autoplay = "glow"
+libraries = {
+"": SubResource("AnimationLibrary_kckd5")
+}
