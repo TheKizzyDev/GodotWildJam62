@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dqhqtx7vat48u" path="res://art/characters/barista/tundra skin/barista(tundra)_die.png" id="4_bwpk2"]
 [ext_resource type="Texture2D" uid="uid://ca3nuoxiviwdn" path="res://art/characters/barista/tundra skin/barista(tundra)_walk.png" id="4_victw"]
 [ext_resource type="Texture2D" uid="uid://by7s8h1ik2w4f" path="res://art/characters/barista/tundra skin/barista(tundra)_jump.png" id="5_42asb"]
+[ext_resource type="PackedScene" uid="uid://bsoj0jka0v2qp" path="res://hud/hud.tscn" id="8_1x0vk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtwje"]
 atlas = ExtResource("3_jamex")
@@ -554,9 +555,6 @@ animations = [{
 "speed": 6.0
 }]
 
-[sub_resource type="LabelSettings" id="LabelSettings_37rvi"]
-font_size = 64
-
 [node name="TundraPlayer" instance=ExtResource("1_ex1qc")]
 script = ExtResource("2_an4v3")
 beans = []
@@ -576,26 +574,7 @@ position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_dtakl")
 animation = &"die"
 
-[node name="HUD" type="CanvasLayer" parent="." index="7"]
-
-[node name="HealthBar" type="Control" parent="HUD" index="0"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MarginContainer" type="MarginContainer" parent="HUD/HealthBar" index="0"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 0
-offset_left = 10.0
-offset_top = 11.0
-offset_right = 466.0
-offset_bottom = 99.0
-
-[node name="Label" type="Label" parent="HUD/HealthBar/MarginContainer" index="0"]
-layout_mode = 2
-text = "❤️❤️❤️❤️❤️"
-label_settings = SubResource("LabelSettings_37rvi")
+[node name="HUD" parent="." index="7" instance=ExtResource("8_1x0vk")]
 
 [connection signal="died" from="Hurtbox" to="." method="_on_hurtbox_died"]
 [connection signal="health_changed" from="Hurtbox" to="." method="_on_hurtbox_health_changed"]

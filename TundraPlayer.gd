@@ -74,4 +74,4 @@ func _on_hurtbox_died():
 
 func _on_hurtbox_health_changed():
 	await get_tree().create_timer(.1).timeout
-	$HUD/HealthBar/MarginContainer/Label.text = "❤️".repeat(hurtbox.health)
+	$HUD.decrease_health()
