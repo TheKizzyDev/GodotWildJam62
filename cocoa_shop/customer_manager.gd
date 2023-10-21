@@ -18,11 +18,13 @@ extends Node
 
 @onready var _timer_customer_spawning = $TimerCustomerSpawning as Timer
 
-
+var _rand: RandomNumberGenerator
 const CUSTOMER = preload("res://customers/customer.tscn")
 
 
 func _ready():
+	_rand = RandomNumberGenerator.new()
+	
 	_timer_customer_spawning.set_one_shot(true)
 	_timer_customer_spawning.timeout.connect(_spawn_customer)
 	_timer_customer_spawning.start(customer_spawn_time)
@@ -90,14 +92,14 @@ func _on_pickup_queue_first_customer_readied(customer: Customer):
 
 
 func _get_random_order():
-	return possible_orders[0]
+	_rand.randomize()
+	return possible_orders[_rand.randi_range(0, possible_orders.size() - 1)]
 
 
 func _spawn_customer():
 	if customer_queue.has_capacity():
 		var new_cust = CUSTOMER.instantiate() as Customer
-		print("OWNER: %s" % str(get_owner()))
-		get_owner().add_child(new_cust)
+		add_child(new_cust)
 		new_cust.set_order(_get_random_order())
 		new_cust.set_position(spawn_marker.position)
 		customer_queue.enqueue(new_cust)
