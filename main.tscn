@@ -62,13 +62,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_pifh3"]
+[sub_resource type="Resource" id="Resource_nbhjb"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_puqfu"]
+[sub_resource type="Resource" id="Resource_y3pyt"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -174,11 +174,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_pifh3")
+cocoa_bean_resource_type = SubResource("Resource_nbhjb")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_puqfu")
+cocoa_bean_resource_type = SubResource("Resource_y3pyt")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
@@ -318,11 +318,41 @@ zoom = Vector2(4, 4)
 position = Vector2(292, 76)
 collision_mask = 15
 
-[node name="MusicEmitter" type="StudioEventEmitter2D" parent="."]
+[node name="StudioBankLoader" type="StudioBankLoader" parent="."]
+load_on = 1
+unload_on = 3
+num_banks = 3
+bank_0 = ExtResource("2_w4rpb")
+bank_1 = ExtResource("2_v76lp")
+bank_2 = ExtResource("5_gmtmx")
+
+[node name="Music_0" type="StudioEventEmitter2D" parent="." groups=["music"]]
 play_event = 2
 stop_event = 3
 event = ExtResource("20_7o3cb")
 preload_samples = true
+parameter_Room = 1
+
+[node name="Music_1" type="StudioEventEmitter2D" parent="." groups=["music"]]
+stop_event = 3
+event = ExtResource("20_7o3cb")
+preload_samples = true
+"parameter_Jukebox Select" = 1.0
+parameter_Room = 1
+
+[node name="Music_2" type="StudioEventEmitter2D" parent="." groups=["music"]]
+stop_event = 3
+event = ExtResource("20_7o3cb")
+preload_samples = true
+"parameter_Jukebox Select" = 2.0
+parameter_Room = 1
+
+[node name="Music_3_EasterEgg" type="StudioEventEmitter2D" parent="."]
+stop_event = 3
+event = ExtResource("20_7o3cb")
+preload_samples = true
+"parameter_Jukebox Select" = 3.0
+parameter_Room = 1
 
 [node name="AmbianceEmitter" type="StudioEventEmitter2D" parent="."]
 play_event = 2

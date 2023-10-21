@@ -19,6 +19,7 @@ extends Level
 @onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
 @onready var _global_vars = get_node("/root/Global") as Global
 @onready var _camera = $Camera2D as Camera2D
+@onready var _music = $MusicEmitter as StudioEventEmitter2D
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
@@ -26,14 +27,13 @@ var _master_bank: Bank
 var _ambi_bank: Bank
 var _music_bank: Bank
 var _sfx_bank: Bank
+var _available_music: Array
+var _curr_selected_music: StudioEventEmitter2D
+var _curr_selected_music_idx := 0
 
-func _enter_tree() -> void:
-	_master_bank = FMODStudioModule.get_studio_system().load_bank_file(master_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
-	_ambi_bank = FMODStudioModule.get_studio_system().load_bank_file(ambiance_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
-	_music_bank = FMODStudioModule.get_studio_system().load_bank_file(music_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
-	_sfx_bank = FMODStudioModule.get_studio_system().load_bank_file(sfx_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
-
-func _ready():	
+func _ready():
+	_available_music = get_tree().get_nodes_in_group("music")
+	_curr_selected_music = $Music_0
 	_curr_cocoa_bean_panel = _ncb_slot_panel
 	_cocoa_bean_default_theme_override = _ncb_slot_panel.get_theme_stylebox("panel") as StyleBoxFlat
 	_on_cocoa_bean_selected(CocoaBeanResource.Type.Normal)
@@ -65,6 +65,15 @@ func _on_cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type):
 		CocoaBeanResource.Type.Frozen:
 			_curr_cocoa_bean_panel = _fcb_slot_panel
 	_curr_cocoa_bean_panel.add_theme_stylebox_override("panel", cocoa_bean_selection_theme_override)
+
+
+func _input(event):
+	if event.is_action_pressed("change_music"):
+		_curr_selected_music.stop()
+		_curr_selected_music_idx = (_curr_selected_music_idx + 1) % _available_music.size()
+		_curr_selected_music = _available_music[_curr_selected_music_idx]
+		_curr_selected_music.play()
+		print("Changing Music: %s" % str(_curr_selected_music_idx))
 
 
 func _process(delta):
