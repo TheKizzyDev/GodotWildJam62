@@ -1,0 +1,325 @@
+[gd_scene load_steps=33 format=3 uid="uid://51uahjl0k484"]
+
+[ext_resource type="Script" path="res://main_level.gd" id="1_f53xu"]
+[ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
+[ext_resource type="Script" path="res://scripts/cocoa_bean_resource.gd" id="4_ec32g"]
+[ext_resource type="PackedScene" uid="uid://cajrfrbr777te" path="res://cocoa_shop/storage_bin_frozen_hot.tscn" id="4_ijhgt"]
+[ext_resource type="PackedScene" uid="uid://3x053tsyf2x4" path="res://cocoa_shop/storage_bin_regular.tscn" id="5_h35n2"]
+[ext_resource type="PackedScene" uid="uid://bxgcocrl30nkv" path="res://cocoa_shop/cocoa_maker.tscn" id="5_whk2x"]
+[ext_resource type="PackedScene" uid="uid://drcpw0xggagca" path="res://cocoa_shop/cocoa_drink_queue.tscn" id="6_kyvrf"]
+[ext_resource type="Texture2D" uid="uid://bftnw1khp2p6x" path="res://art/cocoa_shop/cocoa_shop.png" id="6_sw7d1"]
+[ext_resource type="PackedScene" uid="uid://cs4htygbkv0uv" path="res://cocoa_shop/cash_register.tscn" id="7_bknay"]
+[ext_resource type="PackedScene" uid="uid://4dq3n0l8brvk" path="res://cocoa_shop/customer_manager.tscn" id="8_v77dm"]
+[ext_resource type="PackedScene" uid="uid://b44ilsix0n2yn" path="res://customers/customer_queue.tscn" id="9_au2g1"]
+[ext_resource type="FontFile" uid="uid://q4oa315wkywd" path="res://art/font/m3x6.ttf" id="10_ua5a3"]
+[ext_resource type="LabelSettings" uid="uid://bobhhvyolb4gx" path="res://main_ui_font.tres" id="11_8h3s3"]
+[ext_resource type="PackedScene" uid="uid://o1v5p4btyuc8" path="res://cocoa_shop/teleporter_forest.tscn" id="11_e4pxn"]
+[ext_resource type="PackedScene" uid="uid://durwdddnipnjx" path="res://cocoa_shop/teleporter_tundra.tscn" id="12_r2wa3"]
+[ext_resource type="Texture2D" uid="uid://dc6a77my6f3qv" path="res://art/environment/normal_cocoa_beans.png" id="14_jpfe7"]
+[ext_resource type="Texture2D" uid="uid://biguvukhk2nf0" path="res://art/environment/frozen_cocoa_beans.png" id="16_durbm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0dptm"]
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0, 0.596078, 0.376471, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.576471, 0.254902, 0.207843, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bc4ou"]
+size = Vector2(86, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_orq78"]
+size = Vector2(22, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lqgc6"]
+size = Vector2(104, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_si7bl"]
+size = Vector2(126, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikb3e"]
+size = Vector2(6.5, 57.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ekb72"]
+size = Vector2(13, 116)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
+size = Vector2(348, 20)
+
+<<<<<<< HEAD
+[sub_resource type="Resource" id="Resource_am1lp"]
+=======
+[sub_resource type="Resource" id="Resource_35kru"]
+>>>>>>> origin/Music-and-Ambience-integration
+resource_local_to_scene = true
+script = ExtResource("4_ec32g")
+display_name = "Frozen Hot Cocoa Bean"
+type = 1
+
+<<<<<<< HEAD
+[sub_resource type="Resource" id="Resource_45gps"]
+=======
+[sub_resource type="Resource" id="Resource_spryb"]
+>>>>>>> origin/Music-and-Ambience-integration
+resource_local_to_scene = true
+script = ExtResource("4_ec32g")
+display_name = "Regular Hot Chocolate"
+type = 0
+
+[sub_resource type="Curve2D" id="Curve2D_wyemm"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 18, 0, 0, 0, 0, 0, 37, 0, 0, 0, 0, 0, 55, 0)
+}
+point_count = 4
+
+[sub_resource type="Curve2D" id="Curve2D_6snlm"]
+resource_local_to_scene = true
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 17, 0, 0, 0, 0, 0, 35, 0, 0, 0, 0, 0, 55, 0)
+}
+point_count = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x1nk3"]
+resource_local_to_scene = true
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.945098, 0.733333, 0.694118, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[sub_resource type="LabelSettings" id="LabelSettings_ciiol"]
+line_spacing = 0.0
+font = ExtResource("10_ua5a3")
+font_size = 32
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x2ue3"]
+resource_local_to_scene = true
+content_margin_left = 3.0
+content_margin_top = 3.0
+content_margin_right = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.945098, 0.733333, 0.694118, 1)
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+anti_aliasing = false
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_f53xu")
+cocoa_bean_selection_color = Color(0.286275, 0.501961, 1, 1)
+cocoa_bean_selection_theme_override = SubResource("StyleBoxFlat_0dptm")
+
+[node name="CocoaShop" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("6_sw7d1")
+centered = false
+
+[node name="Collisions" type="StaticBody2D" parent="CocoaShop"]
+collision_layer = 8
+collision_mask = 0
+
+[node name="CollisionShape2D_StoreFront" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(305, 20.5)
+shape = SubResource("RectangleShape2D_bc4ou")
+
+[node name="CollisionShape2D_SackPickup" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(246, 23.5)
+shape = SubResource("RectangleShape2D_orq78")
+
+[node name="CollisionShape2D_StoreRoom" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(183, 20.5)
+shape = SubResource("RectangleShape2D_lqgc6")
+
+[node name="CollisionShape2D_PortalRoom" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(63, 20.5)
+shape = SubResource("RectangleShape2D_si7bl")
+
+[node name="CollisionShape2D_StoreRoomWall" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(259.25, 25.5)
+shape = SubResource("RectangleShape2D_ikb3e")
+
+[node name="CollisionShape2D_StoreRoomWall2" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(129, 29)
+shape = SubResource("RectangleShape2D_ikb3e")
+
+[node name="CollisionShape2D_LeftWall" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(-6.5, 58)
+shape = SubResource("RectangleShape2D_ekb72")
+
+[node name="CollisionShape2D_Floor" type="CollisionShape2D" parent="CocoaShop/Collisions"]
+position = Vector2(174, 106)
+shape = SubResource("RectangleShape2D_p5g5t")
+
+[node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
+position = Vector2(199, 58)
+<<<<<<< HEAD
+cocoa_bean_resource_type = SubResource("Resource_am1lp")
+
+[node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
+position = Vector2(225, 58)
+cocoa_bean_resource_type = SubResource("Resource_45gps")
+=======
+cocoa_bean_resource_type = SubResource("Resource_35kru")
+
+[node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
+position = Vector2(225, 58)
+cocoa_bean_resource_type = SubResource("Resource_spryb")
+>>>>>>> origin/Music-and-Ambience-integration
+
+[node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
+position = Vector2(285, 46)
+cocoa_drink_queue = NodePath("../CocoaDrinkQueue")
+
+[node name="CocoaDrinkQueue" parent="CocoaShop" instance=ExtResource("6_kyvrf")]
+position = Vector2(299, 51)
+
+[node name="EndOfQueueMarker" parent="CocoaShop/CocoaDrinkQueue" index="1"]
+position = Vector2(41, 0)
+
+[node name="CashRegister" parent="CocoaShop" instance=ExtResource("7_bknay")]
+position = Vector2(339, 76)
+
+[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "pickup_queue", "spawn_marker", "exit_marker") instance=ExtResource("8_v77dm")]
+cocoa_drink_queue = NodePath("../CocoaDrinkQueue")
+cash_register = NodePath("../CashRegister")
+customer_queue = NodePath("../OrderQueue")
+pickup_queue = NodePath("../PickupQueue")
+spawn_marker = NodePath("SpawnMarker")
+exit_marker = NodePath("ExitMarker")
+
+[node name="SpawnMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
+position = Vector2(411, 90)
+
+[node name="ExitMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
+position = Vector2(411, 75)
+
+[node name="OrderQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
+position = Vector2(359, 90)
+
+[node name="Path2D" parent="CocoaShop/OrderQueue" index="0"]
+curve = SubResource("Curve2D_wyemm")
+
+[node name="PickupQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
+position = Vector2(359, 77)
+
+[node name="Path2D" parent="CocoaShop/PickupQueue" index="0"]
+curve = SubResource("Curve2D_6snlm")
+
+[node name="TeleporterForest" parent="CocoaShop" groups=["teleporters"] instance=ExtResource("11_e4pxn")]
+position = Vector2(99, 48)
+
+[node name="TeleporterTundra" parent="CocoaShop" groups=["teleporters"] instance=ExtResource("12_r2wa3")]
+position = Vector2(28, 48)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="UI"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+
+[node name="GridContainer" type="GridContainer" parent="UI/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 10
+columns = 2
+
+[node name="NormalCocoaBeanSlot" type="PanelContainer" parent="UI/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_x1nk3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Press 1"
+label_settings = SubResource("LabelSettings_ciiol")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+modulate = Color(0.615686, 0.623529, 0.384314, 1)
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("14_jpfe7")
+expand_mode = 4
+
+[node name="Counter" type="Label" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "0
+"
+label_settings = ExtResource("11_8h3s3")
+horizontal_alignment = 1
+
+[node name="FrozenCocoaBeanSlot" type="PanelContainer" parent="UI/MarginContainer/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_x2ue3")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "Press 2
+"
+label_settings = SubResource("LabelSettings_ciiol")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+modulate = Color(0.207843, 0.462745, 0.866667, 1)
+texture_filter = 1
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("16_durbm")
+expand_mode = 4
+
+[node name="Counter" type="Label" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "0
+"
+label_settings = ExtResource("11_8h3s3")
+horizontal_alignment = 1
+
+[node name="Player2D" parent="." instance=ExtResource("1_qrxw1")]
+position = Vector2(292, 76)
+collision_mask = 15
+
+[node name="Camera2D" type="Camera2D" parent="Player2D"]
+offset = Vector2(0, -16)
+zoom = Vector2(8, 8)
+
+[editable path="CocoaShop/CocoaDrinkQueue"]
+[editable path="CocoaShop/OrderQueue"]
+[editable path="CocoaShop/PickupQueue"]

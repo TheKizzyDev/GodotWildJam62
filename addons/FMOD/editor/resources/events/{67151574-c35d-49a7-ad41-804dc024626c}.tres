@@ -1,0 +1,47 @@
+[gd_resource type="EventAsset" load_steps=7 format=3 uid="uid://nervgptm5gff"]
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_vwti7"]
+data1 = 1311442601
+data2 = 2911799329
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_sshta"]
+name = "Room"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_vwti7")
+maximum = 1.0
+flags = 24
+guid = "{83246c59-b7e4-4f0f-b2da-a290807b9821}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_8b2da"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_sshta")
+labels = ["Room", "Cafe"]
+path = "parameter:/Room"
+guid = "{83246c59-b7e4-4f0f-b2da-a290807b9821}"
+name = "Room"
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_sw8q8"]
+data1 = 4009386179
+data2 = 1045598320
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_n25s6"]
+name = "Jukebox Select"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_sw8q8")
+maximum = 3.0
+flags = 8
+guid = "{1a57a28f-ee84-485e-b9bb-2b0da3eacfba}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_jvmyj"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_n25s6")
+path = "parameter:/Jukebox Select"
+guid = "{1a57a28f-ee84-485e-b9bb-2b0da3eacfba}"
+name = "Jukebox Select"
+
+[resource]
+min_distance = 1.0
+max_distance = 20.0
+parameters = {
+"{1a57a28f-ee84-485e-b9bb-2b0da3eacfba}": SubResource("ParameterAsset_jvmyj"),
+"{83246c59-b7e4-4f0f-b2da-a290807b9821}": SubResource("ParameterAsset_8b2da")
+}
+path = "event:/Music/Cafe Music"
+guid = "{67151574-c35d-49a7-ad41-804dc024626c}"
+name = "Cafe Music"

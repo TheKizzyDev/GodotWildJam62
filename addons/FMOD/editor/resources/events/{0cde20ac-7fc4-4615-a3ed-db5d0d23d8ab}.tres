@@ -1,0 +1,8 @@
+[gd_resource type="EventAsset" format=3 uid="uid://dbwlq37ttkti2"]
+
+[resource]
+min_distance = 1.0
+max_distance = 20.0
+path = "event:/Music/Forest Music"
+guid = "{0cde20ac-7fc4-4615-a3ed-db5d0d23d8ab}"
+name = "Forest Music"
