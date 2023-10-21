@@ -281,7 +281,7 @@ shape = SubResource("RectangleShape2D_sn4o1")
 
 [node name="Skin" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_dqhn4")
-animation = &"walk"
+animation = &"die"
 autoplay = "idle"
 
 [node name="GroundDetectorLeft" parent="." index="3"]

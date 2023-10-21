@@ -23,9 +23,9 @@ func chase_state():
 	super.chase_state()
 	if not is_attacking:
 		if velocity.y > 0:
-			skin.frame = 0
-		else:
 			skin.frame = 1
+		else:
+			skin.frame = 0
 			
 		if is_on_floor():
 			velocity.y = -160
