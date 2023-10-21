@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://d383knigyt0r5"]
+
+[ext_resource type="PackedScene" uid="uid://dgk46o6opmr5y" path="res://customers/customer.tscn" id="1_wkuxi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hhouv"]
+resource_local_to_scene = true
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+anti_aliasing = false
+
+[node name="Customer" instance=ExtResource("1_wkuxi")]
+
+[node name="PanelContainer" parent="CollisionShape2D/Sprite2D/OrderIcon" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_hhouv")

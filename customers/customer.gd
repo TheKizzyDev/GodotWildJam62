@@ -9,6 +9,8 @@ signal move_to_succeeded(customer: Customer, destination: Vector2)
 @onready var _drink_icon = $CollisionShape2D/Sprite2D/OrderIcon/PanelContainer/DrinkIcon
 @onready var _order_icon = $CollisionShape2D/Sprite2D/OrderIcon
 @onready var _drink_pos_marker = $DrinkPosition as Marker2D
+@onready var _sprite = $CollisionShape2D/Sprite2D
+@onready var _animation_player = $AnimationPlayer
 
 var _curr_destination: Vector2
 var _curr_direction: Vector2
@@ -21,9 +23,19 @@ var _curr_drink: CocoaDrink
 func _physics_process(delta):
 	if not is_at_destination():
 		velocity = _curr_direction * speed
-		
+		if abs(velocity.x) > 0 or abs(velocity.y) > 0:
+			if sign(velocity.x) >= 0:
+				_sprite.set_flip_h(false)
+				_animation_player.play("Walking")
+			else:
+				_sprite.set_flip_h(true)
+				_animation_player.play("Walking")
+		else:
+			_sprite.set_flip_h(false)
+			_animation_player.play("Idle_Blinking")
 		move_and_slide()
 	elif _is_fulfilling_move_to_request:
+		_animation_player.play("Idle_Blinking")
 		_is_fulfilling_move_to_request = false
 		move_to_succeeded.emit(self, _curr_destination)
 

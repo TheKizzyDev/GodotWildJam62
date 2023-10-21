@@ -41,11 +41,16 @@ func _update_customer_positions():
 		if curr_customer and curr_customer.position.distance_to(exp_pos) > 0.1:
 			if idx == 0:
 				curr_customer.move_to_succeeded.connect(_on_first_customer_ready)
+			curr_customer.move_to_succeeded.connect(_on_customer_ready)
 			curr_customer.request_move_to(exp_pos)
 
 
 func _on_first_customer_ready(customer: Customer, destination: Vector2):
 	first_customer_readied.emit(customer)
+
+
+func _on_customer_ready(customer: Customer, destination: Vector2):
+	customer._sprite.set_flip_h(true)
 
 
 func is_empty():
@@ -83,6 +88,7 @@ func dequeue():
 	if can_dequeue():
 		var popped_customer = _customers.pop_front() as Customer
 		popped_customer.move_to_succeeded.disconnect(_on_first_customer_ready)
+		popped_customer.move_to_succeeded.disconnect(_on_customer_ready)
 		dequeued.emit(popped_customer)
 		_update_customer_positions()
 		return popped_customer
