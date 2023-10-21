@@ -100,10 +100,10 @@ func _handle_input_combat_zone(delta):
 
 func _handle_cocoa_shop_input(delta):
 	if Input.is_action_just_pressed("frozen_cocoa_bean"):
-		cocoa_bean_selected.emit(CocoaBeanResource.Type.Frozen)
+		_select_bean(CocoaBeanResource.Type.Frozen)
 		
 	if Input.is_action_just_pressed("normal_cocoa_bean"):
-		cocoa_bean_selected.emit(CocoaBeanResource.Type.Normal)
+		_select_bean(CocoaBeanResource.Type.Normal)
 	
 	var _up_down_direction = Input.get_axis("move_up", "move_down")
 	if _up_down_direction:
@@ -145,6 +145,10 @@ func _unhandled_input(event):
 		interacted_with_secondary.emit(self)
 
 
+func _select_bean(beanResourceType: CocoaBeanResource.Type):
+	cocoa_bean_selected.emit(beanResourceType)
+
+
 func get_selected_bean():
 	return _curr_bean_key
 
@@ -154,7 +158,15 @@ func give_bean(beanResourceType: CocoaBeanResource):
 	has_bean = bean_ctr > 0
 	if _bean_inventory.has(beanResourceType):
 		_bean_inventory[beanResourceType] += 1
+		_select_bean(beanResourceType.type)
 	print("Bean Inventory: %s" % str(_bean_inventory))
+
+
+func take_bean_with_selection(cocoa_bean_resource_type: CocoaBeanResource):
+	if cocoa_bean_resource_type:
+		_curr_bean_key = cocoa_bean_resource_type
+		_select_bean(_curr_bean_key.type)
+		take_bean()
 
 
 func take_bean():

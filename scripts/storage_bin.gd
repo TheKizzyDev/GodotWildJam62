@@ -35,8 +35,8 @@ func _on_area_2d_body_exited(body):
 
 
 func _on_deposit_bean_interact(player: Player):
-	if _curr_player and _curr_player.get_selected_bean() == cocoa_bean_resource_type:
-		var taken_bean = _curr_player.take_bean()
+	if _curr_player:
+		var taken_bean = _curr_player.take_bean_with_selection(cocoa_bean_resource_type)
 		if taken_bean:
 			_bean_ctr += 1
 			print("'%s' deposited. " % taken_bean.get_display_name())
