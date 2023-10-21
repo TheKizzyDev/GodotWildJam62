@@ -1,0 +1,97 @@
+[gd_resource type="EventAsset" load_steps=16 format=3 uid="uid://76tgv17d0xhe"]
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_baai0"]
+data1 = 159972537
+data2 = 1880754318
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_q0isl"]
+name = "Location"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_baai0")
+maximum = 2.0
+flags = 24
+guid = "{69423124-d5a6-46fc-a3a4-bea369e31ffe}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_ulbdf"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_q0isl")
+labels = ["Cafe", "Forest", "Tundra"]
+path = "parameter:/Location"
+guid = "{69423124-d5a6-46fc-a3a4-bea369e31ffe}"
+name = "Location"
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_ajp02"]
+data1 = 1422461914
+data2 = 1980480585
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_xrw7y"]
+name = "Distance From Cover"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_ajp02")
+maximum = 1.0
+guid = "{a649f464-899a-4485-aff4-ed62f2501d85}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_yvwcb"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_xrw7y")
+path = "parameter:/Distance From Cover"
+guid = "{a649f464-899a-4485-aff4-ed62f2501d85}"
+name = "Distance From Cover"
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_1exsc"]
+data1 = 1736663874
+data2 = 3250625234
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_q1tf6"]
+name = "Distance From Tree"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_1exsc")
+maximum = 1.0
+guid = "{a54c12bd-36e0-41fc-8b26-55f5f049a319}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_mfg8n"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_q1tf6")
+path = "parameter:/Distance From Tree"
+guid = "{a54c12bd-36e0-41fc-8b26-55f5f049a319}"
+name = "Distance From Tree"
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_7g1vw"]
+data1 = 2392511944
+data2 = 911405640
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_e8stp"]
+name = "Distance from Arcade"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_7g1vw")
+maximum = 1.0
+guid = "{59958aaf-f645-49f3-b8e9-b1365e78d341}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_6bs70"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_e8stp")
+path = "parameter:/Distance From Arcade"
+guid = "{59958aaf-f645-49f3-b8e9-b1365e78d341}"
+name = "Distance from Arcade"
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_ID" id="FMOD_STUDIO_PARAMETER_ID_brrln"]
+data1 = 1170167143
+data2 = 874261234
+
+[sub_resource type="FMOD_STUDIO_PARAMETER_DESCRIPTION" id="FMOD_STUDIO_PARAMETER_DESCRIPTION_0oxew"]
+name = "Customer Amount"
+id = SubResource("FMOD_STUDIO_PARAMETER_ID_brrln")
+maximum = 8.0
+guid = "{424cf4f8-db44-4e3a-8a5d-ab2d6c9ec036}"
+
+[sub_resource type="ParameterAsset" id="ParameterAsset_0t2gp"]
+parameter_description = SubResource("FMOD_STUDIO_PARAMETER_DESCRIPTION_0oxew")
+path = "parameter:/Customer Amount"
+guid = "{424cf4f8-db44-4e3a-8a5d-ab2d6c9ec036}"
+name = "Customer Amount"
+
+[resource]
+min_distance = 1.0
+max_distance = 20.0
+parameters = {
+"{424cf4f8-db44-4e3a-8a5d-ab2d6c9ec036}": SubResource("ParameterAsset_0t2gp"),
+"{59958aaf-f645-49f3-b8e9-b1365e78d341}": SubResource("ParameterAsset_6bs70"),
+"{69423124-d5a6-46fc-a3a4-bea369e31ffe}": SubResource("ParameterAsset_ulbdf"),
+"{a54c12bd-36e0-41fc-8b26-55f5f049a319}": SubResource("ParameterAsset_mfg8n"),
+"{a649f464-899a-4485-aff4-ed62f2501d85}": SubResource("ParameterAsset_yvwcb")
+}
+path = "event:/Ambiance/Ambiance"
+guid = "{280be539-d470-40ff-9def-6bb33c0cd7fe}"
+name = "Ambiance"
