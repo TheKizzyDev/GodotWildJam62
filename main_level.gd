@@ -9,6 +9,8 @@ extends Level
 @onready var _ncb_ctr = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/Counter as Label
 @onready var _fcb_slot_panel = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot as PanelContainer
 @onready var _fcb_ctr = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer/Counter as Label
+@onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
+@onready var _global_vars = get_node("/root/Global") as Global
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
@@ -18,6 +20,26 @@ func _ready():
 	_cocoa_bean_default_theme_override = _ncb_slot_panel.get_theme_stylebox("panel") as StyleBoxFlat
 	_on_cocoa_bean_selected(CocoaBeanResource.Type.Normal)
 	_curr_player.cocoa_bean_selected.connect(_on_cocoa_bean_selected)
+	
+	for t in get_tree().get_nodes_in_group("teleporters"):
+		var tele = t as Teleporter
+		if tele:
+			tele.teleported.connect(_on_teleported)
+	
+	if _player_vars.teleported:
+		_player_vars.teleported = false
+		print("Global Position: %s" % str(_player_vars.last_teleport_origin))
+		_curr_player.set_position(_player_vars.last_teleport_origin)
+
+
+func _on_teleported(teleporter: Teleporter, origin: Vector2):
+	_player_vars.teleported = true
+	_player_vars.last_teleport_origin = origin
+	_global_vars.goto_level_key(teleporter.level_key)
+
+
+func _draw():
+	draw_circle(_player_vars.last_teleport_origin, 10, Color.RED)
 
 
 func _on_cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type):

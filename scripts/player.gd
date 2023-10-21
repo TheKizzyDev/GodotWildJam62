@@ -133,6 +133,11 @@ func get_selected_bean():
 	return _curr_bean_key
 
 
+func teleport_to(level_key: Global.LevelKeys):
+	_player_vars.teleported = true
+	_global_vars.goto_level_key(level_key)
+
+
 func give_bean(beanResourceType: CocoaBeanResource):
 	bean_ctr += 1
 	has_bean = bean_ctr > 0

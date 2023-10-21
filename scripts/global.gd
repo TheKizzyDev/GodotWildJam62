@@ -4,6 +4,8 @@ var current_scene = null
 
 enum LevelKeys { HOME, TUNDRA, FOREST }
 
+var last_teleport_origin: Vector2
+
 func _ready():
 	var root = get_tree().root
 	current_scene = root.get_child(root.get_child_count() - 1)

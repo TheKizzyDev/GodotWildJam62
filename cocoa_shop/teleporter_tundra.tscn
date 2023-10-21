@@ -6,5 +6,5 @@
 [node name="TeleporterTundra" instance=ExtResource("1_e0rep")]
 level_key = 1
 
-[node name="Sprite2D" parent="TeleportOverlap" index="1"]
+[node name="Sprite2D" parent="TeleportOverlap/CollisionShape2D" index="0"]
 texture = ExtResource("2_eyp2o")

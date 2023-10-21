@@ -15,7 +15,7 @@ collision_layer = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TeleportOverlap"]
 shape = SubResource("RectangleShape2D_7s04e")
 
-[node name="Sprite2D" type="Sprite2D" parent="TeleportOverlap"]
+[node name="Sprite2D" type="Sprite2D" parent="TeleportOverlap/CollisionShape2D"]
 texture_filter = 1
 texture = ExtResource("2_o741x")
 

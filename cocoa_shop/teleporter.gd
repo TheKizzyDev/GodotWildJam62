@@ -1,6 +1,8 @@
-class_name teleporter
+class_name Teleporter
 
 extends Node2D
+
+signal teleported(teleporter: Teleporter, origin: Vector2)
 
 @onready var _global_vars = get_node("/root/Global") as Global
 
@@ -24,4 +26,7 @@ func _on_teleport_overlap_body_exited(body):
 
 
 func _on_teleport_interaction(player: Player):
-	_global_vars.goto_level_key(level_key)
+	if not teleported.get_connections().is_empty():
+		teleported.emit(self, position)
+	else:
+		_global_vars.goto_level_key(level_key)
