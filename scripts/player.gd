@@ -202,6 +202,4 @@ func stop_message():
 	_message_dialogue_control.set_visible(false)
 	_label_message_text.set_text("")
 
-func _on_hurtbox_health_changed():
-	$Hurtbox/AnimationPlayer.play("hurt")
 

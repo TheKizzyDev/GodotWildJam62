@@ -261,7 +261,7 @@ animations = [{
 size = Vector2(22, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8yj5"]
-size = Vector2(20, 18)
+size = Vector2(21, 18)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gl8gm"]
 size = Vector2(9, 18)
@@ -281,8 +281,9 @@ shape = SubResource("RectangleShape2D_sn4o1")
 
 [node name="Skin" parent="." index="1"]
 sprite_frames = SubResource("SpriteFrames_dqhn4")
-animation = &"die"
+animation = &"attack"
 autoplay = "idle"
+frame = 8
 
 [node name="GroundDetectorLeft" parent="." index="3"]
 target_position = Vector2(0, 25)
@@ -295,7 +296,7 @@ position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_nuacr")
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
-position = Vector2(0, -9)
+position = Vector2(10.5, -9)
 shape = SubResource("RectangleShape2D_q8yj5")
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]

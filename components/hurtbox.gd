@@ -5,8 +5,7 @@ signal health_changed
 signal died
 
 @export var max_health = 3
-
-var health = max_health:
+@export var health = max_health:
 	set(_health):
 		if health != _health:
 			emit_signal("health_changed")

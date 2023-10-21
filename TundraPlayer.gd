@@ -62,7 +62,7 @@ func attack():
 
 func _on_hurtbox_died():
 	set_physics_process(false)
-	set_collision_layer_value(0, false)
+	set_collision_layer_value(1, false)
 	hitbox.disable()
 	hurtbox.disable()
 	animated_sprite.play("die")
@@ -70,3 +70,8 @@ func _on_hurtbox_died():
 	visible = false
 	await get_tree().create_timer(1).timeout
 	Global.goto_level_key(Global.LevelKeys.HOME)
+
+
+func _on_hurtbox_health_changed():
+	await get_tree().create_timer(.1).timeout
+	$HUD/HealthBar/MarginContainer/Label.text = "❤️".repeat(hurtbox.health)

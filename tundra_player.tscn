@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://6gdnak1v3ipl"]
+[gd_scene load_steps=84 format=3 uid="uid://6gdnak1v3ipl"]
 
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_ex1qc"]
 [ext_resource type="Script" path="res://TundraPlayer.gd" id="2_an4v3"]
@@ -554,6 +554,9 @@ animations = [{
 "speed": 6.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_37rvi"]
+font_size = 64
+
 [node name="TundraPlayer" instance=ExtResource("1_ex1qc")]
 script = ExtResource("2_an4v3")
 beans = []
@@ -564,11 +567,36 @@ visible = false
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(16.5, 4)
 
+[node name="Hurtbox" parent="." index="5"]
+health = 5
+
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="." index="6"]
 texture_filter = 1
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_dtakl")
 animation = &"die"
 
+[node name="HUD" type="CanvasLayer" parent="." index="7"]
+
+[node name="HealthBar" type="Control" parent="HUD" index="0"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/HealthBar" index="0"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 466.0
+offset_bottom = 99.0
+
+[node name="Label" type="Label" parent="HUD/HealthBar/MarginContainer" index="0"]
+layout_mode = 2
+text = "❤️❤️❤️❤️❤️"
+label_settings = SubResource("LabelSettings_37rvi")
+
 [connection signal="died" from="Hurtbox" to="." method="_on_hurtbox_died"]
+[connection signal="health_changed" from="Hurtbox" to="." method="_on_hurtbox_health_changed"]
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_animated_sprite_animation_finished"]
