@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://51uahjl0k484"]
+[gd_scene load_steps=34 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="Script" path="res://main_level.gd" id="1_f53xu"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
@@ -15,6 +15,7 @@
 [ext_resource type="LabelSettings" uid="uid://bobhhvyolb4gx" path="res://main_ui_font.tres" id="11_8h3s3"]
 [ext_resource type="PackedScene" uid="uid://o1v5p4btyuc8" path="res://cocoa_shop/teleporter_forest.tscn" id="11_e4pxn"]
 [ext_resource type="PackedScene" uid="uid://durwdddnipnjx" path="res://cocoa_shop/teleporter_tundra.tscn" id="12_r2wa3"]
+[ext_resource type="PackedScene" uid="uid://bo7pe0aj6uhsv" path="res://cocoa_shop/arcade.tscn" id="13_ege18"]
 [ext_resource type="Texture2D" uid="uid://dc6a77my6f3qv" path="res://art/environment/normal_cocoa_beans.png" id="14_jpfe7"]
 [ext_resource type="Texture2D" uid="uid://biguvukhk2nf0" path="res://art/environment/frozen_cocoa_beans.png" id="16_durbm"]
 
@@ -55,13 +56,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_j8hrb"]
+[sub_resource type="Resource" id="Resource_vfixc"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_dubo1"]
+[sub_resource type="Resource" id="Resource_k2mx0"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -163,11 +164,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_j8hrb")
+cocoa_bean_resource_type = SubResource("Resource_vfixc")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_dubo1")
+cocoa_bean_resource_type = SubResource("Resource_k2mx0")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
@@ -213,6 +214,9 @@ position = Vector2(99, 48)
 
 [node name="TeleporterTundra" parent="CocoaShop" groups=["teleporters"] instance=ExtResource("12_r2wa3")]
 position = Vector2(28, 48)
+
+[node name="Arcade" parent="CocoaShop" instance=ExtResource("13_ege18")]
+position = Vector2(419, 53)
 
 [node name="UI" type="CanvasLayer" parent="."]
 
@@ -296,13 +300,13 @@ text = "0
 label_settings = ExtResource("11_8h3s3")
 horizontal_alignment = 1
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(292, 76)
+zoom = Vector2(4, 4)
+
 [node name="Player2D" parent="." instance=ExtResource("1_qrxw1")]
 position = Vector2(292, 76)
 collision_mask = 15
-
-[node name="Camera2D" type="Camera2D" parent="Player2D"]
-offset = Vector2(64, -16)
-zoom = Vector2(4, 4)
 
 [editable path="CocoaShop/CocoaDrinkQueue"]
 [editable path="CocoaShop/OrderQueue"]

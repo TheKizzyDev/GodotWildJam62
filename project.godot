@@ -20,6 +20,10 @@ FMODRuntime="*res://addons/FMOD/runtime/fmod_runtime_manager.gd"
 GlobalPlayerVariables="*res://scripts/global_player_variables.gd"
 Global="*res://scripts/global.gd"
 
+[display]
+
+window/size/viewport_height=384
+
 [dotnet]
 
 project/assembly_name="GodotWildJam62"
