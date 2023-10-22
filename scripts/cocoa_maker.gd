@@ -39,7 +39,6 @@ var _grinding_cocoa_bean = false
 
 @onready var _timer_grinding_cocoa_bean = $Sprite2D/Area2D_Grinder/Timer
 @onready var _timer_making_cocoa = $Sprite2D/Area2D_TurnOn/Timer
-@onready var _marker_drink_output = $Sprite2D/DrinkOutputMarker
 @onready var _anim_player = %AnimationPlayer
 
 

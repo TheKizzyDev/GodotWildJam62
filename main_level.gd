@@ -19,15 +19,10 @@ extends Level
 @onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
 @onready var _global_vars = get_node("/root/Global") as Global
 @onready var _camera = $Camera2D as Camera2D
-@onready var _music = $MusicEmitter as StudioEventEmitter2D
 @onready var _storage_bins = [ $CocoaShop/CocoaStorageBin_FrozenHot, $CocoaShop/CocoaStorageBin_Regular ]
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
-var _master_bank: Bank
-var _ambi_bank: Bank
-var _music_bank: Bank
-var _sfx_bank: Bank
 var _available_music: Array
 var _curr_selected_music: StudioEventEmitter2D
 var _curr_selected_music_idx := 0

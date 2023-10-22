@@ -143,6 +143,14 @@ func teleport_to(level_key: Global.LevelKeys):
 	_global_vars.goto_level_key(level_key)
 
 
+func give_bean_by_type(bean_type: CocoaBeanResource.Type):
+	for key in _bean_inventory:
+		var bean = key as CocoaBeanResource
+		if bean.type == bean_type:
+			give_bean(bean)
+			break
+
+
 func give_bean(beanResourceType: CocoaBeanResource):
 	bean_ctr += 1
 	has_bean = bean_ctr > 0

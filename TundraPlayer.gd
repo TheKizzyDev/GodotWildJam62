@@ -56,14 +56,6 @@ func _on_frame_changed():
 					FMODRuntime.play_one_shot(walking_event, self)
 
 
-func _on_jump():
-	FMODRuntime.play_one_shot(jumping_event, self)
-
-
-func _on_land():
-	FMODRuntime.play_one_shot(landing_event, self)
-
-
 func _handle_input_combat_zone(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -97,19 +89,11 @@ func _handle_input_combat_zone(delta):
 		else:
 			animated_sprite.frame = 0
 	move_and_slide()
-	
-
-func _on_step():
-	FMODRuntime.play_one_shot(walking_event, self)
 
 
 func _on_animated_sprite_animation_finished():
 	if animated_sprite.animation == "attack":
 		is_attacking = false
-
-
-func _on_attack():
-	FMODRuntime.play_one_shot(attack_event, self)
 
 
 func attack():
@@ -121,10 +105,6 @@ func attack():
 	hitbox.enable()
 	await get_tree().create_timer(.6).timeout
 	hitbox.disable()
-
-
-func _on_death():
-	FMODRuntime.play_one_shot(death_event, self)
 
 
 func _on_hurtbox_died():
