@@ -62,13 +62,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_0my15"]
+[sub_resource type="Resource" id="Resource_73yuv"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_2seiw"]
+[sub_resource type="Resource" id="Resource_4u0gc"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -174,11 +174,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_0my15")
+cocoa_bean_resource_type = SubResource("Resource_73yuv")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_2seiw")
+cocoa_bean_resource_type = SubResource("Resource_4u0gc")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
@@ -193,19 +193,23 @@ position = Vector2(41, 0)
 [node name="CashRegister" parent="CocoaShop" instance=ExtResource("7_bknay")]
 position = Vector2(339, 76)
 
-[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "pickup_queue", "spawn_marker", "exit_marker") instance=ExtResource("8_v77dm")]
+[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "pickup_queue", "spawn_marker", "exit_marker", "entry_marker") instance=ExtResource("8_v77dm")]
 cocoa_drink_queue = NodePath("../CocoaDrinkQueue")
 cash_register = NodePath("../CashRegister")
 customer_queue = NodePath("../OrderQueue")
 pickup_queue = NodePath("../PickupQueue")
 spawn_marker = NodePath("SpawnMarker")
 exit_marker = NodePath("ExitMarker")
+entry_marker = NodePath("EntryMarker")
 
 [node name="SpawnMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
 position = Vector2(384, 55)
 
 [node name="ExitMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
 position = Vector2(384, 55)
+
+[node name="EntryMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
+position = Vector2(384, 81)
 
 [node name="OrderQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
 position = Vector2(359, 90)

@@ -18,11 +18,11 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 @export_group("Markers")
 @export var spawn_marker: Marker2D
 @export var exit_marker: Marker2D
+@export var entry_marker: Marker2D
 
 @onready var _timer_customer_spawning = $TimerCustomerSpawning as Timer
 
 var _rand: RandomNumberGenerator
-const CUSTOMER = preload("res://customers/customer_1.tscn")
 
 
 func _ready():
@@ -59,7 +59,6 @@ func _on_first_drink_readied():
 
 
 func _on_customer_exit(customer: Customer, destination: Vector2):
-#	customer.queue_free()
 	customer.exit()
 
 
@@ -100,15 +99,22 @@ func _get_random_order():
 	return possible_orders[_rand.randi_range(0, possible_orders.size() - 1)]
 
 
+func _on_entry_move_to_succeeded(customer: Customer, destination: Vector2):
+	customer.move_to_succeeded.disconnect(_on_entry_move_to_succeeded)
+	customer_queue.enqueue(customer)
+
+
 func _spawn_customer():
 	if customer_queue.has_capacity():
 		var rng = RandomNumberGenerator.new()
 		rng.randomize()
 		var randi = rng.randi_range(0, customer_types.size() - 1)
 		var cust_template = customer_types[randi]
-		var new_cust = cust_template.instantiate() # CUSTOMER.instantiate() as Customer
+		var new_cust = cust_template.instantiate() as Customer # CUSTOMER.instantiate() as Customer
 		add_child(new_cust)
 		new_cust.set_order(_get_random_order())
 		new_cust.set_position(spawn_marker.position)
-		customer_queue.enqueue(new_cust)
+		customer_queue.reserve()
+		new_cust.move_to_succeeded.connect(_on_entry_move_to_succeeded)
+		new_cust.request_move_to(entry_marker.position)
 		_timer_customer_spawning.start(customer_spawn_time)
