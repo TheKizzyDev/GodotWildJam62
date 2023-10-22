@@ -10,16 +10,18 @@ extends Level
 
 @onready var _curr_player = $Player2D as Player
 @onready var _ui = $UI
-@onready var _ncb_bean_icon = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
-@onready var _ncb_slot_panel = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot as PanelContainer
-@onready var _ncb_ctr = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/Counter as Label
-@onready var _fcb_bean_icon = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
-@onready var _fcb_slot_panel = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot as PanelContainer
-@onready var _fcb_ctr = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer/Counter as Label
+@onready var _ncb_bean_icon = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
+@onready var _ncb_slot_panel = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot as PanelContainer
+@onready var _ncb_ctr = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot/VBoxContainer/Counter as Label
+@onready var _fcb_bean_icon = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
+@onready var _fcb_slot_panel = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot as PanelContainer
+@onready var _fcb_ctr = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot/VBoxContainer/Counter as Label
 @onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
 @onready var _global_vars = get_node("/root/Global") as Global
 @onready var _camera = $Camera2D as Camera2D
 @onready var _storage_bins = [ $CocoaShop/CocoaStorageBin_FrozenHot, $CocoaShop/CocoaStorageBin_Regular ]
+@onready var _money_ctr = $UI/MarginContainer/VBoxContainer2/GridContainer/MarginContainer/MoneyCtr as Label
+@onready var _customer_manager = $CocoaShop/CustomerManager as CustomerManager
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
@@ -29,7 +31,6 @@ var _curr_selected_music_idx := 0
 
 
 func _exit_tree():
-	
 	_player_vars.is_initialized = true
 	for sb in _storage_bins:
 		var bin = sb as StorageBin
@@ -91,6 +92,8 @@ func _input(event):
 
 
 func _process(delta):
+	_money_ctr.set_text(str(_customer_manager.get_money_amount()))
+	
 	if _curr_player:
 		_camera.set_position(Vector2(_curr_player.global_position.x, 48))
 		var offset_target = 64

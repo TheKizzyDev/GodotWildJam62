@@ -36,6 +36,10 @@ func _exit_tree():
 	_player_vars.current_money_amount = _current_money_amount
 
 
+func get_money_amount():
+	return _current_money_amount
+
+
 func _ready():
 	if _player_vars.is_initialized:
 		_current_money_amount = _player_vars.current_money_amount
