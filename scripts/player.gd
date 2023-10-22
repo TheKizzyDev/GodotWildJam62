@@ -127,6 +127,8 @@ func _unhandled_input(event):
 		interacted.emit(self)
 	if event.is_action_pressed("interact_secondary"):
 		interacted_with_secondary.emit(self)
+	if event.is_action_pressed("exit"):
+		get_tree().quit()
 
 
 func _select_bean(bean_resource: CocoaBeanResource):
