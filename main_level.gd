@@ -10,30 +10,45 @@ extends Level
 
 @onready var _curr_player = $Player2D as Player
 @onready var _ui = $UI
-@onready var _ncb_bean_icon = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
-@onready var _ncb_slot_panel = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot as PanelContainer
-@onready var _ncb_ctr = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/Counter as Label
-@onready var _fcb_bean_icon = $UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
-@onready var _fcb_slot_panel = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot as PanelContainer
-@onready var _fcb_ctr = $UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer/Counter as Label
+@onready var _ncb_bean_icon = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
+@onready var _ncb_slot_panel = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot as PanelContainer
+@onready var _ncb_ctr = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot/VBoxContainer/Counter as Label
+@onready var _fcb_bean_icon = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot/VBoxContainer/BeanIcon as TextureRect
+@onready var _fcb_slot_panel = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot as PanelContainer
+@onready var _fcb_ctr = $UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot/VBoxContainer/Counter as Label
 @onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
 @onready var _global_vars = get_node("/root/Global") as Global
 @onready var _camera = $Camera2D as Camera2D
+@onready var _storage_bins = [ $CocoaShop/CocoaStorageBin_FrozenHot, $CocoaShop/CocoaStorageBin_Regular ]
+@onready var _money_ctr = $UI/MarginContainer/VBoxContainer2/GridContainer/MarginContainer/MoneyCtr as Label
+@onready var _customer_manager = $CocoaShop/CustomerManager as CustomerManager
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
-var _master_bank: Bank
-var _ambi_bank: Bank
-var _music_bank: Bank
-var _sfx_bank: Bank
+var _available_music: Array
+var _curr_selected_music: StudioEventEmitter2D
+var _curr_selected_music_idx := 0
 
-func _enter_tree() -> void:
-	_master_bank = FMODStudioModule.get_studio_system().load_bank_file(master_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
-	_ambi_bank = FMODStudioModule.get_studio_system().load_bank_file(ambiance_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
-	_music_bank = FMODStudioModule.get_studio_system().load_bank_file(music_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
-	_sfx_bank = FMODStudioModule.get_studio_system().load_bank_file(sfx_bank_asset.file_path, FMODStudioModule.FMOD_STUDIO_LOAD_BANK_NORMAL, false)
 
-func _ready():	
+func _exit_tree():
+	_player_vars.is_initialized = true
+	for sb in _storage_bins:
+		var bin = sb as StorageBin
+		if bin:
+			var bean_type = bin.cocoa_bean_resource_type.type
+			_player_vars.storage_bean_inventory[bean_type] = bin._bean_ctr
+
+
+func _ready():
+	if _player_vars.is_initialized:
+		for sb in _storage_bins:
+			var bin = sb as StorageBin
+			if bin:
+				var bean_type = bin.cocoa_bean_resource_type.type
+				bin._bean_ctr = _player_vars.storage_bean_inventory[bean_type] 
+	
+	_available_music = get_tree().get_nodes_in_group("music")
+	_curr_selected_music = $Music_0
 	_curr_cocoa_bean_panel = _ncb_slot_panel
 	_cocoa_bean_default_theme_override = _ncb_slot_panel.get_theme_stylebox("panel") as StyleBoxFlat
 	_on_cocoa_bean_selected(CocoaBeanResource.Type.Normal)
@@ -67,7 +82,18 @@ func _on_cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type):
 	_curr_cocoa_bean_panel.add_theme_stylebox_override("panel", cocoa_bean_selection_theme_override)
 
 
+func _input(event):
+	if event.is_action_pressed("change_music"):
+		_curr_selected_music.stop()
+		_curr_selected_music_idx = (_curr_selected_music_idx + 1) % _available_music.size()
+		_curr_selected_music = _available_music[_curr_selected_music_idx]
+		_curr_selected_music.play()
+		print("Changing Music: %s" % str(_curr_selected_music_idx))
+
+
 func _process(delta):
+	_money_ctr.set_text(str(_customer_manager.get_money_amount()))
+	
 	if _curr_player:
 		_camera.set_position(Vector2(_curr_player.global_position.x, 48))
 		var offset_target = 64

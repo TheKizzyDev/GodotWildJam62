@@ -2,7 +2,7 @@ extends Node
 
 var current_scene = null
 
-enum LevelKeys { HOME, TUNDRA, FOREST }
+enum LevelKeys { HOME, TUNDRA, FOREST, ROOM }
 
 var last_teleport_origin: Vector2
 
@@ -13,7 +13,7 @@ func _ready():
 
 func goto_level_key(level_key: LevelKeys):
 	match level_key:
-		LevelKeys.HOME:
+		LevelKeys.HOME, LevelKeys.ROOM:
 			goto_scene("res://main.tscn")
 		LevelKeys.TUNDRA:
 			goto_scene("res://levels/tundra_level_1.tscn")

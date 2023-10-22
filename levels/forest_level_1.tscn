@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dbm6vwvp11ylg"]
+[gd_scene load_steps=17 format=3 uid="uid://dbm6vwvp11ylg"]
 
 [ext_resource type="PackedScene" uid="uid://cbat4a7e823wn" path="res://levels/level_base.tscn" id="1_810be"]
 [ext_resource type="PackedScene" uid="uid://w1c2h2wni577" path="res://trees/forest_tree.tscn" id="2_f7a03"]
@@ -10,6 +10,10 @@
 [ext_resource type="Resource" uid="uid://b8x2qec5jlmi4" path="res://cocoa_shop/cocoa_bean_normal.tres" id="8_ookog"]
 [ext_resource type="Resource" uid="uid://dw5qbbljxki7p" path="res://cocoa_shop/cocoa_bean_frozen_hot.tres" id="9_7767s"]
 [ext_resource type="Texture2D" uid="uid://dycxylqqr23k4" path="res://art/environment/GWJ Forest Backdrop.png" id="10_gn32d"]
+[ext_resource type="BankAsset" uid="uid://b0d867sjtjuc7" path="res://addons/FMOD/editor/resources/banks/{c990e83b-035b-4796-8f61-e919009d0122}.tres" id="11_1jk45"]
+[ext_resource type="BankAsset" uid="uid://byruds3m0g5o3" path="res://addons/FMOD/editor/resources/banks/{806ebd2b-c74b-4025-bd19-000312dc609b}.tres" id="12_cbjwx"]
+[ext_resource type="BankAsset" uid="uid://b4vm6wt5q2nh8" path="res://addons/FMOD/editor/resources/banks/{793b9fee-4fda-4909-94e5-be40265ea2b2}.tres" id="13_tkn62"]
+[ext_resource type="EventAsset" uid="uid://76tgv17d0xhe" path="res://addons/FMOD/editor/resources/events/{280be539-d470-40ff-9def-6bb33c0cd7fe}.tres" id="14_u0j0y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rl5wb"]
 atlas = ExtResource("2_s5qob")
@@ -129,9 +133,10 @@ position = Vector2(1097, 0)
 [node name="Bungaroo3" parent="." index="7" instance=ExtResource("5_i54nw")]
 position = Vector2(39, -542)
 
-[node name="TundraPlayer" parent="." index="8" instance=ExtResource("7_5r4w4")]
+[node name="TundraPlayer" parent="." index="8" groups=["Player"] instance=ExtResource("7_5r4w4")]
 position = Vector2(-254, -8)
 collision_mask = 9
+level_key = 2
 beans = [ExtResource("8_ookog"), ExtResource("9_7767s")]
 
 [node name="Camera2D" type="Camera2D" parent="TundraPlayer" index="6"]
@@ -146,3 +151,17 @@ motion_scale = Vector2(0.8, 0.8)
 texture_filter = 1
 position = Vector2(281, -437)
 texture = ExtResource("10_gn32d")
+
+[node name="StudioBankLoader" type="StudioBankLoader" parent="." index="10"]
+load_on = 1
+unload_on = 3
+num_banks = 3
+bank_0 = ExtResource("11_1jk45")
+bank_1 = ExtResource("12_cbjwx")
+bank_2 = ExtResource("13_tkn62")
+
+[node name="Ambiance" type="StudioEventEmitter2D" parent="." index="11"]
+play_event = 2
+stop_event = 3
+event = ExtResource("14_u0j0y")
+parameter_Location = 1

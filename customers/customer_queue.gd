@@ -4,11 +4,13 @@ extends Node2D
 
 signal dequeued(customer: Customer)
 signal first_customer_readied(customer: Customer)
+signal on_customer_readied(customer: Customer)
 signal queue_full()
 
 @onready var _queue_path = $Path2D
 
 var _queue_capacity = 0
+var _reserved_ctr = 0
 var _customers: Array
 var _queue_slots: Array
 
@@ -46,6 +48,7 @@ func _on_first_customer_ready(customer: Customer, destination: Vector2):
 
 func _on_customer_ready(customer: Customer, destination: Vector2):
 	customer._sprite.set_flip_h(true)
+	on_customer_readied.emit(customer)
 
 
 func is_empty():
@@ -53,7 +56,7 @@ func is_empty():
 
 
 func has_capacity():
-	return _customers.size() < _queue_capacity
+	return _customers.size() < _queue_capacity - _reserved_ctr
 
 
 func can_dequeue():
@@ -67,7 +70,12 @@ func get_first_customer():
 	return _customers[0]
 
 
+func reserve():
+	_reserved_ctr = clampi(_reserved_ctr + 1, 0, _queue_capacity - _customers.size())
+
+
 func enqueue(new_customer: Customer):
+	_reserved_ctr = max(0, _reserved_ctr - 1)
 	if has_capacity() && new_customer:
 		new_customer.reparent(self)
 		_customers.push_back(new_customer)

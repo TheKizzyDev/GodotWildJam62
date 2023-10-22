@@ -3,8 +3,7 @@ class_name Cocoabean
 
 signal collected
 
-
-
+var bean_type := CocoaBeanResource.Type.Normal
 var player : Player = null
 
 
@@ -35,5 +34,9 @@ func _on_enable_timer_timeout():
 
 
 func _on_colllect_area_body_entered(body):
+	print("COLLECT WHO: %s" % str(body))
+	var bp = body as Player
+	if bp:
+		bp.give_bean_by_type(bean_type)
 	emit_signal("collected")
 	queue_free()

@@ -10,6 +10,7 @@ signal cocoa_bean_selected(cocoa_bean_type: CocoaBeanResource.Type)
 @export var speed = 150
 @export var jump_velocity = -400.0
 @export var beans: Array
+@export var walking: EventAsset
 
 @onready var _animation_player = $AnimationPlayer
 @onready var _sprite = $CollisionShape2D/Sprite2D
@@ -77,6 +78,10 @@ func _find_bean(bean_type: CocoaBeanResource.Type):
 			return bean_typed
 
 
+func _on_step():
+	FMODRuntime.play_one_shot(walking, self)
+
+
 func _handle_cocoa_shop_input(delta):
 	if Input.is_action_just_pressed("frozen_cocoa_bean"):
 		_select_bean(_find_bean(CocoaBeanResource.Type.Frozen))
@@ -122,6 +127,8 @@ func _unhandled_input(event):
 		interacted.emit(self)
 	if event.is_action_pressed("interact_secondary"):
 		interacted_with_secondary.emit(self)
+	if event.is_action_pressed("exit"):
+		get_tree().quit()
 
 
 func _select_bean(bean_resource: CocoaBeanResource):
@@ -136,6 +143,14 @@ func get_selected_bean():
 func teleport_to(level_key: Global.LevelKeys):
 	_player_vars.teleported = true
 	_global_vars.goto_level_key(level_key)
+
+
+func give_bean_by_type(bean_type: CocoaBeanResource.Type):
+	for key in _bean_inventory:
+		var bean = key as CocoaBeanResource
+		if bean.type == bean_type:
+			give_bean(bean)
+			break
 
 
 func give_bean(beanResourceType: CocoaBeanResource):

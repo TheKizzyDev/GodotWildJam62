@@ -7,10 +7,14 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 @export_group("Config")
 @export var cocoa_drink_queue: CocoaDrinkQueue
 @export var cash_register: CashRegister
-@export var customer_spawn_time := 1
 @export var customer_queue: CustomerQueue
 @export var pickup_queue: CustomerQueue
+
+@export_group("Customer Spawning")
 @export var customer_types: Array
+@export var initial_customer_spawn_time = 2.0
+@export var customer_spawn_min = 1.0
+@export var customer_spawn_max = 10.0
 
 @export_group("Orders")
 @export var possible_orders: Array
@@ -18,24 +22,39 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 @export_group("Markers")
 @export var spawn_marker: Marker2D
 @export var exit_marker: Marker2D
+@export var entry_marker: Marker2D
 
 @onready var _timer_customer_spawning = $TimerCustomerSpawning as Timer
+@onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
+
+var _current_money_amount = 0
 
 var _rand: RandomNumberGenerator
-const CUSTOMER = preload("res://customers/customer_1.tscn")
+
+
+func _exit_tree():
+	_player_vars.current_money_amount = _current_money_amount
+
+
+func get_money_amount():
+	return _current_money_amount
 
 
 func _ready():
+	if _player_vars.is_initialized:
+		_current_money_amount = _player_vars.current_money_amount
+	
 	_rand = RandomNumberGenerator.new()
 	
 	_timer_customer_spawning.set_one_shot(true)
 	_timer_customer_spawning.timeout.connect(_spawn_customer)
-	_timer_customer_spawning.start(customer_spawn_time)
+	_timer_customer_spawning.start(initial_customer_spawn_time)
 	
 	cocoa_drink_queue.first_drink_readied.connect(_on_first_drink_readied)
 	
 	customer_queue.dequeued.connect(_on_order_queue_dequeued)
 	customer_queue.first_customer_readied.connect(_on_order_queue_first_customer_readied)
+	customer_queue.on_customer_readied.connect(_on_customer_readied)
 	
 	pickup_queue.dequeued.connect(_on_pickup_queue_dequeued)
 	pickup_queue.queue_full.connect(_on_pickup_queue_full)
@@ -47,7 +66,10 @@ func _ready():
 func _pickup_drink():
 	if not pickup_queue.is_empty() and cocoa_drink_queue.can_take_drink():
 		var customer = pickup_queue.dequeue() as Customer
-		var drink = cocoa_drink_queue.take_drink()
+		var drink = cocoa_drink_queue.take_drink() as CocoaDrink
+		# TODO Add/Reduce amount of money based on match
+		_current_money_amount += drink.money_value
+		print("Current Money Amount: %s" % str(_current_money_amount)) 
 		customer.reparent(self)
 		customer.give_drink(drink)
 		customer.move_to_succeeded.connect(_on_customer_exit)
@@ -58,8 +80,12 @@ func _on_first_drink_readied():
 	_pickup_drink()
 
 
+func _on_customer_readied(customer: Customer):
+	customer.set_z_index(5)
+
+
 func _on_customer_exit(customer: Customer, destination: Vector2):
-	customer.queue_free()
+	customer.exit()
 
 
 func _on_order_taken(customer: Customer):
@@ -68,6 +94,7 @@ func _on_order_taken(customer: Customer):
 		printerr("Could not dequeue customer: %s" % str(cust))
 		return
 	
+	cust.set_z_index(3)
 	cash_register.set_current_customer(null)
 	pickup_queue.enqueue(cust)
 
@@ -78,7 +105,7 @@ func _on_order_queue_first_customer_readied(customer: Customer):
 
 func _on_order_queue_dequeued(customer: Customer):
 	if _timer_customer_spawning.is_stopped() and customer_queue.has_capacity():
-		_timer_customer_spawning.start(customer_spawn_time)
+		_schedule_spawn_customer()
 
 
 func _on_pickup_queue_full():
@@ -99,15 +126,29 @@ func _get_random_order():
 	return possible_orders[_rand.randi_range(0, possible_orders.size() - 1)]
 
 
+func _on_entry_move_to_succeeded(customer: Customer, destination: Vector2):
+	customer.set_z_index(4)
+	customer.move_to_succeeded.disconnect(_on_entry_move_to_succeeded)
+	customer_queue.enqueue(customer)
+
+
+func _schedule_spawn_customer():
+	_rand.randomize()
+	var rand_spawn_time = _rand.randf_range(customer_spawn_min, customer_spawn_max)
+	_timer_customer_spawning.start(rand_spawn_time)
+
+
 func _spawn_customer():
 	if customer_queue.has_capacity():
-		var rng = RandomNumberGenerator.new()
-		rng.randomize()
-		var randi = rng.randi_range(0, customer_types.size() - 1)
+		_rand.randomize()
+		var randi = _rand.randi_range(0, customer_types.size() - 1)
 		var cust_template = customer_types[randi]
-		var new_cust = cust_template.instantiate() # CUSTOMER.instantiate() as Customer
+		var new_cust = cust_template.instantiate() as Customer # CUSTOMER.instantiate() as Customer
 		add_child(new_cust)
 		new_cust.set_order(_get_random_order())
 		new_cust.set_position(spawn_marker.position)
-		customer_queue.enqueue(new_cust)
-		_timer_customer_spawning.start(customer_spawn_time)
+		customer_queue.reserve()
+		new_cust.move_to_succeeded.connect(_on_entry_move_to_succeeded)
+		new_cust.request_move_to(entry_marker.position)
+		_schedule_spawn_customer()
+

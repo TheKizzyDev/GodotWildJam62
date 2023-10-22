@@ -1,11 +1,18 @@
-[gd_scene load_steps=46 format=3 uid="uid://bg1f2y3b7uyqp"]
+[gd_scene load_steps=53 format=3 uid="uid://bg1f2y3b7uyqp"]
 
 [ext_resource type="PackedScene" uid="uid://cbtkxmgwfteas" path="res://enemies/enemy_base.tscn" id="1_g2ak5"]
 [ext_resource type="Texture2D" uid="uid://dve17ok7wf6cy" path="res://art/enemies/bungaroo/bunny_attack.png" id="2_4d0of"]
 [ext_resource type="Script" path="res://enemies/bungaroo.gd" id="2_py58v"]
+[ext_resource type="EventAsset" uid="uid://se7oblgyaw8u" path="res://addons/FMOD/editor/resources/events/{6df16e05-66fd-4cfb-91fd-e9999fe39124}.tres" id="3_mmwbh"]
 [ext_resource type="Texture2D" uid="uid://cmgdwgnxbkm85" path="res://art/enemies/bungaroo/bunny_die.png" id="3_pmyva"]
 [ext_resource type="Texture2D" uid="uid://bpgw1qufcnar2" path="res://art/enemies/bungaroo/bunny_idle.png" id="4_pxe7d"]
+[ext_resource type="EventAsset" uid="uid://bho660n67nrp5" path="res://addons/FMOD/editor/resources/events/{1ef64281-ea1a-40c0-a44a-ac84c3171809}.tres" id="4_u36l4"]
 [ext_resource type="Texture2D" uid="uid://dc0fbrn6tnveq" path="res://art/enemies/bungaroo/bunny_hop.png" id="5_5jpfp"]
+[ext_resource type="EventAsset" uid="uid://csbqfrurfk3aj" path="res://addons/FMOD/editor/resources/events/{71218731-3c75-48d3-89cf-2a1af47e5318}.tres" id="5_30p7m"]
+[ext_resource type="EventAsset" uid="uid://061md7ay6a1t" path="res://addons/FMOD/editor/resources/events/{893e2029-76ef-4004-83b0-24ac9299a0fd}.tres" id="6_d730v"]
+[ext_resource type="EventAsset" uid="uid://q5qkeq4u1t2t" path="res://addons/FMOD/editor/resources/events/{f665de66-4a4a-42af-9899-811b2d0ae95d}.tres" id="7_mtper"]
+[ext_resource type="EventAsset" uid="uid://d14bqvpufhmti" path="res://addons/FMOD/editor/resources/events/{8670ee7d-cf26-4b1b-9b4b-9d8a1215fffe}.tres" id="8_6plml"]
+[ext_resource type="EventAsset" uid="uid://conmt7cyjtsjo" path="res://addons/FMOD/editor/resources/events/{6472b139-1d71-4e88-8267-f0cba44fdabe}.tres" id="9_5h0pt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sn4o1"]
 size = Vector2(12, 18.5)
@@ -274,6 +281,14 @@ size = Vector2(3, 15)
 
 [node name="Bungaroo" instance=ExtResource("1_g2ak5")]
 script = ExtResource("2_py58v")
+walking_event = ExtResource("3_mmwbh")
+jumping_event = ExtResource("4_u36l4")
+landing_event = ExtResource("5_30p7m")
+idling_event = ExtResource("6_d730v")
+alert_event = ExtResource("7_mtper")
+attack_event = ExtResource("7_mtper")
+death_event = ExtResource("8_6plml")
+hurt_event = ExtResource("9_5h0pt")
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(0, -8.75)

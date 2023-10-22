@@ -1,12 +1,59 @@
 extends "res://scripts/player.gd"
 
+@export var level_key: Global.LevelKeys
+@export var attack_event: EventAsset
+@export var death_event: EventAsset
+@export var hurt_event: EventAsset
+@export var grass_walking_event: EventAsset
+@export var grass_jumping_event: EventAsset
+@export var grass_landing_event: EventAsset
+@export var snow_walking_event: EventAsset
+@export var snow_jumping_event: EventAsset
+@export var snow_landing_event: EventAsset
+
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite
+
+var walking_event: EventAsset
+var jumping_event: EventAsset
+var landing_event: EventAsset
 
 var is_attacking = false
 var is_facing_left : bool:
 	get: return animated_sprite.flip_h
 var is_facing_right : bool:
 	get: return not animated_sprite.flip_h
+
+
+func _ready():
+	super()
+	walking_event = grass_walking_event if level_key == Global.LevelKeys.FOREST else snow_walking_event
+	jumping_event = grass_jumping_event if level_key == Global.LevelKeys.FOREST else snow_jumping_event
+	landing_event = grass_landing_event if level_key == Global.LevelKeys.FOREST else snow_landing_event
+	%AnimatedSprite.frame_changed.connect(_on_frame_changed)
+
+
+func _on_frame_changed():
+	match %AnimatedSprite.animation:
+		"attack":
+			match %AnimatedSprite.frame:
+				0:
+					FMODRuntime.play_one_shot(attack_event, self)
+		"die":
+			match %AnimatedSprite.frame:
+				1:
+					FMODRuntime.play_one_shot(death_event, self)
+		"idle":
+			pass
+		"jump":
+			match %AnimatedSprite.frame:
+				0:
+					FMODRuntime.play_one_shot(jumping_event, self)
+				1:
+					FMODRuntime.play_one_shot(landing_event, self)
+		"walk":
+			match %AnimatedSprite.frame:
+				0, 2:
+					FMODRuntime.play_one_shot(walking_event, self)
 
 
 func _handle_input_combat_zone(delta):
@@ -73,5 +120,6 @@ func _on_hurtbox_died():
 
 
 func _on_hurtbox_health_changed():
+	FMODRuntime.play_one_shot(hurt_event, self)
 	await get_tree().create_timer(.1).timeout
 	$HUD.decrease_health()

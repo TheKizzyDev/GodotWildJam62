@@ -1,13 +1,23 @@
-[gd_scene load_steps=84 format=3 uid="uid://6gdnak1v3ipl"]
+[gd_scene load_steps=94 format=3 uid="uid://6gdnak1v3ipl"]
 
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_ex1qc"]
 [ext_resource type="Script" path="res://TundraPlayer.gd" id="2_an4v3"]
 [ext_resource type="Texture2D" uid="uid://c666dmti6uxt4" path="res://art/characters/barista/tundra skin/barista(tundra)_idle.png" id="3_daopg"]
+[ext_resource type="EventAsset" uid="uid://cnaarvqw1cuqs" path="res://addons/FMOD/editor/resources/events/{b75dc84b-8552-44bf-a2f1-c39123368f23}.tres" id="3_gisda"]
 [ext_resource type="Texture2D" uid="uid://bs1ujs1ryl2ba" path="res://art/characters/barista/tundra skin/barista(tundra)_attack.png" id="3_jamex"]
 [ext_resource type="Texture2D" uid="uid://dqhqtx7vat48u" path="res://art/characters/barista/tundra skin/barista(tundra)_die.png" id="4_bwpk2"]
+[ext_resource type="EventAsset" uid="uid://bqp3avnpowfjj" path="res://addons/FMOD/editor/resources/events/{ca21d078-9c87-46fa-9ed6-fbaf7edaf808}.tres" id="4_i358u"]
 [ext_resource type="Texture2D" uid="uid://ca3nuoxiviwdn" path="res://art/characters/barista/tundra skin/barista(tundra)_walk.png" id="4_victw"]
 [ext_resource type="Texture2D" uid="uid://by7s8h1ik2w4f" path="res://art/characters/barista/tundra skin/barista(tundra)_jump.png" id="5_42asb"]
+[ext_resource type="EventAsset" uid="uid://dd0dev86dmnx2" path="res://addons/FMOD/editor/resources/events/{5a578031-4fe2-472d-bf8c-e34e4938f32b}.tres" id="5_dq6dp"]
+[ext_resource type="EventAsset" uid="uid://css5rtiob0gdr" path="res://addons/FMOD/editor/resources/events/{0dfe416f-da95-4588-a0ac-f7a8240bb05d}.tres" id="6_rhcmp"]
+[ext_resource type="EventAsset" uid="uid://qo0uauml00qq" path="res://addons/FMOD/editor/resources/events/{ffddf61c-c648-4c7e-91fb-3d316756917f}.tres" id="7_3xsib"]
 [ext_resource type="PackedScene" uid="uid://bsoj0jka0v2qp" path="res://hud/hud.tscn" id="8_1x0vk"]
+[ext_resource type="EventAsset" uid="uid://dnpgh3kyslc1r" path="res://addons/FMOD/editor/resources/events/{9c85ee55-e845-4af7-982f-42fe5d38014b}.tres" id="8_ksoig"]
+[ext_resource type="EventAsset" uid="uid://d186kd2yq8dpp" path="res://addons/FMOD/editor/resources/events/{b672abed-ad00-4fed-a36d-c8baf8ad8ccd}.tres" id="9_xoyyd"]
+[ext_resource type="EventAsset" uid="uid://mmvc7cm8istk" path="res://addons/FMOD/editor/resources/events/{ad997058-11fc-45c5-aca6-a7c6ddc903a1}.tres" id="10_rsfng"]
+[ext_resource type="EventAsset" uid="uid://c72a75ex0sbyq" path="res://addons/FMOD/editor/resources/events/{1594a6a6-cac6-47b4-847b-536681591740}.tres" id="11_550mh"]
+[ext_resource type="Texture2D" uid="uid://jmrlbm8odah" path="res://art/characters/barista/barista_blinking.png" id="12_mtm16"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gtwje"]
 atlas = ExtResource("3_jamex")
@@ -557,10 +567,23 @@ animations = [{
 
 [node name="TundraPlayer" instance=ExtResource("1_ex1qc")]
 script = ExtResource("2_an4v3")
+level_key = 0
+attack_event = ExtResource("3_gisda")
+death_event = ExtResource("4_i358u")
+hurt_event = ExtResource("5_dq6dp")
+grass_walking_event = ExtResource("6_rhcmp")
+grass_jumping_event = ExtResource("7_3xsib")
+grass_landing_event = ExtResource("8_ksoig")
+snow_walking_event = ExtResource("9_xoyyd")
+snow_jumping_event = ExtResource("10_rsfng")
+snow_landing_event = ExtResource("11_550mh")
 beans = []
 
 [node name="Sprite2D" parent="CollisionShape2D" index="0"]
 visible = false
+texture = ExtResource("12_mtm16")
+hframes = 3
+frame = 1
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 position = Vector2(16.5, 4)
@@ -569,10 +592,11 @@ position = Vector2(16.5, 4)
 health = 5
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="." index="6"]
+unique_name_in_owner = true
 texture_filter = 1
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_dtakl")
-animation = &"die"
+animation = &"attack"
 
 [node name="HUD" parent="." index="7" instance=ExtResource("8_1x0vk")]
 

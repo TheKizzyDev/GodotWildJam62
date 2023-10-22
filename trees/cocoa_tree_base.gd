@@ -4,6 +4,7 @@ extends Node2D
 @export_group("Cocoa Spawn")
 @export var min_cocoas = 1
 @export var max_cocoas = 2
+@export var bean_type: CocoaBeanResource.Type
 
 @onready var skin = $Skin
 
@@ -16,6 +17,7 @@ func _ready():
 	locations.shuffle()
 	for i in range(cocoa_count):
 		var cocoa = load(Cocoabean).instantiate()
+		cocoa.bean_type = bean_type
 		#cocoa.global_position = locations[i].global_position
 		locations[i].add_child(cocoa)
 		cocoa_beans.append(cocoa)

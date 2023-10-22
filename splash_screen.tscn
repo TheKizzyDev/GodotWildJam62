@@ -1,0 +1,66 @@
+[gd_scene load_steps=8 format=3 uid="uid://6edlidi4qy7b"]
+
+[ext_resource type="Texture2D" uid="uid://djqx05fdt8827" path="res://art/UI/splash_bg.png" id="1_0n43s"]
+[ext_resource type="Script" path="res://splash_screen.gd" id="1_1vmx7"]
+[ext_resource type="FontFile" uid="uid://6o0diryf1q6o" path="res://art/font/m5x7.ttf" id="1_2cfy2"]
+[ext_resource type="StyleBox" uid="uid://cdn51fbs40h24" path="res://splash_screen_button_normal_style.tres" id="3_57u5d"]
+[ext_resource type="StyleBox" uid="uid://docdliqa0l6ec" path="res://splash_screen_button_hover_style.tres" id="4_cml36"]
+[ext_resource type="BankAsset" uid="uid://byruds3m0g5o3" path="res://addons/FMOD/editor/resources/banks/{806ebd2b-c74b-4025-bd19-000312dc609b}.tres" id="6_yvafg"]
+[ext_resource type="EventAsset" uid="uid://nervgptm5gff" path="res://addons/FMOD/editor/resources/events/{67151574-c35d-49a7-ad41-804dc024626c}.tres" id="7_irjno"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1vmx7")
+
+[node name="StudioBankLoader" type="StudioBankLoader" parent="."]
+load_on = 1
+unload_on = 3
+num_banks = 1
+bank_0 = ExtResource("6_yvafg")
+
+[node name="StudioEventEmitter2D" type="StudioEventEmitter2D" parent="."]
+play_event = 2
+stop_event = 3
+event = ExtResource("7_irjno")
+parameter_Room = 0
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CanvasLayer2"]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 133.0
+offset_bottom = 133.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch_mode = 3
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer2/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_0n43s")
+stretch_mode = 5
+
+[node name="PlayButton" type="Button" parent="CanvasLayer2/AspectRatioContainer/TextureRect"]
+unique_name_in_owner = true
+offset_left = 614.0
+offset_top = 540.0
+offset_right = 860.0
+offset_bottom = 636.0
+scale = Vector2(0.6, 0.6)
+theme_override_fonts/font = ExtResource("1_2cfy2")
+theme_override_font_sizes/font_size = 96
+theme_override_styles/normal = ExtResource("3_57u5d")
+theme_override_styles/hover = ExtResource("4_cml36")
+text = "CLOSED"
+
+[connection signal="mouse_entered" from="CanvasLayer2/AspectRatioContainer/TextureRect/PlayButton" to="." method="_on_play_button_mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer2/AspectRatioContainer/TextureRect/PlayButton" to="." method="_on_play_button_mouse_exited"]
+[connection signal="pressed" from="CanvasLayer2/AspectRatioContainer/TextureRect/PlayButton" to="." method="_on_play_button_pressed"]

@@ -5,6 +5,13 @@ extends CharacterBody2D
 signal move_to_succeeded(customer: Customer, destination: Vector2)
 
 @export var speed = 20.0
+@export var glass_event: EventAsset
+@export var order_event: EventAsset
+@export var waiting_event: EventAsset
+@export var happy_event: EventAsset
+@export var sad_event: EventAsset
+@export var leave_event: EventAsset
+@export var pay_event: EventAsset
 
 @onready var _drink_icon = $CollisionShape2D/Sprite2D/OrderIcon/PanelContainer/DrinkIcon
 @onready var _order_icon = $CollisionShape2D/Sprite2D/OrderIcon
@@ -41,7 +48,6 @@ func _physics_process(delta):
 
 
 func set_order(new_order: CustomerOrder):
-	set_z_index(1)
 	_drink_icon.texture = new_order._cocoa_bean_resource.drink_icon
 	_curr_order = new_order
 
@@ -52,13 +58,13 @@ func give_drink(drink: CocoaDrink):
 		_order_icon.set_visible(false)
 		_curr_drink.reparent(self)
 		_curr_drink.set_position(_drink_pos_marker.position)
+		FMODRuntime.play_one_shot(glass_event, _curr_drink)
 
 
 func take_order():
 	_order_taken = true
 	_order_icon.set_visible(true)
-	set_z_index(0)
-	# TODO: Determine state.
+	FMODRuntime.play_one_shot(order_event, self)
 	return _curr_order
 
 
@@ -78,3 +84,9 @@ func request_move_to(new_position: Vector2):
 	_curr_destination = new_position
 	_curr_direction = (_curr_destination - position).normalized()
 	_is_fulfilling_move_to_request = true
+
+
+func exit():
+	FMODRuntime.play_one_shot(leave_event, self)
+	await get_tree().create_timer(0.2).timeout
+	queue_free()

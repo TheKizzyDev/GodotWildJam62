@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://51uahjl0k484"]
+[gd_scene load_steps=47 format=3 uid="uid://51uahjl0k484"]
 
 [ext_resource type="Script" path="res://main_level.gd" id="1_f53xu"]
 [ext_resource type="PackedScene" uid="uid://b5qco31hfuv3q" path="res://player.tscn" id="1_qrxw1"]
@@ -22,6 +22,7 @@
 [ext_resource type="PackedScene" uid="uid://bo7pe0aj6uhsv" path="res://cocoa_shop/arcade.tscn" id="13_ege18"]
 [ext_resource type="Texture2D" uid="uid://dc6a77my6f3qv" path="res://art/environment/normal_cocoa_beans.png" id="14_jpfe7"]
 [ext_resource type="Texture2D" uid="uid://biguvukhk2nf0" path="res://art/environment/frozen_cocoa_beans.png" id="16_durbm"]
+[ext_resource type="Texture2D" uid="uid://c82n6j3s3ap1m" path="res://art/coin.png" id="18_0jscf"]
 [ext_resource type="EventAsset" uid="uid://nervgptm5gff" path="res://addons/FMOD/editor/resources/events/{67151574-c35d-49a7-ad41-804dc024626c}.tres" id="20_7o3cb"]
 [ext_resource type="EventAsset" uid="uid://76tgv17d0xhe" path="res://addons/FMOD/editor/resources/events/{280be539-d470-40ff-9def-6bb33c0cd7fe}.tres" id="20_ydrvk"]
 
@@ -62,13 +63,13 @@ size = Vector2(13, 116)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p5g5t"]
 size = Vector2(348, 20)
 
-[sub_resource type="Resource" id="Resource_pifh3"]
+[sub_resource type="Resource" id="Resource_ymf4e"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Frozen Hot Cocoa Bean"
 type = 1
 
-[sub_resource type="Resource" id="Resource_puqfu"]
+[sub_resource type="Resource" id="Resource_kps5v"]
 resource_local_to_scene = true
 script = ExtResource("4_ec32g")
 display_name = "Regular Hot Chocolate"
@@ -87,6 +88,55 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 0, -8, 0, 0, 0, 0, 14, 0, 0, 0, 0, 0, 52, 1, 0, 0, 0, 0, 69, 1, 0, 0, 0, 0, 95, 1)
 }
 point_count = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_opubv"]
+atlas = ExtResource("18_0jscf")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n7x4c"]
+atlas = ExtResource("18_0jscf")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2f213"]
+atlas = ExtResource("18_0jscf")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2mwwd"]
+atlas = ExtResource("18_0jscf")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f7crq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opubv")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_opubv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n7x4c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2f213")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2mwwd")
+}],
+"loop": true,
+"name": &"spinning",
+"speed": 5.0
+}]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s6b4t"]
+line_spacing = 0.0
+font = ExtResource("10_ua5a3")
+font_size = 64
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x1nk3"]
 resource_local_to_scene = true
@@ -123,6 +173,7 @@ corner_radius_bottom_left = 4
 anti_aliasing = false
 
 [node name="main" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_f53xu")
 cocoa_bean_selection_color = Color(0.286275, 0.501961, 1, 1)
 cocoa_bean_selection_theme_override = SubResource("StyleBoxFlat_0dptm")
@@ -174,11 +225,11 @@ shape = SubResource("RectangleShape2D_p5g5t")
 
 [node name="CocoaStorageBin_FrozenHot" parent="CocoaShop" instance=ExtResource("4_ijhgt")]
 position = Vector2(199, 58)
-cocoa_bean_resource_type = SubResource("Resource_pifh3")
+cocoa_bean_resource_type = SubResource("Resource_ymf4e")
 
 [node name="CocoaStorageBin_Regular" parent="CocoaShop" instance=ExtResource("5_h35n2")]
 position = Vector2(225, 58)
-cocoa_bean_resource_type = SubResource("Resource_puqfu")
+cocoa_bean_resource_type = SubResource("Resource_kps5v")
 
 [node name="CocoaMaker" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue") instance=ExtResource("5_whk2x")]
 position = Vector2(285, 46)
@@ -193,19 +244,23 @@ position = Vector2(41, 0)
 [node name="CashRegister" parent="CocoaShop" instance=ExtResource("7_bknay")]
 position = Vector2(339, 76)
 
-[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "pickup_queue", "spawn_marker", "exit_marker") instance=ExtResource("8_v77dm")]
+[node name="CustomerManager" parent="CocoaShop" node_paths=PackedStringArray("cocoa_drink_queue", "cash_register", "customer_queue", "pickup_queue", "spawn_marker", "exit_marker", "entry_marker") instance=ExtResource("8_v77dm")]
 cocoa_drink_queue = NodePath("../CocoaDrinkQueue")
 cash_register = NodePath("../CashRegister")
 customer_queue = NodePath("../OrderQueue")
 pickup_queue = NodePath("../PickupQueue")
 spawn_marker = NodePath("SpawnMarker")
 exit_marker = NodePath("ExitMarker")
+entry_marker = NodePath("EntryMarker")
 
 [node name="SpawnMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
 position = Vector2(384, 55)
 
 [node name="ExitMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
-position = Vector2(384, 40)
+position = Vector2(384, 55)
+
+[node name="EntryMarker" type="Marker2D" parent="CocoaShop/CustomerManager"]
+position = Vector2(384, 81)
 
 [node name="OrderQueue" parent="CocoaShop" instance=ExtResource("9_au2g1")]
 position = Vector2(359, 90)
@@ -236,22 +291,54 @@ offset_bottom = 40.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 
-[node name="GridContainer" type="GridContainer" parent="UI/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 10
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="UI/MarginContainer/VBoxContainer2"]
+layout_mode = 2
 columns = 2
 
-[node name="NormalCocoaBeanSlot" type="PanelContainer" parent="UI/MarginContainer/GridContainer"]
+[node name="Control" type="Control" parent="UI/MarginContainer/VBoxContainer2/GridContainer"]
+custom_minimum_size = Vector2(25, 23)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI/MarginContainer/VBoxContainer2/GridContainer/Control"]
+texture_filter = 1
+scale = Vector2(1.5, 1.5)
+sprite_frames = SubResource("SpriteFrames_f7crq")
+animation = &"spinning"
+autoplay = "spinning"
+centered = false
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/MarginContainer/VBoxContainer2/GridContainer"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 10
+
+[node name="MoneyCtr" type="Label" parent="UI/MarginContainer/VBoxContainer2/GridContainer/MarginContainer"]
+texture_filter = 1
+layout_mode = 2
+text = "1000"
+label_settings = SubResource("LabelSettings_s6b4t")
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="NormalCocoaBeanSlot" type="PanelContainer" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_x1nk3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "Press 1"
@@ -259,7 +346,7 @@ label_settings = SubResource("LabelSettings_ciiol")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+[node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot/VBoxContainer"]
 modulate = Color(0.615686, 0.623529, 0.384314, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
@@ -269,7 +356,7 @@ size_flags_vertical = 4
 texture = ExtResource("14_jpfe7")
 expand_mode = 4
 
-[node name="Counter" type="Label" parent="UI/MarginContainer/GridContainer/NormalCocoaBeanSlot/VBoxContainer"]
+[node name="Counter" type="Label" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/NormalCocoaBeanSlot/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "0
@@ -277,15 +364,15 @@ text = "0
 label_settings = ExtResource("11_8h3s3")
 horizontal_alignment = 1
 
-[node name="FrozenCocoaBeanSlot" type="PanelContainer" parent="UI/MarginContainer/GridContainer"]
+[node name="FrozenCocoaBeanSlot" type="PanelContainer" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_x2ue3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+[node name="Label" type="Label" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "Press 2
@@ -294,7 +381,7 @@ label_settings = SubResource("LabelSettings_ciiol")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+[node name="BeanIcon" type="TextureRect" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot/VBoxContainer"]
 modulate = Color(0.207843, 0.462745, 0.866667, 1)
 texture_filter = 1
 custom_minimum_size = Vector2(64, 64)
@@ -302,7 +389,7 @@ layout_mode = 2
 texture = ExtResource("16_durbm")
 expand_mode = 4
 
-[node name="Counter" type="Label" parent="UI/MarginContainer/GridContainer/FrozenCocoaBeanSlot/VBoxContainer"]
+[node name="Counter" type="Label" parent="UI/MarginContainer/VBoxContainer2/VBoxContainer/HBoxContainer/FrozenCocoaBeanSlot/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
 text = "0
@@ -318,11 +405,41 @@ zoom = Vector2(4, 4)
 position = Vector2(292, 76)
 collision_mask = 15
 
-[node name="MusicEmitter" type="StudioEventEmitter2D" parent="."]
+[node name="StudioBankLoader" type="StudioBankLoader" parent="."]
+load_on = 1
+unload_on = 3
+num_banks = 3
+bank_0 = ExtResource("2_w4rpb")
+bank_1 = ExtResource("2_v76lp")
+bank_2 = ExtResource("5_gmtmx")
+
+[node name="Music_0" type="StudioEventEmitter2D" parent="." groups=["music"]]
 play_event = 2
 stop_event = 3
 event = ExtResource("20_7o3cb")
 preload_samples = true
+parameter_Room = 1
+
+[node name="Music_1" type="StudioEventEmitter2D" parent="." groups=["music"]]
+stop_event = 3
+event = ExtResource("20_7o3cb")
+preload_samples = true
+"parameter_Jukebox Select" = 1.0
+parameter_Room = 1
+
+[node name="Music_2" type="StudioEventEmitter2D" parent="." groups=["music"]]
+stop_event = 3
+event = ExtResource("20_7o3cb")
+preload_samples = true
+"parameter_Jukebox Select" = 2.0
+parameter_Room = 1
+
+[node name="Music_3_EasterEgg" type="StudioEventEmitter2D" parent="."]
+stop_event = 3
+event = ExtResource("20_7o3cb")
+preload_samples = true
+"parameter_Jukebox Select" = 3.0
+parameter_Room = 1
 
 [node name="AmbianceEmitter" type="StudioEventEmitter2D" parent="."]
 play_event = 2
@@ -330,6 +447,7 @@ stop_event = 3
 event = ExtResource("20_ydrvk")
 preload_samples = true
 "parameter_Customer Amount" = 1.0
+"parameter_Distance from Arcade" = 1.0
 
 [editable path="CocoaShop/CocoaDrinkQueue"]
 [editable path="CocoaShop/OrderQueue"]
