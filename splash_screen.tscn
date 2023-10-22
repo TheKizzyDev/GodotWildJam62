@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://6edlidi4qy7b"]
+[gd_scene load_steps=10 format=3 uid="uid://6edlidi4qy7b"]
 
 [ext_resource type="Texture2D" uid="uid://djqx05fdt8827" path="res://art/UI/splash_bg.png" id="1_0n43s"]
 [ext_resource type="Script" path="res://splash_screen.gd" id="1_1vmx7"]
@@ -7,6 +7,14 @@
 [ext_resource type="StyleBox" uid="uid://docdliqa0l6ec" path="res://splash_screen_button_hover_style.tres" id="4_cml36"]
 [ext_resource type="BankAsset" uid="uid://byruds3m0g5o3" path="res://addons/FMOD/editor/resources/banks/{806ebd2b-c74b-4025-bd19-000312dc609b}.tres" id="6_yvafg"]
 [ext_resource type="EventAsset" uid="uid://nervgptm5gff" path="res://addons/FMOD/editor/resources/events/{67151574-c35d-49a7-ad41-804dc024626c}.tres" id="7_irjno"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0e17"]
+atlas = ExtResource("1_0n43s")
+region = Rect2(96, 1, 12, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecwlb"]
+atlas = ExtResource("1_0n43s")
+region = Rect2(184, 137, 10, 6)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -50,6 +58,7 @@ stretch_mode = 5
 
 [node name="PlayButton" type="Button" parent="CanvasLayer2/AspectRatioContainer/TextureRect"]
 unique_name_in_owner = true
+layout_mode = 0
 offset_left = 614.0
 offset_top = 540.0
 offset_right = 860.0
@@ -60,6 +69,17 @@ theme_override_font_sizes/font_size = 96
 theme_override_styles/normal = ExtResource("3_57u5d")
 theme_override_styles/hover = ExtResource("4_cml36")
 text = "CLOSED"
+
+[node name="BGBorderTop" type="Sprite2D" parent="."]
+position = Vector2(576, 1.5)
+scale = Vector2(96, 43.8333)
+texture = SubResource("AtlasTexture_v0e17")
+
+[node name="BGBorderBottom" type="Sprite2D" parent="."]
+z_index = 100
+position = Vector2(576, 599.5)
+scale = Vector2(115.2, 154.167)
+texture = SubResource("AtlasTexture_ecwlb")
 
 [connection signal="mouse_entered" from="CanvasLayer2/AspectRatioContainer/TextureRect/PlayButton" to="." method="_on_play_button_mouse_entered"]
 [connection signal="mouse_exited" from="CanvasLayer2/AspectRatioContainer/TextureRect/PlayButton" to="." method="_on_play_button_mouse_exited"]

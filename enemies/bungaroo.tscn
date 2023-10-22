@@ -314,7 +314,7 @@ shape = SubResource("RectangleShape2D_nuacr")
 position = Vector2(10.5, -9)
 shape = SubResource("RectangleShape2D_q8yj5")
 
-[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+[node name="CollisionShape2D" parent="Hurtbox" index="1"]
 position = Vector2(1.5, -9)
 shape = SubResource("RectangleShape2D_gl8gm")
 
