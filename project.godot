@@ -23,6 +23,7 @@ Global="*res://scripts/global.gd"
 [display]
 
 window/size/viewport_height=384
+window/size/resizable=false
 
 [dotnet]
 

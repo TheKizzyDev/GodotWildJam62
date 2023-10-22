@@ -20,6 +20,7 @@ extends Level
 @onready var _global_vars = get_node("/root/Global") as Global
 @onready var _camera = $Camera2D as Camera2D
 @onready var _music = $MusicEmitter as StudioEventEmitter2D
+@onready var _storage_bins = [ $CocoaShop/CocoaStorageBin_FrozenHot, $CocoaShop/CocoaStorageBin_Regular ]
 
 var _curr_cocoa_bean_panel: PanelContainer
 var _cocoa_bean_default_theme_override: StyleBoxFlat
@@ -31,7 +32,25 @@ var _available_music: Array
 var _curr_selected_music: StudioEventEmitter2D
 var _curr_selected_music_idx := 0
 
+
+func _exit_tree():
+	
+	_player_vars.is_initialized = true
+	for sb in _storage_bins:
+		var bin = sb as StorageBin
+		if bin:
+			var bean_type = bin.cocoa_bean_resource_type.type
+			_player_vars.storage_bean_inventory[bean_type] = bin._bean_ctr
+
+
 func _ready():
+	if _player_vars.is_initialized:
+		for sb in _storage_bins:
+			var bin = sb as StorageBin
+			if bin:
+				var bean_type = bin.cocoa_bean_resource_type.type
+				bin._bean_ctr = _player_vars.storage_bean_inventory[bean_type] 
+	
 	_available_music = get_tree().get_nodes_in_group("music")
 	_curr_selected_music = $Music_0
 	_curr_cocoa_bean_panel = _ncb_slot_panel
