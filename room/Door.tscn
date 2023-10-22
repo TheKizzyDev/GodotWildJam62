@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnuifcp77hc0r"]
+
+[ext_resource type="Texture2D" uid="uid://b5fu4bv3xil0o" path="res://art/room/door.png" id="1_rf1rg"]
+
+[node name="Door" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_rf1rg")
