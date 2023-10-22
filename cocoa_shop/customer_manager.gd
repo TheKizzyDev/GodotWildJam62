@@ -7,10 +7,14 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 @export_group("Config")
 @export var cocoa_drink_queue: CocoaDrinkQueue
 @export var cash_register: CashRegister
-@export var customer_spawn_time := 1
 @export var customer_queue: CustomerQueue
 @export var pickup_queue: CustomerQueue
+
+@export_group("Customer Spawning")
 @export var customer_types: Array
+@export var initial_customer_spawn_time = 2.0
+@export var customer_spawn_min = 1.0
+@export var customer_spawn_max = 10.0
 
 @export_group("Orders")
 @export var possible_orders: Array
@@ -24,13 +28,12 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 
 var _rand: RandomNumberGenerator
 
-
 func _ready():
 	_rand = RandomNumberGenerator.new()
 	
 	_timer_customer_spawning.set_one_shot(true)
 	_timer_customer_spawning.timeout.connect(_spawn_customer)
-	_timer_customer_spawning.start(customer_spawn_time)
+	_timer_customer_spawning.start(initial_customer_spawn_time)
 	
 	cocoa_drink_queue.first_drink_readied.connect(_on_first_drink_readied)
 	
@@ -62,6 +65,7 @@ func _on_first_drink_readied():
 func _on_customer_readied(customer: Customer):
 	customer.set_z_index(5)
 
+
 func _on_customer_exit(customer: Customer, destination: Vector2):
 	customer.exit()
 
@@ -83,7 +87,7 @@ func _on_order_queue_first_customer_readied(customer: Customer):
 
 func _on_order_queue_dequeued(customer: Customer):
 	if _timer_customer_spawning.is_stopped() and customer_queue.has_capacity():
-		_timer_customer_spawning.start(customer_spawn_time)
+		_schedule_spawn_customer()
 
 
 func _on_pickup_queue_full():
@@ -110,11 +114,16 @@ func _on_entry_move_to_succeeded(customer: Customer, destination: Vector2):
 	customer_queue.enqueue(customer)
 
 
+func _schedule_spawn_customer():
+	_rand.randomize()
+	var rand_spawn_time = _rand.randf_range(customer_spawn_min, customer_spawn_max)
+	_timer_customer_spawning.start(rand_spawn_time)
+
+
 func _spawn_customer():
 	if customer_queue.has_capacity():
-		var rng = RandomNumberGenerator.new()
-		rng.randomize()
-		var randi = rng.randi_range(0, customer_types.size() - 1)
+		_rand.randomize()
+		var randi = _rand.randi_range(0, customer_types.size() - 1)
 		var cust_template = customer_types[randi]
 		var new_cust = cust_template.instantiate() as Customer # CUSTOMER.instantiate() as Customer
 		add_child(new_cust)
@@ -123,4 +132,5 @@ func _spawn_customer():
 		customer_queue.reserve()
 		new_cust.move_to_succeeded.connect(_on_entry_move_to_succeeded)
 		new_cust.request_move_to(entry_marker.position)
-		_timer_customer_spawning.start(customer_spawn_time)
+		_schedule_spawn_customer()
+

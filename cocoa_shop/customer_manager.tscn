@@ -12,7 +12,6 @@
 
 [node name="CustomerManager" type="Node"]
 script = ExtResource("1_fbi7q")
-customer_spawn_time = 2
 customer_types = [ExtResource("2_bwhgl"), ExtResource("3_rbdfa"), ExtResource("4_i0l3n"), ExtResource("5_bpy8w"), ExtResource("6_rlado"), ExtResource("7_k8ign")]
 possible_orders = [ExtResource("2_7hpu2"), ExtResource("3_2hbi5")]
 
