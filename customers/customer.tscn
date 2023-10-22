@@ -1,7 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgk46o6opmr5y"]
+[gd_scene load_steps=14 format=3 uid="uid://dgk46o6opmr5y"]
 
 [ext_resource type="Script" path="res://customers/customer.gd" id="1_6fyqn"]
+[ext_resource type="EventAsset" uid="uid://cnhoxbkk3gloy" path="res://addons/FMOD/editor/resources/events/{9fa6af08-ed68-457e-ad93-809310f4fa11}.tres" id="3_ktrt7"]
+[ext_resource type="EventAsset" uid="uid://c5t58jbtrh3xv" path="res://addons/FMOD/editor/resources/events/{c3f3c97a-dfad-408e-9beb-12fbc5731018}.tres" id="3_tkjta"]
+[ext_resource type="EventAsset" uid="uid://e6iui0iyu261" path="res://addons/FMOD/editor/resources/events/{aa61080c-4e7c-41c8-9ef4-5d4a6c78e9e2}.tres" id="3_wj0wx"]
 [ext_resource type="Texture2D" uid="uid://c3dwmy5454ubw" path="res://art/characters/customer_1/customer_1_walk.png" id="3_x5lpk"]
+[ext_resource type="EventAsset" uid="uid://cq3lvwjs20abs" path="res://addons/FMOD/editor/resources/events/{8c319dec-6b58-4bae-a689-6dfcce4c91bf}.tres" id="4_7wlw0"]
+[ext_resource type="EventAsset" uid="uid://bdklyqwgbh8e1" path="res://addons/FMOD/editor/resources/events/{db977f69-f579-4169-95f1-916da3f75a15}.tres" id="4_sl3oc"]
+[ext_resource type="EventAsset" uid="uid://3k1l2mw6ahwo" path="res://addons/FMOD/editor/resources/events/{b5071dde-5fcf-49e3-a041-9418728554da}.tres" id="5_b5w2x"]
+[ext_resource type="EventAsset" uid="uid://dqajx2yxxfo5l" path="res://addons/FMOD/editor/resources/events/{e09a66e3-ffff-499d-bfda-570bb5e3540f}.tres" id="8_3rgen"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_604wk"]
 size = Vector2(14, 32)
@@ -32,6 +39,13 @@ resource_local_to_scene = true
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_6fyqn")
+glass_event = ExtResource("3_tkjta")
+order_event = ExtResource("3_ktrt7")
+waiting_event = ExtResource("4_sl3oc")
+happy_event = ExtResource("3_wj0wx")
+sad_event = ExtResource("4_7wlw0")
+leave_event = ExtResource("5_b5w2x")
+pay_event = ExtResource("8_3rgen")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -16)

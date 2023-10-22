@@ -59,7 +59,8 @@ func _on_first_drink_readied():
 
 
 func _on_customer_exit(customer: Customer, destination: Vector2):
-	customer.queue_free()
+#	customer.queue_free()
+	customer.exit()
 
 
 func _on_order_taken(customer: Customer):
