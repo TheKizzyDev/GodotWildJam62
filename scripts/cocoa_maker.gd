@@ -7,6 +7,8 @@ extends Node2D
 @export var making_cocoa_time = 1.0
 @export var drink_output_speed = 12.0
 @export var cocoa_drink_queue: CocoaDrinkQueue
+@export var grinding_event: EventAsset
+#@export var steaming_event: EventAsset
 
 @export_group("Interaction Messages")
 @export var insert_bean_interact_messsage = "Insert Bean"
@@ -38,6 +40,7 @@ var _grinding_cocoa_bean = false
 @onready var _timer_grinding_cocoa_bean = $Sprite2D/Area2D_Grinder/Timer
 @onready var _timer_making_cocoa = $Sprite2D/Area2D_TurnOn/Timer
 @onready var _marker_drink_output = $Sprite2D/DrinkOutputMarker
+@onready var _anim_player = %AnimationPlayer
 
 
 func _ready():
@@ -200,6 +203,7 @@ func _retrigger_waiting_state():
 	_grinding_cocoa_bean = false
 	_making_cocoa = false
 	_turned_on = false
+	_anim_player.play("RESET")
 	
 	if _curr_player:
 		if _curr_player.interacted.is_connected(_on_insert_bean_into_grinder):
@@ -257,6 +261,7 @@ func _enter_insert_bean_state():
 
 
 func _exit_insert_bean_state():
+	%InsertBeanNoise.stop()
 	if _curr_player:
 		_curr_player.interacted.disconnect(_on_insert_bean_into_grinder)
 		_curr_player.stop_notify_interactable()
@@ -272,6 +277,7 @@ func _on_insert_bean_into_grinder(player: Player):
 		if not _curr_cocoa_bean:
 			printerr("Bean did not exist.")
 		else:
+			%InsertBeanNoise.play()
 			print("%s inserted." % _curr_cocoa_bean.get_display_name())
 		_determine_cocoa_maker_state()
 	else:
@@ -300,7 +306,8 @@ func _enter_grinding_cocoa_bean_state():
 	_timer_grinding_cocoa_bean.one_shot = true
 	_timer_grinding_cocoa_bean.connect("timeout", _on_timer_grinding_cocoa_bean_timeout)
 	_timer_grinding_cocoa_bean.start()
-	# TODO: Play animation for grinding cocoa bean.
+	_anim_player.play("Grinding")
+	%GrindingNoise.play()
 		
 	_retrigger_grinding_cocoa_bean_state()
 
@@ -309,6 +316,8 @@ func _exit_grinding_cocoa_bean_state():
 	_grinding_cocoa_bean = false
 	_timer_grinding_cocoa_bean.stop()
 	_timer_grinding_cocoa_bean.disconnect("timeout", _on_timer_grinding_cocoa_bean_timeout)
+	_anim_player.stop()
+	%GrindingNoise.stop()
 	
 	if _curr_player:
 		_curr_player.stop_message()
@@ -381,6 +390,7 @@ func _enter_making_cocoa_state():
 	_timer_making_cocoa.one_shot = true
 	_timer_making_cocoa.connect("timeout", _on_timer_making_cocoa_timeout)
 	_timer_making_cocoa.start()
+	_anim_player.play("Steaming")
 	_retrigger_making_cocoa_state()
 	# TODO: Play animation for making cocoa.
 
@@ -396,6 +406,7 @@ func _exit_making_cocoa_state():
 	_curr_cocoa_bean = null
 	_timer_making_cocoa.stop()
 	_timer_making_cocoa.disconnect("timeout", _on_timer_making_cocoa_timeout)
+	_anim_player.stop()
 	if _curr_player:
 		_curr_player.stop_message()
 

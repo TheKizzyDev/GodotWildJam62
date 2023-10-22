@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cuqw7w3rkhvj3"
-path="res://.godot/imported/cocoa_maker.png-eac5710ce6ef7a09554ccc5915115a4e.ctex"
+uid="uid://b1r5k4qe2h3uy"
+path="res://.godot/imported/cocoa_maker_grind.png-ba0ea5f6534dc62f6402b54943baf298.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://art/cocoa_shop/cocoa_maker.png"
-dest_files=["res://.godot/imported/cocoa_maker.png-eac5710ce6ef7a09554ccc5915115a4e.ctex"]
+source_file="res://art/cocoa_maker/cocoa_maker_grind.png"
+dest_files=["res://.godot/imported/cocoa_maker_grind.png-ba0ea5f6534dc62f6402b54943baf298.ctex"]
 
 [params]
 
