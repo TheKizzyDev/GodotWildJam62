@@ -25,10 +25,20 @@ enum EmotionalState { HAPPY = 0, SAD = 1 }
 @export var entry_marker: Marker2D
 
 @onready var _timer_customer_spawning = $TimerCustomerSpawning as Timer
+@onready var _player_vars = get_node("/root/GlobalPlayerVariables") as GlobalPlayerVariables
+
+var _current_money_amount = 0
 
 var _rand: RandomNumberGenerator
 
+
+func _exit_tree():
+	_player_vars.current_money_amount = _current_money_amount
+
 func _ready():
+	if _player_vars.is_initialized:
+		_current_money_amount = _player_vars.current_money_amount
+	
 	_rand = RandomNumberGenerator.new()
 	
 	_timer_customer_spawning.set_one_shot(true)
@@ -51,7 +61,10 @@ func _ready():
 func _pickup_drink():
 	if not pickup_queue.is_empty() and cocoa_drink_queue.can_take_drink():
 		var customer = pickup_queue.dequeue() as Customer
-		var drink = cocoa_drink_queue.take_drink()
+		var drink = cocoa_drink_queue.take_drink() as CocoaDrink
+		# TODO Add/Reduce amount of money based on match
+		_current_money_amount += drink.money_value
+		print("Current Money Amount: %s" % str(_current_money_amount)) 
 		customer.reparent(self)
 		customer.give_drink(drink)
 		customer.move_to_succeeded.connect(_on_customer_exit)

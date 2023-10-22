@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dln3rht20dinw" path="res://art/cocoa_shop/normal_hot_cocoa.png" id="2_mxc1c"]
 
 [node name="CocoaDrink" instance=ExtResource("1_b0cjw")]
+money_value = 20.0
 
 [node name="Sprite2D" parent="Pivot" index="0"]
 texture_filter = 1
