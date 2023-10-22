@@ -4,6 +4,7 @@ extends Node2D
 
 signal dequeued(customer: Customer)
 signal first_customer_readied(customer: Customer)
+signal on_customer_readied(customer: Customer)
 signal queue_full()
 
 @onready var _queue_path = $Path2D
@@ -47,6 +48,7 @@ func _on_first_customer_ready(customer: Customer, destination: Vector2):
 
 func _on_customer_ready(customer: Customer, destination: Vector2):
 	customer._sprite.set_flip_h(true)
+	on_customer_readied.emit(customer)
 
 
 func is_empty():

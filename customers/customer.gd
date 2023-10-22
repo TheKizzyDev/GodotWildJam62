@@ -48,7 +48,6 @@ func _physics_process(delta):
 
 
 func set_order(new_order: CustomerOrder):
-	set_z_index(1)
 	_drink_icon.texture = new_order._cocoa_bean_resource.drink_icon
 	_curr_order = new_order
 
@@ -65,7 +64,6 @@ func give_drink(drink: CocoaDrink):
 func take_order():
 	_order_taken = true
 	_order_icon.set_visible(true)
-	set_z_index(0)
 	FMODRuntime.play_one_shot(order_event, self)
 	return _curr_order
 

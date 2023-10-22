@@ -36,6 +36,7 @@ func _ready():
 	
 	customer_queue.dequeued.connect(_on_order_queue_dequeued)
 	customer_queue.first_customer_readied.connect(_on_order_queue_first_customer_readied)
+	customer_queue.on_customer_readied.connect(_on_customer_readied)
 	
 	pickup_queue.dequeued.connect(_on_pickup_queue_dequeued)
 	pickup_queue.queue_full.connect(_on_pickup_queue_full)
@@ -58,6 +59,9 @@ func _on_first_drink_readied():
 	_pickup_drink()
 
 
+func _on_customer_readied(customer: Customer):
+	customer.set_z_index(5)
+
 func _on_customer_exit(customer: Customer, destination: Vector2):
 	customer.exit()
 
@@ -68,6 +72,7 @@ func _on_order_taken(customer: Customer):
 		printerr("Could not dequeue customer: %s" % str(cust))
 		return
 	
+	cust.set_z_index(3)
 	cash_register.set_current_customer(null)
 	pickup_queue.enqueue(cust)
 
@@ -100,6 +105,7 @@ func _get_random_order():
 
 
 func _on_entry_move_to_succeeded(customer: Customer, destination: Vector2):
+	customer.set_z_index(4)
 	customer.move_to_succeeded.disconnect(_on_entry_move_to_succeeded)
 	customer_queue.enqueue(customer)
 
