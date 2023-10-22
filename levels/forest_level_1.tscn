@@ -133,7 +133,7 @@ position = Vector2(1097, 0)
 [node name="Bungaroo3" parent="." index="7" instance=ExtResource("5_i54nw")]
 position = Vector2(39, -542)
 
-[node name="TundraPlayer" parent="." index="8" instance=ExtResource("7_5r4w4")]
+[node name="TundraPlayer" parent="." index="8" groups=["Player"] instance=ExtResource("7_5r4w4")]
 position = Vector2(-254, -8)
 collision_mask = 9
 level_key = 2

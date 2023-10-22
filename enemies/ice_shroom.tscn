@@ -1,10 +1,18 @@
-[gd_scene load_steps=44 format=3 uid="uid://bgxtey0jamw32"]
+[gd_scene load_steps=52 format=3 uid="uid://bgxtey0jamw32"]
 
 [ext_resource type="PackedScene" uid="uid://cbtkxmgwfteas" path="res://enemies/enemy_base.tscn" id="1_npwpy"]
+[ext_resource type="EventAsset" uid="uid://cers7jdwtdxav" path="res://addons/FMOD/editor/resources/events/{214ed060-75b1-4239-9a2f-409f54f40dc3}.tres" id="2_ah3cf"]
 [ext_resource type="Texture2D" uid="uid://dxut5jrjsrwn5" path="res://art/enemies/snow mushroom/IceShroom_attack.png" id="2_df4up"]
+[ext_resource type="EventAsset" uid="uid://bwwu0cryennfc" path="res://addons/FMOD/editor/resources/events/{95317c01-6a80-48c7-9929-d98e86171615}.tres" id="3_dra3d"]
 [ext_resource type="Texture2D" uid="uid://bkbcsrrwhhuun" path="res://art/enemies/snow mushroom/IceShroom_die.png" id="3_gedjm"]
+[ext_resource type="EventAsset" uid="uid://cbxkrdtvm2hxy" path="res://addons/FMOD/editor/resources/events/{0c259af9-f261-4851-a509-e40ebcf4bd5e}.tres" id="4_03mxk"]
 [ext_resource type="Texture2D" uid="uid://dyq6irpojtkdx" path="res://art/enemies/snow mushroom/IceShroom_idle.png" id="4_4pvh4"]
 [ext_resource type="Texture2D" uid="uid://xkoua4kf4s40" path="res://art/enemies/snow mushroom/IceShroom_walk.png" id="5_axlfc"]
+[ext_resource type="EventAsset" uid="uid://b5cwvqcv6588x" path="res://addons/FMOD/editor/resources/events/{646c8ee0-c2fb-4406-a9b6-8c0f3b3a188d}.tres" id="5_wcwma"]
+[ext_resource type="EventAsset" uid="uid://c27x0s2h8fymb" path="res://addons/FMOD/editor/resources/events/{1054c70e-8310-4be7-93b2-a84f9135afcc}.tres" id="6_kvjxd"]
+[ext_resource type="EventAsset" uid="uid://bt8wqnuad5n7u" path="res://addons/FMOD/editor/resources/events/{3b2bd064-8c2e-4fe2-899d-701385a3cf0e}.tres" id="7_4le2t"]
+[ext_resource type="EventAsset" uid="uid://cyyil6afx5roi" path="res://addons/FMOD/editor/resources/events/{905fffaf-b3bd-428a-8a36-e940699795cf}.tres" id="8_tf80u"]
+[ext_resource type="EventAsset" uid="uid://dh36jixguwij0" path="res://addons/FMOD/editor/resources/events/{0555f640-1faf-4f9c-96a7-cab0a59da081}.tres" id="9_hdllg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a5yf0"]
 size = Vector2(18, 24)
@@ -265,6 +273,14 @@ size = Vector2(3, 20)
 size = Vector2(3, 20)
 
 [node name="IceShroom" instance=ExtResource("1_npwpy")]
+walking_event = ExtResource("2_ah3cf")
+jumping_event = ExtResource("3_dra3d")
+landing_event = ExtResource("4_03mxk")
+idling_event = ExtResource("5_wcwma")
+alert_event = ExtResource("6_kvjxd")
+attack_event = ExtResource("7_4le2t")
+death_event = ExtResource("8_tf80u")
+hurt_event = ExtResource("9_hdllg")
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(-2, -12)
@@ -274,7 +290,6 @@ shape = SubResource("RectangleShape2D_a5yf0")
 sprite_frames = SubResource("SpriteFrames_qtcve")
 animation = &"attack"
 autoplay = "idle"
-frame_progress = 0.231889
 
 [node name="GroundDetectorLeft" parent="." index="3"]
 visible = false

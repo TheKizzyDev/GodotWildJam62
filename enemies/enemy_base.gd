@@ -2,8 +2,18 @@ extends CharacterBody2D
 
 signal interrupt
 
+@export var walking_event: EventAsset
+@export var jumping_event: EventAsset
+@export var landing_event: EventAsset
+@export var idling_event: EventAsset
+@export var alert_event: EventAsset
+@export var attack_event: EventAsset
+@export var death_event: EventAsset
+@export var hurt_event: EventAsset
+
 @export var speed = 80.0
-@export var jump_velocity = -400.0
+@export var jump_velocity = -400.
+@export var min_attenuation_radius = 300.0
 
 @onready var idle_walk_timer : Timer = $IdleWalkTimer
 @onready var skin : AnimatedSprite2D = $Skin
@@ -21,6 +31,8 @@ var facing_right : bool:
 var player : Player = null
 var is_attacking = false
 
+var _player_from_query: Player = null
+
 enum States {
 	IDLE = 0,
 	WALK,
@@ -33,9 +45,43 @@ enum States {
 var current_state = States.IDLE
 
 
+var _rng: RandomNumberGenerator
+
+
 func _ready():
+	_player_from_query = get_tree().get_first_node_in_group("Player")
+	_rng = RandomNumberGenerator.new()
+	%Skin.frame_changed.connect(_on_skin_frame_changed)
 	enter_idle()
 	hitbox.disable()
+
+
+func _on_skin_frame_changed():
+	match %Skin.animation:
+		"attack":
+			match %Skin.frame:
+				7:
+					FMODRuntime.play_one_shot_attached(attack_event, self)
+		"die":
+			match %Skin.frame:
+				4:
+					FMODRuntime.play_one_shot_attached(death_event, self)
+		"idle":
+			if not _player_from_query or position.distance_to(_player_from_query.position) > min_attenuation_radius:
+				return
+			
+			match %Skin.frame:
+				1:
+#					_rng.randomize()
+#					await get_tree().create_timer(_rng.randf_range(1.0, 10.0)).timeout
+					FMODRuntime.play_one_shot_attached(idling_event, self)
+		"walk":
+			if not _player_from_query or position.distance_to(_player_from_query.position) > min_attenuation_radius:
+				return
+
+			match %Skin.frame:
+				0, 2:
+					FMODRuntime.play_one_shot_attached(walking_event, self)
 
 
 func _physics_process(delta):
@@ -133,6 +179,7 @@ func walk_state():
 func enter_notice():
 	current_state = States.NOTICE
 	$TemporaryExclamationMark.visible = true
+	FMODRuntime.play_one_shot(alert_event, self)
 	skin.play("idle")
 	velocity.x = 0
 	notice_player_timer.start()
