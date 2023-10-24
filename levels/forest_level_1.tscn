@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dbm6vwvp11ylg"]
+[gd_scene load_steps=18 format=3 uid="uid://dbm6vwvp11ylg"]
 
 [ext_resource type="PackedScene" uid="uid://cbat4a7e823wn" path="res://levels/level_base.tscn" id="1_810be"]
 [ext_resource type="PackedScene" uid="uid://w1c2h2wni577" path="res://trees/forest_tree.tscn" id="2_f7a03"]
@@ -14,6 +14,7 @@
 [ext_resource type="BankAsset" uid="uid://byruds3m0g5o3" path="res://addons/FMOD/editor/resources/banks/{806ebd2b-c74b-4025-bd19-000312dc609b}.tres" id="12_cbjwx"]
 [ext_resource type="BankAsset" uid="uid://b4vm6wt5q2nh8" path="res://addons/FMOD/editor/resources/banks/{793b9fee-4fda-4909-94e5-be40265ea2b2}.tres" id="13_tkn62"]
 [ext_resource type="EventAsset" uid="uid://76tgv17d0xhe" path="res://addons/FMOD/editor/resources/events/{280be539-d470-40ff-9def-6bb33c0cd7fe}.tres" id="14_u0j0y"]
+[ext_resource type="EventAsset" uid="uid://dbwlq37ttkti2" path="res://addons/FMOD/editor/resources/events/{0cde20ac-7fc4-4615-a3ed-db5d0d23d8ab}.tres" id="15_mkpdy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rl5wb"]
 atlas = ExtResource("2_s5qob")
@@ -165,3 +166,8 @@ play_event = 2
 stop_event = 3
 event = ExtResource("14_u0j0y")
 parameter_Location = 1
+
+[node name="StudioEventEmitter2D" type="StudioEventEmitter2D" parent="." index="12"]
+play_event = 2
+stop_event = 3
+event = ExtResource("15_mkpdy")
